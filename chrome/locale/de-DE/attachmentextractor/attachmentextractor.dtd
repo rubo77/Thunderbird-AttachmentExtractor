@@ -1,0 +1,59 @@
+<!ENTITY attachmentextractor.menu.label "Attachment Extractor">
+<!ENTITY attachmentextractor.menu.accesskey "X">
+<!ENTITY attachmentextractor.extracttodefault.label "Abtrennen aus ausgewählten Nachrichten">
+<!ENTITY attachmentextractor.extracttodefault.accesskey "W">
+<!ENTITY attachmentextractor.extracttofolder.label "Abtrennen aus ausgewählten Nachrichten nach...">
+<!ENTITY attachmentextractor.extracttofolder.accesskey "N">
+<!ENTITY attachmentextractor.extractalldefault.label "Abtrennen aus allen Nachrichten des Ordners">
+<!ENTITY attachmentextractor.extractalldefault.accesskey "A">
+<!ENTITY attachmentextractor.extractallfolder.label "Abtrennen aus allen Nachrichten des Ordners nach...">
+<!ENTITY attachmentextractor.extractallfolder.accesskey "U">
+<!ENTITY attachmentextractor.extractdeepdefault.label "Abtrennen aus allen Nachrichten in Ordner und Unterordner">
+<!ENTITY attachmentextractor.extractdeepdefault.accesskey "u">
+<!ENTITY attachmentextractor.extractdeepfolder.label "Abtrennen aus allen Nachichten in Ordner und Unterordner nach...">
+<!ENTITY attachmentextractor.extractdeepfolder.accesskey "n">
+<!ENTITY attachmentextractor.extractpattern.label "Abtrennen mit eigenem Dateinamenmuster">
+<!ENTITY attachmentextractor.extractpattern.accesskey "D">
+<!ENTITY attachmentextractor.extractpatternfolder.label "Abtrennen mit eigenem Dateinamenmuster nach...">
+<!ENTITY attachmentextractor.extractpatternfolder.accesskey "E">
+<!ENTITY attachmentextractor.justDeleteAttachments.label "Anhänge ausgewählter Nachrichten löschen">
+<!ENTITY attachmentextractor.justDeleteAttachments.accesskey "R">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.label "Anhänge aller Nachrichten des Ordners löschen">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "O">
+<!ENTITY attachmentextractor.menusettingsdialog.label "Attachment Extractor - Einstellungen...">
+<!ENTITY attachmentextractor.menusettingsdialog.accesskey "S">
+<!ENTITY attachmentextractor.context.extracttodefault.label "Ausgewählte Anhänge abtrennen">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "W">
+<!ENTITY attachmentextractor.context.extracttofolder.label "Ausgewählte Anhänge abtrennen nach...">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "N">
+<!ENTITY attachmentextractor.context.extractalldefault.label "Alle Anhänge abtrennen">
+<!ENTITY attachmentextractor.context.extractalldefault.accesskey "A">
+<!ENTITY attachmentextractor.context.extractallfolder.label "Alle Anhänge abtrennen nach...">
+<!ENTITY attachmentextractor.context.extractallfolder.accesskey "T">
+<!ENTITY attachmentextractor.context.extractdeepdefault.label "Alle Anhänge abtrennen einschl. Unterordner">
+<!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "u">
+<!ENTITY attachmentextractor.context.extractdeepfolder.label "Alle Anhänge abtrennen einschl. Unterordner nach...">
+<!ENTITY attachmentextractor.context.extractdeepfolder.accesskey "n">
+<!ENTITY attachmentextractor.attachment.extracttodefault.label "AE: alle abtrennen">
+<!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "T">
+<!ENTITY attachmentextractor.attachment.extracttofolder.label "AE: alle abtrennen nach...">
+<!ENTITY attachmentextractor.attachment.extracttofolder.accesskey "N">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.label "AE: abtrennen">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.accesskey "E">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.label "AE: abtrennen nach...">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.accesskey "B">
+<!ENTITY attachmentextractor.toolbarbutton.label "Anhänge abtrennen">
+<!ENTITY attachmentextractor.toolbarbutton.tooltip2 "Anhänge von ausgewählten Nachrichten abtrennen">
+<!ENTITY attachmentextractor.firstpopup.windowtitle "Vielen Dank für die Installation von Attachment Extractor.">
+<!ENTITY attachmentextractor.firstpopup.heading "Attachment Extractor">
+<!ENTITY attachmentextractor.firstpopup.changelog "Änderungsprotokoll dieser Version:">
+<!ENTITY attachmentextractor.firstpopup.homepage.label "Vollständiges Änderungsprotokoll:">
+<!ENTITY attachmentextractor.firstpopup.changelog.loading "Bitte warten, bis das Änderungsprotokoll geladen ist...">
+<!ENTITY attachmentextractor.mrubrowsetext "Durchsuchen...">
+<!ENTITY attachmentextractor.mru.default.label "Standard">
+<!ENTITY attachmentextractor.mru.default.accesskey "D">
+<!ENTITY attachmentextractor.filenamepatterndialog.title "Dateinamenmuster eingegeben">
+<!ENTITY attachmentextractor.filenamepatterndialog.input.label "Dateinamenmuster der angehängten Datei bearbeiten:">
+<!ENTITY attachmentextractor.filenamepatterndialog.checkbox.label "Dateinamenmuster als Standard festlegen">
+<!ENTITY attachmentextractor.filenamepatterndialog.checkbox.accesskey "S">
+<!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Weiteres Dateinamenmerkmal hinzufügen">

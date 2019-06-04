@@ -1,0 +1,59 @@
+<!ENTITY attachmentextractor.menu.label "Extrahera bilagor">
+<!ENTITY attachmentextractor.menu.accesskey "X">
+<!ENTITY attachmentextractor.extracttodefault.label "Extrahera från valda meddelanden">
+<!ENTITY attachmentextractor.extracttodefault.accesskey "X">
+<!ENTITY attachmentextractor.extracttofolder.label "Extrahera från valda meddelanden till...">
+<!ENTITY attachmentextractor.extracttofolder.accesskey "T">
+<!ENTITY attachmentextractor.extractalldefault.label "Extrahera från alla meddelanden i mappen">
+<!ENTITY attachmentextractor.extractalldefault.accesskey "F">
+<!ENTITY attachmentextractor.extractallfolder.label "Extrahera från alla meddelanden i mappen till...">
+<!ENTITY attachmentextractor.extractallfolder.accesskey "Å">
+<!ENTITY attachmentextractor.extractdeepdefault.label "Extrahera från alla meddelanden i mappar och undermappar">
+<!ENTITY attachmentextractor.extractdeepdefault.accesskey "a">
+<!ENTITY attachmentextractor.extractdeepfolder.label "Extrahera från alla meddelanden i mappar och undermappar till...">
+<!ENTITY attachmentextractor.extractdeepfolder.accesskey "i">
+<!ENTITY attachmentextractor.extractpattern.label "Extrahera med en mall för filnamn">
+<!ENTITY attachmentextractor.extractpattern.accesskey "X">
+<!ENTITY attachmentextractor.extractpatternfolder.label "Extrahera med en mall för filnamn till...">
+<!ENTITY attachmentextractor.extractpatternfolder.accesskey "X">
+<!ENTITY attachmentextractor.justDeleteAttachments.label "Ta bort bifogade filer från valt meddelande">
+<!ENTITY attachmentextractor.justDeleteAttachments.accesskey "i">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.label "Ta bort bifogade filer från alla meddelanden i mappen">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "l">
+<!ENTITY attachmentextractor.menusettingsdialog.label "AttachmentExtractor inställningar">
+<!ENTITY attachmentextractor.menusettingsdialog.accesskey "I">
+<!ENTITY attachmentextractor.context.extracttodefault.label "Extrahera valda bilagor">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "X">
+<!ENTITY attachmentextractor.context.extracttofolder.label "Extrahera valda bilagor till...">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "T">
+<!ENTITY attachmentextractor.context.extractalldefault.label "Extrahera alla bilagor">
+<!ENTITY attachmentextractor.context.extractalldefault.accesskey "X">
+<!ENTITY attachmentextractor.context.extractallfolder.label "Extrahera alla bilagor till...">
+<!ENTITY attachmentextractor.context.extractallfolder.accesskey "I">
+<!ENTITY attachmentextractor.context.extractdeepdefault.label "Extrahera allt inkl. undermappar">
+<!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "i">
+<!ENTITY attachmentextractor.context.extractdeepfolder.label "Extrahera allt inkl. undermappar till...">
+<!ENTITY attachmentextractor.context.extractdeepfolder.accesskey "t">
+<!ENTITY attachmentextractor.attachment.extracttodefault.label "AE Extrahera allt">
+<!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "X">
+<!ENTITY attachmentextractor.attachment.extracttofolder.label "AE Extrahera allt till...">
+<!ENTITY attachmentextractor.attachment.extracttofolder.accesskey "t">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.label "AE Extrahera">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.accesskey "A">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.label "AE Extrahera till...">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.accesskey "E">
+<!ENTITY attachmentextractor.toolbarbutton.label "AE Extrahera">
+<!ENTITY attachmentextractor.toolbarbutton.tooltip2 "Extraherar bilagor från valda meddelanden">
+<!ENTITY attachmentextractor.firstpopup.windowtitle "Tack för att du installerade Attachment Extractor.">
+<!ENTITY attachmentextractor.firstpopup.heading "Attachment Extractor">
+<!ENTITY attachmentextractor.firstpopup.changelog "Ändringar i denna version:">
+<!ENTITY attachmentextractor.firstpopup.homepage.label "Alla ändringar:">
+<!ENTITY attachmentextractor.firstpopup.changelog.loading "Vänligen vänta. Ändringar laddas...">
+<!ENTITY attachmentextractor.mrubrowsetext "Bläddra...">
+<!ENTITY attachmentextractor.mru.default.label "Standard">
+<!ENTITY attachmentextractor.mru.default.accesskey "d">
+<!ENTITY attachmentextractor.filenamepatterndialog.title "Inmatning filnamnsmönster">
+<!ENTITY attachmentextractor.filenamepatterndialog.input.label "Ändra bilagans filnamnsmönster:">
+<!ENTITY attachmentextractor.filenamepatterndialog.checkbox.label "Ange detta mönster som standard">
+<!ENTITY attachmentextractor.filenamepatterndialog.checkbox.accesskey "s">
+<!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Klicka för att lägga till">

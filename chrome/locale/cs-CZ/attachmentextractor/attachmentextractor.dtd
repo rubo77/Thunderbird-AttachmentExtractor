@@ -1,0 +1,59 @@
+<!ENTITY attachmentextractor.menu.label "Uložit přílohy">
+<!ENTITY attachmentextractor.menu.accesskey "U">
+<!ENTITY attachmentextractor.extracttodefault.label "Uložit přílohy z vybraných zpráv">
+<!ENTITY attachmentextractor.extracttodefault.accesskey "U">
+<!ENTITY attachmentextractor.extracttofolder.label "Uložit přílohy z vybraných zpráv jako...">
+<!ENTITY attachmentextractor.extracttofolder.accesskey "P">
+<!ENTITY attachmentextractor.extractalldefault.label "Uložit přílohy ze všech zpráv">
+<!ENTITY attachmentextractor.extractalldefault.accesskey "V">
+<!ENTITY attachmentextractor.extractallfolder.label "Uložit přílohy ze všech zpráv jako...">
+<!ENTITY attachmentextractor.extractallfolder.accesskey "Z">
+<!ENTITY attachmentextractor.extractdeepdefault.label "Uložit přílohy ze všech zpráv ve složce, včetně podsložek">
+<!ENTITY attachmentextractor.extractdeepdefault.accesskey "V">
+<!ENTITY attachmentextractor.extractdeepfolder.label "Uložit přílohy ze všech zpráv ve složce, včetně podsložek jako...">
+<!ENTITY attachmentextractor.extractdeepfolder.accesskey "J">
+<!ENTITY attachmentextractor.extractpattern.label "Uložit s použitím šablony">
+<!ENTITY attachmentextractor.extractpattern.accesskey "U">
+<!ENTITY attachmentextractor.extractpatternfolder.label "Uložit s použitím šablony jako...">
+<!ENTITY attachmentextractor.extractpatternfolder.accesskey "U">
+<!ENTITY attachmentextractor.justDeleteAttachments.label "Odstranit přílohy z vybraných zpráv">
+<!ENTITY attachmentextractor.justDeleteAttachments.accesskey "O">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.label "Odstranit přílohy ze všech zpráv">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "V">
+<!ENTITY attachmentextractor.menusettingsdialog.label "Nastavení rozšíření AttachmentExtractor">
+<!ENTITY attachmentextractor.menusettingsdialog.accesskey "S">
+<!ENTITY attachmentextractor.context.extracttodefault.label "Uložit přílohy z vybraných zpráv">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "U">
+<!ENTITY attachmentextractor.context.extracttofolder.label "Uložit přílohy z vybraných zpráv jako...">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "P">
+<!ENTITY attachmentextractor.context.extractalldefault.label "Uložit přílohy ze všech zpráv">
+<!ENTITY attachmentextractor.context.extractalldefault.accesskey "U">
+<!ENTITY attachmentextractor.context.extractallfolder.label "Uložit přílohy ze všech zpráv jako...">
+<!ENTITY attachmentextractor.context.extractallfolder.accesskey "P">
+<!ENTITY attachmentextractor.context.extractdeepdefault.label "Uložit přílohy ze všech, včetně podsložek">
+<!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "V">
+<!ENTITY attachmentextractor.context.extractdeepfolder.label "Uložit přílohy ze všech, včetně podsložek jako...">
+<!ENTITY attachmentextractor.context.extractdeepfolder.accesskey "J">
+<!ENTITY attachmentextractor.attachment.extracttodefault.label "Uložit vše">
+<!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "V">
+<!ENTITY attachmentextractor.attachment.extracttofolder.label "Uložit vše jako...">
+<!ENTITY attachmentextractor.attachment.extracttofolder.accesskey "V">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.label "Uložit přílohy">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.accesskey "U">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.label "Uložit přílohy jako...">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.accesskey "J">
+<!ENTITY attachmentextractor.toolbarbutton.label "Uložit přílohy">
+<!ENTITY attachmentextractor.toolbarbutton.tooltip2 "Uložit přílohy z vybraných zpráv">
+<!ENTITY attachmentextractor.firstpopup.windowtitle "Děkujeme, že používate rozšíření Attachment Extractor.">
+<!ENTITY attachmentextractor.firstpopup.heading "Attachment Extractor">
+<!ENTITY attachmentextractor.firstpopup.changelog "Změny v této verzi:">
+<!ENTITY attachmentextractor.firstpopup.homepage.label "Kompletní seznam změn:">
+<!ENTITY attachmentextractor.firstpopup.changelog.loading "Prosím čekejte, seznam změn se aktualizuje...">
+<!ENTITY attachmentextractor.mrubrowsetext "Procházet...">
+<!ENTITY attachmentextractor.mru.default.label "Výchozí">
+<!ENTITY attachmentextractor.mru.default.accesskey "V">
+<!ENTITY attachmentextractor.filenamepatterndialog.title "Šablona názvu souboru">
+<!ENTITY attachmentextractor.filenamepatterndialog.input.label "Upravte šablonu názvu souboru:">
+<!ENTITY attachmentextractor.filenamepatterndialog.checkbox.label "Nastavit šablonu jako výchozí">
+<!ENTITY attachmentextractor.filenamepatterndialog.checkbox.accesskey "V">
+<!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Přidat příznak">

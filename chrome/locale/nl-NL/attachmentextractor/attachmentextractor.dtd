@@ -1,0 +1,59 @@
+<!ENTITY attachmentextractor.menu.label "Bijlagen uitpakken">
+<!ENTITY attachmentextractor.menu.accesskey "P">
+<!ENTITY attachmentextractor.extracttodefault.label "Uit geselecteerde berichten uitpakken">
+<!ENTITY attachmentextractor.extracttodefault.accesskey "P">
+<!ENTITY attachmentextractor.extracttofolder.label "Uit geselecteerde berichten uitpakken naar…">
+<!ENTITY attachmentextractor.extracttofolder.accesskey "T">
+<!ENTITY attachmentextractor.extractalldefault.label "Uit alle berichten in map uitpakken">
+<!ENTITY attachmentextractor.extractalldefault.accesskey "M">
+<!ENTITY attachmentextractor.extractallfolder.label "Uit alle berichten in map uitpakken naar…">
+<!ENTITY attachmentextractor.extractallfolder.accesskey "A">
+<!ENTITY attachmentextractor.extractdeepdefault.label "Uit alle berichten in map en submappen uitpakken">
+<!ENTITY attachmentextractor.extractdeepdefault.accesskey "S">
+<!ENTITY attachmentextractor.extractdeepfolder.label "Uit alle berichten in map en submappen uitpakken naar…">
+<!ENTITY attachmentextractor.extractdeepfolder.accesskey "U">
+<!ENTITY attachmentextractor.extractpattern.label "Uitpakken met een aangepast bestandsnaampatroon">
+<!ENTITY attachmentextractor.extractpattern.accesskey "i">
+<!ENTITY attachmentextractor.extractpatternfolder.label "Uitpakken met een aangepast bestandsnaampatroon naar…">
+<!ENTITY attachmentextractor.extractpatternfolder.accesskey "P">
+<!ENTITY attachmentextractor.justDeleteAttachments.label "Bijlagen gewoon verwijderen uit geselecteerde berichten">
+<!ENTITY attachmentextractor.justDeleteAttachments.accesskey "j">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.label "Bijlagen gewoon verwijderen uit alle berichten in de map">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "U">
+<!ENTITY attachmentextractor.menusettingsdialog.label "AttachmentExtractor instellingen">
+<!ENTITY attachmentextractor.menusettingsdialog.accesskey "S">
+<!ENTITY attachmentextractor.context.extracttodefault.label "Geselecteerde bijlagen uitpakken">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "P">
+<!ENTITY attachmentextractor.context.extracttofolder.label "Geselecteerde bijlagen uitpakken naar…">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "B">
+<!ENTITY attachmentextractor.context.extractalldefault.label "Alle bijlagen uitpakken">
+<!ENTITY attachmentextractor.context.extractalldefault.accesskey "P">
+<!ENTITY attachmentextractor.context.extractallfolder.label "Alle bijlagen uitpakken naar…">
+<!ENTITY attachmentextractor.context.extractallfolder.accesskey "B">
+<!ENTITY attachmentextractor.context.extractdeepdefault.label "Alles uitpakken incl. submappen">
+<!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "S">
+<!ENTITY attachmentextractor.context.extractdeepfolder.label "Alles uitpakken incl. submappen naar…">
+<!ENTITY attachmentextractor.context.extractdeepfolder.accesskey "P">
+<!ENTITY attachmentextractor.attachment.extracttodefault.label "AE Alles uitpakken">
+<!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "U">
+<!ENTITY attachmentextractor.attachment.extracttofolder.label "AE Alles uitpakken naar…">
+<!ENTITY attachmentextractor.attachment.extracttofolder.accesskey "t">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.label "AE Uitpakken">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.accesskey "A">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.label "AE Uitpakken naar…">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.accesskey "E">
+<!ENTITY attachmentextractor.toolbarbutton.label "AE uitpakken">
+<!ENTITY attachmentextractor.toolbarbutton.tooltip2 "Bijlagen uit geselecteerde berichten uitpakken">
+<!ENTITY attachmentextractor.firstpopup.windowtitle "Bedankt voor het installeren van Attachment Extractor.">
+<!ENTITY attachmentextractor.firstpopup.heading "Attachment Extractor">
+<!ENTITY attachmentextractor.firstpopup.changelog "Overzicht van wijzigingen voor deze versie:">
+<!ENTITY attachmentextractor.firstpopup.homepage.label "Volledig overzicht van wijzigingen:">
+<!ENTITY attachmentextractor.firstpopup.changelog.loading "Een moment geduld a.u.b., het overzicht van wijzigingen wordt geladen…">
+<!ENTITY attachmentextractor.mrubrowsetext "Bladeren…">
+<!ENTITY attachmentextractor.mru.default.label "Standaard">
+<!ENTITY attachmentextractor.mru.default.accesskey "d">
+<!ENTITY attachmentextractor.filenamepatterndialog.title "Bestandsnaampatroon-ingave">
+<!ENTITY attachmentextractor.filenamepatterndialog.input.label "Pas het bestandsnaampatroon van de bijlage aan:">
+<!ENTITY attachmentextractor.filenamepatterndialog.checkbox.label "Patroon vanaf nu als standaard instellen">
+<!ENTITY attachmentextractor.filenamepatterndialog.checkbox.accesskey "S">
+<!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Klik om een token toe te voegen">

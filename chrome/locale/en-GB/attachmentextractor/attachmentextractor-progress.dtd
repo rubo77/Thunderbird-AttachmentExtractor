@@ -1,0 +1,6 @@
+<!ENTITY attachmentextractor.progress.windowtitle "Attachment Extractor working">
+<!ENTITY attachmentextractor.progress.status1.text "Extracting...">
+<!ENTITY attachmentextractor.progress.status2.text "Please Wait.">
+<!ENTITY attachmentextractor.progress.status.message.text "Messages">
+<!ENTITY attachmentextractor.progress.status.attachment.text "Attachments">
+<!ENTITY attachmentextractor.progress.status.file.text "Progress">

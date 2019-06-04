@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Attachment Extractor.
+   -
+   - The Initial Developer of the Original Code is
+   - Andrew Williamson <eviljeff@eviljeff.com>.
+   - Portions created by the Initial Developer are Copyright (C) 2005-2008
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+<?xml-stylesheet href="chrome://attachmentextractor/skin/toolbar-button.css" type="text/css"?>
+   
+<!DOCTYPE overlay [
+<!ENTITY % aemainDTD SYSTEM "chrome://attachmentextractor/locale/attachmentextractor.dtd" >
+%aemainDTD; 
+]>
+
+<overlay id="attachmentextractorMainOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<menupopup id="messageMenuPopup">
+		<menuitem id="menu_ae_justDeleteAttachments" 
+			label="&attachmentextractor.justDeleteAttachments.label;"
+			accesskey="&attachmentextractor.justDeleteAttachments.accesskey;" 
+			insertafter="openMessageWindowMenuitem"
+			command="cmd_ae_justDeleteAttachments" />
+		<menuitem id="menu_ae_extractPatternFolder" 
+			label="&attachmentextractor.extractpatternfolder.label;"
+			accesskey="&attachmentextractor.extractpatternfolder.accesskey;" 
+			ae_mru_menuitem="NONMRU"
+			insertafter="openMessageWindowMenuitem"
+			command="cmd_ae_extractPatternFolder"
+			hidden="true" />
+		<menu id="menu_ae_extractPatternFolder_menu" 
+			label="&attachmentextractor.extractpatternfolder.label;"
+			accesskey="&attachmentextractor.extractpatternfolder.accesskey;" 
+			ae_mru_menuitem="MRU"
+			insertafter="openMessageWindowMenuitem"
+			command="cmd_ae_extractPatternFolder_menu">
+		  <menupopup id="menu_ae_extractPatternFolder_menu-Popup"  onpopupshowing="attachmentextractor.updateMRUList(this)"
+		  	browseText="&attachmentextractor.mrubrowsetext;"
+			paramAll="false" paramPattern="true" />
+		</menu>
+	<menuitem id="menu_ae_extractPatternDefault" 
+			label="&attachmentextractor.extractpattern.label;"
+			accesskey="&attachmentextractor.extractpattern.accesskey;" 
+			insertafter="openMessageWindowMenuitem"
+			command="cmd_ae_extractPatternDefault" />
+	<menuitem id="menu_ae_extractToFolder" 
+			label="&attachmentextractor.extracttofolder.label;"
+			accesskey="&attachmentextractor.extracttofolder.accesskey;" 
+			ae_mru_menuitem="NONMRU"
+			insertafter="openMessageWindowMenuitem"
+			command="cmd_ae_extractToFolder" 
+			hidden="true"/>
+	<menu id="menu_ae_extractToFolder_menu" 
+			label="&attachmentextractor.extracttofolder.label;"
+			accesskey="&attachmentextractor.extracttofolder.accesskey;" 
+			ae_mru_menuitem="MRU"
+			insertafter="openMessageWindowMenuitem"
+			command="cmd_ae_extractToFolder_menu">
+		 <menupopup id="menu_ae_extractToFolder_menu-Popup" onpopupshowing="attachmentextractor.updateMRUList(this)" 
+		  	browseText="&attachmentextractor.mrubrowsetext;"
+			paramAll="false" paramPattern="false"/>
+	</menu>
+	<menuitem id="menu_ae_extractToDefault" 
+			label="&attachmentextractor.extracttodefault.label;"
+			accesskey="&attachmentextractor.extracttodefault.accesskey;" 
+			insertafter="openMessageWindowMenuitem"
+			command="cmd_ae_extractToDefault" />
+	<menuseparator id="" insertafter="openMessageWindowMenuitem"/>
+</menupopup>	
+
+<menupopup id="taskPopup">
+	<menuitem id="menu_attachmentextractor_settingsdialog" 
+			label="&attachmentextractor.menusettingsdialog.label;"
+			accesskey="&attachmentextractor.menusettingsdialog.accesskey;" 
+			insertbefore="menu_preferences,javaScriptConsole"
+			oncommand="window.openDialog('chrome://attachmentextractor/content/settings/prefwin.xul','','chrome,resizable,toolbar');" />
+</menupopup>
+  
+<menupopup id="menu_FilePopup">
+	<menu id="menu_FilePopup-attachmentextractor_menu" 
+		label="&attachmentextractor.menu.label;" 
+		accesskey="&attachmentextractor.menu.accesskey;" 
+		insertafter="menu_saveAs">
+      <menupopup id="menu_FilePopup-attachmentextractor_menu-Popup" onpopupshowing="attachmentextractor.updateMRUVisability(event)">
+	  	<menuitem id="menu_ae_extractAllToDefault" 
+			label="&attachmentextractor.extractalldefault.label;"
+			accesskey="&attachmentextractor.extractalldefault.accesskey;" 
+			command="cmd_ae_extractAllToDefault" />
+		<menuitem id="menu_ae_extractAllToFolder" 
+			label="&attachmentextractor.extractallfolder.label;"
+			accesskey="&attachmentextractor.extractallfolder.accesskey;" 
+			ae_mru_menuitem="NONMRU"
+			command="cmd_ae_extractAllToFolder" 
+			hidden="true" />
+		<menu id="menu_ae_extractAllToFolder_menu" 
+			label="&attachmentextractor.extractallfolder.label;"
+			accesskey="&attachmentextractor.extractallfolder.accesskey;" 
+			ae_mru_menuitem="MRU"
+			command="cmd_ae_extractAllToFolder_menu">
+		  <menupopup id="menu_ae_extractAllToFolder_menu-Popup"  onpopupshowing="attachmentextractor.updateMRUList(this)"
+		  	browseText="&attachmentextractor.mrubrowsetext;"
+			paramAll="true" paramPattern="false"/>
+		</menu>
+		<menuitem id="menu_ae_extractDeepToDefault" 
+			label="&attachmentextractor.extractdeepdefault.label;"
+			accesskey="&attachmentextractor.extractdeepdefault.accesskey;" 
+			command="cmd_ae_extractDeepToDefault" />
+		<menuitem id="menu_ae_extractDeepToFolder" 
+			label="&attachmentextractor.extractdeepfolder.label;"
+			accesskey="&attachmentextractor.extractdeepfolder.accesskey;" 
+			ae_mru_menuitem="NONMRU"
+			command="cmd_ae_extractDeepToFolder" 
+			hidden="true" />
+		<menu id="menu_ae_extractDeepToFolder_menu" 
+			label="&attachmentextractor.extractdeepfolder.label;"
+			accesskey="&attachmentextractor.extractdeepfolder.accesskey;" 
+			ae_mru_menuitem="MRU"
+			command="cmd_ae_extractDeepToFolder_menu">
+		  <menupopup id="menu_ae_extractDeepToFolder_menu-Popup"  onpopupshowing="attachmentextractor.updateMRUList(this)"
+		  	browseText="&attachmentextractor.mrubrowsetext;"
+			paramAll="2" paramPattern="false"/>
+		</menu>
+		<menuitem id="menu_ae_justDeleteAllAttachments" 
+			label="&attachmentextractor.justDeleteAllAttachments.label;"
+			accesskey="&attachmentextractor.justDeleteAllAttachments.accesskey;" 
+			command="cmd_ae_justDeleteAllAttachments" />
+		
+      </menupopup>
+    </menu>
+</menupopup>
+
+<popup id="folderPaneContext">	
+	<menuitem id="menu_ae_extractDeepToFolder_context" 
+		label="&attachmentextractor.context.extractdeepfolder.label;"
+		accesskey="&attachmentextractor.context.extractdeepfolder.accesskey;" 
+		ae_mru_menuitem="NONMRU"
+		insertafter="folderPaneContext-rename" 
+		command="cmd_ae_extractDeepToFolder"
+		hidden="true"/>
+	<menu id="menu_ae_extractDeepToFolder_context_menu" 
+			label="&attachmentextractor.context.extractdeepfolder.label;"
+			accesskey="&attachmentextractor.context.extractdeepfolder.accesskey;" 
+			ae_mru_menuitem="MRU"
+			insertafter="folderPaneContext-rename" 
+			command="cmd_ae_extractDeepToFolder_menu">
+		<menupopup id="menu_ae_extractDeepToFolder_context_menu-Popup"  onpopupshowing="attachmentextractor.updateMRUList(this)" 
+			browseText="&attachmentextractor.mrubrowsetext;"
+			paramAll="2" paramPattern="false"/>
+	</menu>
+	<menuitem id="menu_ae_extractDeepToDefault_context" 
+		label="&attachmentextractor.context.extractdeepdefault.label;"
+		accesskey="&attachmentextractor.context.extractdeepdefault.accesskey;" 
+		insertafter="folderPaneContext-rename" 
+		command="cmd_ae_extractDeepToDefault" />
+	
+	<menuitem id="menu_ae_extractAllToFolder_context" 
+		label="&attachmentextractor.context.extractallfolder.label;"
+		accesskey="&attachmentextractor.context.extractallfolder.accesskey;" 
+		ae_mru_menuitem="NONMRU"
+		command="cmd_ae_extractAllToFolder"
+		insertafter="folderPaneContext-rename" 
+		hidden="true"/>
+	<menu id="menu_ae_extractAllToFolder_context_menu" 
+			label="&attachmentextractor.context.extractallfolder.label;"
+			accesskey="&attachmentextractor.context.extractallfolder.accesskey;" 
+			ae_mru_menuitem="MRU"
+			insertafter="folderPaneContext-rename" 
+			command="cmd_ae_extractAllToFolder_menu">
+		<menupopup id="menu_ae_extractAllToFolder_context_menu-Popup"  onpopupshowing="attachmentextractor.updateMRUList(this)" 
+			browseText="&attachmentextractor.mrubrowsetext;"
+			paramAll="true" paramPattern="false"/>
+	</menu>
+	<menuitem id="menu_ae_extractAllToDefault_context" 
+		label="&attachmentextractor.context.extractalldefault.label;"
+		accesskey="&attachmentextractor.context.extractalldefault.accesskey;" 
+		insertafter="folderPaneContext-rename" 
+		command="cmd_ae_extractAllToDefault"/>
+	<menuseparator insertafter="folderPaneContext-rename" />
+</popup>
+
+
+<menupopup id="threadPaneContext">
+	<menuitem id="menu_ae_extractPatternFolder_context" 
+			label="&attachmentextractor.extractpatternfolder.label;"
+			accesskey="&attachmentextractor.extractpatternfolder.accesskey;" 
+			ae_mru_menuitem="NONMRU"
+			insertafter="threadPaneContext-editAsNew" 
+			command="cmd_ae_extractPatternFolder" 
+			hidden="true"/>
+	<menu id="menu_ae_extractPatternFolder_context_menu" 
+			label="&attachmentextractor.extractpatternfolder.label;"
+			accesskey="&attachmentextractor.extractpatternfolder.accesskey;" 
+			ae_mru_menuitem="MRU"
+			insertafter="threadPaneContext-editAsNew" 
+			command="cmd_ae_extractPatternFolder_menu">
+		  <menupopup id="menu_ae_extractPatternFolder_context_menu-Popup"  onpopupshowing="attachmentextractor.updateMRUList(this)"
+		  	browseText="&attachmentextractor.mrubrowsetext;"
+			paramAll="false" paramPattern="true">
+			  <menuitem id="menu_ae_extractPatternDefault_context" 
+				label="&attachmentextractor.mru.default.label;"
+				accesskey="&attachmentextractor.mru.default.accesskey;" 
+				ae_mru_menuitem="MRU"
+				command="cmd_ae_extractPatternDefault" />
+			  <menuseparator ae_mru_menuitem="MRU"/>
+		  </menupopup>
+	</menu>
+	<menuitem id="menu_ae_extractPatternDefault_context" 
+			label="&attachmentextractor.extractpattern.label;"
+			accesskey="&attachmentextractor.extractpattern.accesskey;" 
+			ae_mru_menuitem="NONMRU"
+			insertafter="threadPaneContext-editAsNew" 
+			command="cmd_ae_extractPatternDefault" />
+	<menuitem id="menu_ae_extractToFolder_context" 
+		label="&attachmentextractor.context.extracttofolder.label;"
+		accesskey="&attachmentextractor.context.extracttofolder.accesskey;" 
+		ae_mru_menuitem="NONMRU"
+		insertafter="threadPaneContext-editAsNew" 
+		command="cmd_ae_extractToFolder"
+		hidden="true" />
+	<menu id="menu_ae_extractToFolder_context_menu" 
+			label="&attachmentextractor.context.extracttofolder.label;"
+			accesskey="&attachmentextractor.context.extracttofolder.accesskey;" 
+			ae_mru_menuitem="MRU"
+			insertafter="threadPaneContext-editAsNew" 
+			command="cmd_ae_extractToFolder_menu">
+		  <menupopup id="menu_ae_extractToFolder_context_menu-Popup"  onpopupshowing="attachmentextractor.updateMRUList(this)"
+		  	browseText="&attachmentextractor.mrubrowsetext;"
+			paramAll="false" paramPattern="false"/>
+	</menu>
+	<menuitem id="menu_ae_extractToDefault_context" 
+		label="&attachmentextractor.context.extracttodefault.label;"
+		accesskey="&attachmentextractor.context.extracttodefault.accesskey;" 
+		insertafter="threadPaneContext-editAsNew" 
+		command="cmd_ae_extractToDefault" />
+	<menuseparator insertafter="threadPaneContext-editAsNew" />
+</menupopup>
+
+<toolbarpalette id="MailToolbarPalette">
+    <toolbarbutton id="attachmentextractor-toolbarbutton" 
+		class="toolbarbutton-1"
+		label="&attachmentextractor.toolbarbutton.label;" 
+		type="menu-button" 
+		tooltiptext="&attachmentextractor.toolbarbutton.tooltip2;"
+		command="cmd_ae_extractToDefault" >
+		<menupopup id="attachmentextractor-toolbarbutton_popup"  
+			onpopupshowing="attachmentextractor.updateMRUVisability(event)">
+		  <menuitem id="menu_ae_extractToDefault_toolbar" 
+			label="&attachmentextractor.context.extracttodefault.label;"
+			accesskey="&attachmentextractor.context.extracttodefault.accesskey;" 
+			command="cmd_ae_extractToDefault" 
+			style="font-weight:bold"/>
+		  <menuitem id="menu_ae_extractToFolder_toolbar" 
+			label="&attachmentextractor.context.extracttofolder.label;"
+			accesskey="&attachmentextractor.context.extracttofolder.accesskey;" 
+			ae_mru_menuitem="NONMRU"
+			command="cmd_ae_extractToFolder" />
+		  <menu id="menu_ae_extractToFolder_toolbar_menu" 
+			label="&attachmentextractor.context.extracttofolder.label;"
+			accesskey="&attachmentextractor.context.extracttofolder.accesskey;" 
+			ae_mru_menuitem="MRU"
+			command="cmd_ae_extractToFolder_menu">
+		    <menupopup id="menu_ae_extractToFolder_toolbar_menu-Popup" onpopupshowing="attachmentextractor.updateMRUList(this)" 
+		  	  browseText="&attachmentextractor.mrubrowsetext;"
+			  paramAll="false" paramPattern="false"/>
+		  </menu>
+		  <menuitem id="menu_ae_extractPatternDefault_toolbar" 
+			label="&attachmentextractor.extractpattern.label;"
+			accesskey="&attachmentextractor.extractpattern.accesskey;" 
+			ae_mru_menuitem="NONMRU"
+			command="cmd_ae_extractPatternDefault" />
+		  <menuitem id="menu_ae_extractPatternFolder_toolbar" 
+			label="&attachmentextractor.extractpatternfolder.label;"
+			accesskey="&attachmentextractor.extractpatternfolder.accesskey;" 
+			ae_mru_menuitem="NONMRU"
+			command="cmd_ae_extractPatternFolder" />
+		  <menu id="menu_ae_extractPatternFolder_toolbar_menu" 
+			label="&attachmentextractor.extractpatternfolder.label;"
+			accesskey="&attachmentextractor.extractpatternfolder.accesskey;" 
+			ae_mru_menuitem="MRU"
+			command="cmd_ae_extractPatternFolder_menu">
+		    <menupopup id="menu_ae_extractPatternFolder_toolbar_menu-Popup"  onpopupshowing="attachmentextractor.updateMRUList(this)"
+		  	  browseText="&attachmentextractor.mrubrowsetext;"
+			  paramAll="false" paramPattern="true">
+			    <menuitem id="menu_ae_extractPatternDefault_toolbar" 
+				  label="&attachmentextractor.mru.default.label;"
+				  accesskey="&attachmentextractor.mru.default.accesskey;" 
+				  ae_mru_menuitem="MRU"
+				  command="cmd_ae_extractPatternDefault" />
+			    <menuseparator ae_mru_menuitem="MRU"/>
+			</menupopup> 
+	      </menu>
+		</menupopup>
+	</toolbarbutton>
+</toolbarpalette>
+
+</overlay>
+

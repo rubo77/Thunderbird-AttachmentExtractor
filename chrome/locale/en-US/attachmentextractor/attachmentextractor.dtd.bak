@@ -1,0 +1,56 @@
+<!ENTITY attachmentextractor.menu.label "Extract Attachments">
+<!ENTITY attachmentextractor.menu.accesskey "X">
+<!ENTITY attachmentextractor.extracttodefault.label "Extract from Selected Messages">
+<!ENTITY attachmentextractor.extracttodefault.accesskey "X">
+<!ENTITY attachmentextractor.extracttofolder.label "Extract from Selected Messages to...">
+<!ENTITY attachmentextractor.extracttofolder.accesskey "T">
+<!ENTITY attachmentextractor.extractalldefault.label "Extract from All Messages in Folder">
+<!ENTITY attachmentextractor.extractalldefault.accesskey "F">
+<!ENTITY attachmentextractor.extractallfolder.label "Extract from All Messages in Folder to...">
+<!ENTITY attachmentextractor.extractallfolder.accesskey "O">
+<!ENTITY attachmentextractor.extractdeepdefault.label "Extract from All Messages in Folder and Subfolders">
+<!ENTITY attachmentextractor.extractdeepdefault.accesskey "S">
+<!ENTITY attachmentextractor.extractdeepfolder.label "Extract from All Messages in Folder and Subfolders to...">
+<!ENTITY attachmentextractor.extractdeepfolder.accesskey "U">
+<!ENTITY attachmentextractor.extractpattern.label "Extract with a Custom Filename Pattern">
+<!ENTITY attachmentextractor.extractpattern.accesskey "C">
+<!ENTITY attachmentextractor.extractpatternfolder.label "Extract with a Custom Filename Pattern to...">
+<!ENTITY attachmentextractor.extractpatternfolder.accesskey "P">
+<!ENTITY attachmentextractor.justDeleteAttachments.label "Just Delete Attachments from Selected Messages">
+<!ENTITY attachmentextractor.justDeleteAttachments.accesskey "J">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.label "Just Delete Attachments from All Messages in Folder">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "U">
+<!ENTITY attachmentextractor.menusettingsdialog.label "AttachmentExtractor Settings">
+<!ENTITY attachmentextractor.menusettingsdialog.accesskey "S">
+<!ENTITY attachmentextractor.context.extracttodefault.label "Extract Selected Attachments">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "X">
+<!ENTITY attachmentextractor.context.extracttofolder.label "Extract Selected Attachments to...">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "H">
+<!ENTITY attachmentextractor.context.extractalldefault.label "Extract All Attachments">
+<!ENTITY attachmentextractor.context.extractalldefault.accesskey "X">
+<!ENTITY attachmentextractor.context.extractallfolder.label "Extract All Attachments to...">
+<!ENTITY attachmentextractor.context.extractallfolder.accesskey	"H">
+<!ENTITY attachmentextractor.context.extractdeepdefault.label "Extract All inc. Subfolders">
+<!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "S">
+<!ENTITY attachmentextractor.context.extractdeepfolder.label "Extract All inc. Subfolders to...">
+<!ENTITY attachmentextractor.context.extractdeepfolder.accesskey	"U">
+<!ENTITY attachmentextractor.attachment.extracttodefault.label "AE Extract All">
+<!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "X">
+<!ENTITY attachmentextractor.attachment.extracttofolder.label "AE Extract All to...">
+<!ENTITY attachmentextractor.attachment.extracttofolder.accesskey "T">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.label "AE Extract">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.accesskey "A">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.label "AE Extract to...">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.accesskey "E">
+
+<!ENTITY attachmentextractor.toolbarbutton.label "AE Extract">
+<!ENTITY attachmentextractor.toolbarbutton.tooltip2 "Extract Attachments from Selected Messages">
+<!ENTITY attachmentextractor.firstpopup.windowtitle "Thanks for installing Attachment Extractor.">
+<!ENTITY attachmentextractor.firstpopup.heading "Attachment Extractor">
+<!ENTITY attachmentextractor.firstpopup.changelog "Changelog for this version:">
+<!ENTITY attachmentextractor.firstpopup.homepage.label "Full Changelog:">
+<!ENTITY attachmentextractor.firstpopup.changelog.loading "Please wait while the Changelog loads...">
+
+<!ENTITY attachmentextractor.mrubrowsetext "Browse...">
+<!ENTITY attachmentextractor.mru.default.label "Default">
+<!ENTITY attachmentextractor.mru.default.accesskey "D">

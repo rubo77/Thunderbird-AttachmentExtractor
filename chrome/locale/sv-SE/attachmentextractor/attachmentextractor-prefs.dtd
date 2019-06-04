@@ -1,0 +1,135 @@
+<!ENTITY attachmentextractor.settings.windowtitle "AttachmentExtractor inställningar">
+<!ENTITY attachmentextractor.settings.width "50em">
+<!ENTITY attachmentextractor.settings.generaltab.label "Allmänt">
+<!ENTITY attachmentextractor.settings.normal.caption "Extrahering av bilagor">
+<!ENTITY attachmentextractor.settings.overwritepolicy.label "Ange åtgärd som skall utföras då fil med samma namn som bilagan redan finns?">
+<!ENTITY attachmentextractor.settings.overwrite-replace.label "Ersätt befintlig fil med den nya bilagan">
+<!ENTITY attachmentextractor.settings.overwrite-replace.accesskey "E">
+<!ENTITY attachmentextractor.settings.overwrite-ignore.label "Behåll befintlig fil, spara inte bilagan">
+<!ENTITY attachmentextractor.settings.overwrite-ignore.accesskey "B">
+<!ENTITY attachmentextractor.settings.overwrite-rename.label "Spara bilagan med nytt namn">
+<!ENTITY attachmentextractor.settings.overwrite-rename.accesskey "S">
+<!ENTITY attachmentextractor.settings.overwrite-ask.label "Fråga varje gång">
+<!ENTITY attachmentextractor.settings.overwrite-ask.accesskey "F">
+<!ENTITY attachmentextractor.settings.homepage.label "AttachmentExtractor hemsida och beskrivning av funktioner:">
+<!ENTITY attachmentextractor.settings.afterextractpolicy.label "Ange åtgärd att utföra efter det att bilagan har sparats:">
+<!ENTITY attachmentextractor.settings.afterextractpolicy.internaltab.label "Thunderbird-åtgärder">
+<!ENTITY attachmentextractor.settings.afterextractpolicy.externaltab.label "Externa åtgärder">
+<!ENTITY attachmentextractor.settings.after-delete.label "Ta bort meddelandet?">
+<!ENTITY attachmentextractor.settings.after-delete.accesskey "T">
+<!ENTITY attachmentextractor.settings.after-read.label "Markera meddelandet som läst">
+<!ENTITY attachmentextractor.settings.after-read.accesskey "M">
+<!ENTITY attachmentextractor.settings.after-detach.label "Ta bort bilagan från meddelandet?">
+<!ENTITY attachmentextractor.settings.after-detach.accesskey "B">
+<!ENTITY attachmentextractor.settings.after-detach.tbdelete.label "Ta bort med normal Thunderbird-kod.">
+<!ENTITY attachmentextractor.settings.after-detach.tbdelete.accesskey "N">
+<!ENTITY attachmentextractor.settings.after-detach.aedelete.label "Ta bort med AE&apos;s interna (experimentell) rutin.">
+<!ENTITY attachmentextractor.settings.after-detach.aedelete.accesskey "L">
+<!ENTITY attachmentextractor.settings.after-detach.aedetach.label "Avskilj med AE&apos;s interna (experimentell) rutin.">
+<!ENTITY attachmentextractor.settings.after-detach.aedetach.accesskey "T">
+<!ENTITY attachmentextractor.settings.notifywhendone.label "Meddela mig när alla bilagor är extraherade.">
+<!ENTITY attachmentextractor.settings.notifywhendone.accesskey "a">
+<!ENTITY attachmentextractor.settings.after-savemessage.label "Spara meddelandetext till fil (samma mönster för normal och auto-extrahera)">
+<!ENTITY attachmentextractor.settings.after-savemessage.accesskey "S">
+<!ENTITY attachmentextractor.settings.after-launch.label "Öppna varje enskild bilaga med dess standarprogram">
+<!ENTITY attachmentextractor.settings.after-launch.accesskey "i">
+<!ENTITY attachmentextractor.settings.after-endlaunch.label "Öppna alla bilagor med specifikt externt program:">
+<!ENTITY attachmentextractor.settings.after-endlaunch.accesskey "e">
+<!ENTITY attachmentextractor.settings.savefolder.label "Standardsökväg till sparade filer:">
+<!ENTITY attachmentextractor.settings.savefolder.browsebutton "Bläddra...">
+<!ENTITY attachmentextractor.settings.returnreceipts.button.label "Mottagningskvitto...">
+<!ENTITY attachmentextractor.settings.returnreceipts.dialogtitle "Mottagningskvitto">
+<!ENTITY attachmentextractor.settings.returnreceipts.label "AttachmentExtractor kan automatiskt skicka ett mottagningskvitto när ett meddelande markeras som Läst">
+<!ENTITY attachmentextractor.settings.returnreceipts.enabled.label "Skicka mottagningskvitto om det krävs">
+<!ENTITY attachmentextractor.settings.returnreceipts.enabled.accesskey "S">
+<!ENTITY attachmentextractor.settings.returnreceipts.override.caption "Mottagningskvitto efterfrågas:">
+<!ENTITY attachmentextractor.settings.returnreceipts.override.disabled.label "Använd Thunderbirds inställning för mottagningskvitto">
+<!ENTITY attachmentextractor.settings.returnreceipts.override.disabled.accesskey "T">
+<!ENTITY attachmentextractor.settings.returnreceipts.override.enabled.label "Åsidosätt &apos;Fråga alltid&apos; och skicka mottagningskvitto">
+<!ENTITY attachmentextractor.settings.returnreceipts.override.enabled.accesskey "o">
+<!ENTITY attachmentextractor.settings.showprogressdialog.label "Visa förloppsindikator vid extrahering.">
+<!ENTITY attachmentextractor.settings.showprogressdialog.accesskey "V">
+<!ENTITY attachmentextractor.settings.progressdialogtext.label "Visa meddelanderubriker och bilagornas namn i statusrutan.">
+<!ENTITY attachmentextractor.settings.progressdialogtext.accesskey "u">
+<!ENTITY attachmentextractor.settings.advancedtab.label "Avancerat">
+<!ENTITY attachmentextractor.settings.extract.caption "Sparande av bilagor">
+<!ENTITY attachmentextractor.settings.extract.tbextract.label "Extrahera bilagor med normal Thunderbird-kod.">
+<!ENTITY attachmentextractor.settings.extract.tbextract.accesskey "N">
+<!ENTITY attachmentextractor.settings.extract.aeextract2.label "Extrahera bifogade filer med AE&apos;s interna program.">
+<!ENTITY attachmentextractor.settings.extract.aeextract2.accesskey "A">
+<!ENTITY attachmentextractor.settings.noextract.label "Inaktivera sparande av bilagor.">
+<!ENTITY attachmentextractor.settings.noextract.accesskey "D">
+<!ENTITY attachmentextractor.settings.extract.minimumsize.caption "Kontrollera min. storlek">
+<!ENTITY attachmentextractor.settings.extract.minimumsize-start.label "Spara endast bifogade filer större än:">
+<!ENTITY attachmentextractor.settings.extract.minimumsize-end.label "Bytes.">
+<!ENTITY attachmentextractor.settings.extract.minimumsize-explaination.label "Ange större värde än 0 för att minska AttachmentExtractors prestanda.">
+<!ENTITY attachmentextractor.settings.queuerequests.caption "Extraheringskö">
+<!ENTITY attachmentextractor.settings.queuerequests.disabled.label "Starta AttachmentExtractor direkt då extrahering begärs.">
+<!ENTITY attachmentextractor.settings.queuerequests.disabled.accesskey "S">
+<!ENTITY attachmentextractor.settings.queuerequests.enabled.label "Lägg extraheringar i kö när AE redan körs.">
+<!ENTITY attachmentextractor.settings.queuerequests.enabled.accesskey "A">
+<!ENTITY attachmentextractor.settings.setdatetoemail.label "Ändra ändringsdatum/tid på bifogad fil, till datum/tid när meddelandet mottogs.">
+<!ENTITY attachmentextractor.settings.setdatetoemail.accesskey "Ä">
+<!ENTITY attachmentextractor.settings.inlinepolicy.label "Spara inbäddad bild (bild infogad i e-post)">
+<!ENTITY attachmentextractor.settings.inlinepolicy.accesskey "i">
+<!ENTITY attachmentextractor.settings.savepathmru.caption "Senast använda mappar">
+<!ENTITY attachmentextractor.settings.savepathmru.label "Använd Senast använda mappar">
+<!ENTITY attachmentextractor.settings.savepathmru.count.label1 "Spara de senaste">
+<!ENTITY attachmentextractor.settings.savepathmru.count.label2 "mappar.">
+<!ENTITY attachmentextractor.settings.savepathmru.accesskey "m">
+<!ENTITY attachmentextractor.settings.savepathmru.clearbutton.label "Rensa nu">
+<!ENTITY attachmentextractor.settings.debug.caption "Felsökning">
+<!ENTITY attachmentextractor.settings.debug.label "Aktivera felsökning vid omstart. Meddelanden loggas i konsollen och skrivs till &apos;aedebug.txt&apos; i din profilmapp.">
+<!ENTITY attachmentextractor.settings.debug.accesskey "D">
+<!ENTITY attachmentextractor.settings.reporttab.label "Rapportgenerator">
+<!ENTITY attachmentextractor.settings.reportgen.caption "HTML rapportgenerator">
+<!ENTITY attachmentextractor.settings.reportgen.label "Generera en rapport varje gång AttachmentExtractor körs.">
+<!ENTITY attachmentextractor.settings.reportgen.accesskey "G">
+<!ENTITY attachmentextractor.settings.reportgen.thumbnail.label "Använd miniatyrbild för bifogade filer om möjligt.">
+<!ENTITY attachmentextractor.settings.reportgen.thumbnail.accesskey "i">
+<!ENTITY attachmentextractor.settings.reportgen.embedcss.label "Spara formatinformation i rapporten istället för att länka till formatmallen.">
+<!ENTITY attachmentextractor.settings.reportgen.embedcss.accesskey "e">
+<!ENTITY attachmentextractor.settings.reportgen.cssfile.caption "Formatmall att använda i rapport:">
+<!ENTITY attachmentextractor.settings.reportgen.reportname2.label "Rapportens filnamn (eller sökväg):">
+<!ENTITY attachmentextractor.settings.filenametab.label "Filnamn">
+<!ENTITY attachmentextractor.settings.includeexcludepolicy2.label "Policy för filtrering av filnamn:">
+<!ENTITY attachmentextractor.settings.includeexcludepolicy2-false.label "Extrahera alla filer utom filer med filnamn innehållande:">
+<!ENTITY attachmentextractor.settings.includeexcludepolicy2-false.accesskey "X">
+<!ENTITY attachmentextractor.settings.includeexcludepolicy2-true.label "Extrahera endast filer med filnamn innehållande:">
+<!ENTITY attachmentextractor.settings.includeexcludepolicy2-true.accesskey "å">
+<!ENTITY attachmentextractor.settings.filenamepatterngroup.label "Generering av filnamnsmönster:">
+<!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Klicka för att lägga till ett tecken">
+<!ENTITY attachmentextractor.settings.filenamepattern.label "Mall använd för skapande av filnamn:">
+<!ENTITY attachmentextractor.settings.filenamepatterncount.label "Mall använd för filnamnsdubletter (#count#):">
+<!ENTITY attachmentextractor.settings.filenamepatterncleansubjectq.label "Använd?">
+<!ENTITY attachmentextractor.settings.filenamepatterncleansubjectq.accesskey "A">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.caption "Baserat på att ett meddelande mottages med följande inställningar:">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.withsubject "En ämnesrubrik (#subject#) från:">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.withcleansubject "Ämne efter borttagning av &apos;re:&apos;, etc.:">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.recieveddate "Mottaget datum (#date#):">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.recieveddateformatted "Datum/Tid efter tillämpat mönster:">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.fromauthor2 "Från författare (#from# &lt;#fromemail#&gt;):">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.attachment "Bilaga med namnet (#namepart##extpart#):">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.wouldgenerate "Skall genereras först:">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.wouldgeneratethen "Följt av:">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.mailfolder "I e-postmapp (#folder#):">
+<!ENTITY attachmentextractor.settings.filenamepatterndate.label "Mall använd för datum (#date#):">
+<!ENTITY attachmentextractor.settings.filenamepatterndate.homepage.label "Hänvisning till formatkod för #date#:">
+<!ENTITY attachmentextractor.settings.filenamepatterndate.editbutton.label "Ändra datummönster">
+<!ENTITY attachmentextractor.settings.filenamepatterndate.dialogtitle "#Date# mönsterinställning">
+<!ENTITY attachmentextractor.settings.autotab.label "Auto-extrahera">
+<!ENTITY attachmentextractor.settings.autoextract.label "Spara automatiskt bifogade filer vid mottagning av e-post">
+<!ENTITY attachmentextractor.settings.autoextract.accesskey "a">
+<!ENTITY attachmentextractor.settings.autoextract.savefolder.label "Sökväg för spara bifogade filer:">
+<!ENTITY attachmentextractor.settings.autoextract.savefolder.browsebutton "Bläddra...">
+<!ENTITY attachmentextractor.settings.autoextract.ontriggeronly.label "Använd Auto-extrahera endast när nya meddelande har en matchande etikett.">
+<!ENTITY attachmentextractor.settings.autoextract.ontriggeronly.accesskey "o">
+<!ENTITY attachmentextractor.settings.autoextract.triggertag.label "Spara meddelanden om etikett matchar:">
+<!ENTITY attachmentextractor.settings.autoextract.cleartriggertag.label "Ta bort etikett från meddelanden?">
+<!ENTITY attachmentextractor.settings.autoextract.cleartriggertag.accesskey "T">
+<!ENTITY attachmentextractor.settings.autoextract.waitforall.label "Vänta till alla meddelanden har hämtats innan start av Auto-extrahera.">
+<!ENTITY attachmentextractor.settings.autoextract.waitforall.accesskey "V">
+<!ENTITY attachmentextractor.settings.abouttab.label "Om">
+<!ENTITY attachmentextractor.settings.requiresrestart.label "(Thunderbird måste startas om för att ändringarna skall sparas)">
+<!ENTITY attachmentextractor.settings.skipidentical.label "Hoppa över filer identisk storlek">
+<!ENTITY attachmentextractor.settings.skipidentical.accesskey "H">

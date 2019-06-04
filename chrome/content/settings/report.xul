@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Attachment Extractor.
+   -
+   - The Initial Developer of the Original Code is
+   - Andrew Williamson <eviljeff@eviljeff.com>.
+   - Portions created by the Initial Developer are Copyright (C) 2007
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+<!DOCTYPE overlay SYSTEM "chrome://attachmentextractor/locale/attachmentextractor-prefs.dtd" >
+
+<overlay id="aereportprefsOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/x-javascript" src="chrome://attachmentextractor/content/settings/prefwin.js"/>
+<script type="application/x-javascript" src="chrome://attachmentextractor/content/attachmentextractor.js"/>
+	
+<prefpane id="paneReport" onpaneload="onReportPaneLoad(event)">
+	
+    <preferences>
+      <preference id="pref_reportgen" name="attachmentextractor.reportgen" type="bool"/>
+	  <preference id="pref_reportgenthumbnail" name="attachmentextractor.reportgen.thumbnail" type="bool"/>
+	  <preference id="pref_reportgenembedcss"  name="attachmentextractor.reportgen.embedcss" type="bool"/>
+	  <preference id="pref_reportgenreportname" name="attachmentextractor.reportgen.reportname" type="string"/>
+	  <preference id="pref_reportgencssfile" name="attachmentextractor.reportgen.cssfile" type="file"/>
+ 	</preferences>
+	
+	<groupbox>
+		<caption label="&attachmentextractor.settings.reportgen.caption;" />
+		<checkbox id="reportgen" 
+			preference="pref_reportgen" 
+			label="&attachmentextractor.settings.reportgen.label;"
+			accesskey="&attachmentextractor.settings.reportgen.accesskey;" />
+		<hbox align="center">
+			<label value="&attachmentextractor.settings.reportgen.reportname2.label;"/>
+			<textbox id="reportname" preftype="char"  flex="1" preference="pref_reportgenreportname"/>
+		</hbox>
+		<checkbox id="reportgenthumbnail" 
+			preference="pref_reportgenthumbnail" 
+			label="&attachmentextractor.settings.reportgen.thumbnail.label;"
+		  	accesskey="&attachmentextractor.settings.reportgen.thumbnail.accesskey;" />
+		<groupbox>
+			<caption label="&attachmentextractor.settings.reportgen.cssfile.caption;"/>
+			<hbox>
+				<textbox id="reportgencssfile" flex="1" size="50" readonly="true"/>
+				<button type="button" 
+					oncommand="browseForCss('pref_reportgencssfile','reportgencssfile');" 
+					id="browsebutton"
+					label="&attachmentextractor.settings.savefolder.browsebutton;"/>
+			</hbox>
+			<checkbox id="reportgenembedcss" 
+				preference="pref_reportgenembedcss" 
+				label="&attachmentextractor.settings.reportgen.embedcss.label;"
+			  	accesskey="&attachmentextractor.settings.reportgen.embedcss.accesskey;" />
+		</groupbox>
+	</groupbox>
+
+	<label value=" "/>
+  </prefpane>
+</overlay>

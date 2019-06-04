@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Attachment Extractor.
+   -
+   - The Initial Developer of the Original Code is
+   - Andrew Williamson <eviljeff@eviljeff.com>.
+   - Portions created by the Initial Developer are Copyright (C) 2005-2008
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+   
+<!DOCTYPE overlay [
+<!ENTITY % aemainDTD SYSTEM "chrome://attachmentextractor/locale/attachmentextractor.dtd" >
+%aemainDTD; 
+]>
+
+<overlay id="attachmentextractorHdrOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<popup id="attachmentListContext" >
+	<menuitem id="menu_ae_extractIndToFolder_attachment" 
+		label="&attachmentextractor.attachment.extractindtofolder.label;"
+		accesskey="&attachmentextractor.attachment.extractindtofolder.accesskey;" 
+		ae_mru_menuitem="NONMRU"
+		command="cmd_ae_extractIndToFolder" 
+		insertafter="context-saveAttachment"/>
+	<menu id="menu_ae_extractIndToFolder_attachment_menu" 
+		label="&attachmentextractor.attachment.extractindtofolder.label;"
+		accesskey="&attachmentextractor.attachment.extractindtofolder.accesskey;" 
+		ae_mru_menuitem="MRU"
+		command="cmd_ae_extractIndToFolder_menu" insertafter="context-saveAttachment">
+		<menupopup id="menu_ae_extractIndToFolder_attachment_menu-Popup" 
+			onpopupshowing="attachmentextractor.updateMRUList(this)" 
+		  	browseText="&attachmentextractor.mrubrowsetext;"
+			paramAll="false" paramPattern="false" paramIndividual="true" />
+	</menu>
+	<menuitem id="menu_ae_extractIndToDefault_attachment" 
+		label="&attachmentextractor.attachment.extractindtodefault.label;"
+		accesskey="&attachmentextractor.attachment.extractindtodefault.accesskey;" 
+		command="cmd_ae_extractIndToDefault" 
+		insertafter="context-saveAttachment"/>
+		
+	<menuitem id="menu_ae_extractToDefault_attachment" 
+		label="&attachmentextractor.attachment.extracttodefault.label;"
+		accesskey="&attachmentextractor.attachment.extracttodefault.accesskey;" 
+		command="cmd_ae_extractIndAllToDefault" 
+		insertafter="context-deleteAllAttachments"/>
+	<menuitem id="menu_ae_extractToFolder_attachment" 
+		label="&attachmentextractor.attachment.extracttofolder.label;"
+		accesskey="&attachmentextractor.attachment.extracttofolder.accesskey;" 
+		ae_mru_menuitem="NONMRU"
+		command="cmd_ae_extractIndAllToFolder" 
+		insertafter="menu_ae_extractToDefault_attachment"/>
+	<menu id="menu_ae_extractToFolder_attachment_menu" 
+		label="&attachmentextractor.attachment.extracttofolder.label;"
+		accesskey="&attachmentextractor.attachment.extracttofolder.accesskey;" 
+		ae_mru_menuitem="MRU"
+		command="cmd_ae_extractIndAllToFolder_menu" insertafter="menu_ae_extractToDefault_attachment">
+		<menupopup id="menu_ae_extractToFolder_attachment_menu-Popup" 
+			onpopupshowing="attachmentextractor.updateMRUList(this)" 
+		  	browseText="&attachmentextractor.mrubrowsetext;"
+			paramAll="true" paramPattern="false" paramIndividual="true" />
+	</menu>
+</popup>
+
+<popup id="attachmentMenuList">
+	<menuitem id="menu_ae_extractToDefault_file" 
+		label="&attachmentextractor.attachment.extracttodefault.label;"
+		accesskey="&attachmentextractor.attachment.extracttodefault.accesskey;" 
+		command="cmd_ae_extractIndAllToDefault" 
+		insertafter="file-deleteAllAttachments"/>
+	<menuitem id="menu_ae_extractToFolder_file" 
+		label="&attachmentextractor.attachment.extracttofolder.label;"
+		accesskey="&attachmentextractor.attachment.extracttofolder.accesskey;" 
+		command="cmd_ae_extractIndAllToFolder" 
+		insertafter="menu_ae_extractToDefault_file"/>
+</popup>
+
+</overlay>
+

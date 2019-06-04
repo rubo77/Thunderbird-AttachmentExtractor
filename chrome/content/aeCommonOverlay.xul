@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Attachment Extractor.
+   -
+   - The Initial Developer of the Original Code is
+   - Andrew Williamson <eviljeff@eviljeff.com>.
+   - Portions created by the Initial Developer are Copyright (C) 2005-2008
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+   
+<!DOCTYPE overlay [
+<!ENTITY % aemainDTD SYSTEM "chrome://attachmentextractor/locale/attachmentextractor.dtd" >
+%aemainDTD; 
+]>
+
+<overlay id="attachmentextractorCommonOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/x-javascript" src="chrome://attachmentextractor/content/attachmentextractor.js"/>
+<script type="application/x-javascript" src="chrome://attachmentextractor/content/aeprogresstracker.js"/>
+<script type="application/x-javascript" src="chrome://attachmentextractor/content/aemessenger.js"/>
+<script type="application/x-javascript" src="chrome://attachmentextractor/content/aewindow.js"/>
+<script type="application/x-javascript" src="chrome://attachmentextractor/content/attachmentFileMaker.js"/>
+
+<script type="application/x-javascript"><![CDATA[ 
+	window.addEventListener('load', function() {
+		//aedump('load\n');
+		document.getElementById('attachmentListContext').addEventListener('popupshowing',attachmentextractor.onShowAttachmentContextMenu2,false);
+		attachmentextractor.addHeaderButton();
+	  }, true);
+	/*window.addEventListener('unload', function() {
+		aedump('unload\n');
+		document.getElementById('attachmentListContext').removeEventListener('popupshowing',attachmentextractor.onShowAttachmentContextMenu2,false);
+	  }, true);  // use: addEventListener('messagepane-loaded', msgHdrViewSMIMEOnLoad, true); ?*/
+]]></script>
+
+<commandset id="mailCommands">
+  <commandset id="ae_commandset">
+    <commandset id="ae_commandset_msg">
+		<command id="cmd_ae_extractToDefault" oncommand="attachmentextractor.doAttachmentextraction('default',false);" observes="ae_commandset_msg"/>
+		<command id="cmd_ae_extractToFolder"  oncommand="attachmentextractor.doAttachmentextraction('0',false);" observes="ae_commandset_msg" />
+		<command id="cmd_ae_extractToFolder_menu" oncommand="event.stopPropagation();" observes="ae_commandset_msg"/>
+		<command id="cmd_ae_extractPatternDefault" oncommand="attachmentextractor.doPatternAttachmentextraction('default',false);" observes="ae_commandset_msg"/>
+		<command id="cmd_ae_extractPatternFolder" oncommand="attachmentextractor.doPatternAttachmentextraction('0',false);" observes="ae_commandset_msg"/>
+		<command id="cmd_ae_extractPatternFolder_menu" oncommand="event.stopPropagation();" observes="ae_commandset_msg" />
+		<command id="cmd_ae_justDeleteAttachments" oncommand="attachmentextractor.doAttachmentextraction('deleteAtt',false);" observes="ae_commandset_msg"/>
+	</commandset>
+	<commandset id="ae_commandset_folder">
+		<command id="cmd_ae_extractAllToDefault" oncommand="attachmentextractor.doAttachmentextraction('default',1);" observes="ae_commandset_folder"/>
+		<command id="cmd_ae_extractAllToFolder" oncommand="attachmentextractor.doAttachmentextraction('0',1);" observes="ae_commandset_folder"/> 
+		<command id="cmd_ae_extractAllToFolder_menu" oncommand="event.stopPropagation();" observes="ae_commandset_folder" />
+		<command id="cmd_ae_extractDeepToDefault" oncommand="attachmentextractor.doAttachmentextraction('default',2);" observes="ae_commandset_folder"/>
+		<command id="cmd_ae_extractDeepToFolder" oncommand="attachmentextractor.doAttachmentextraction('0',2);" observes="ae_commandset_folder"/> 
+		<command id="cmd_ae_extractDeepToFolder_menu" oncommand="event.stopPropagation();" observes="ae_commandset_folder" />
+		<command id="cmd_ae_justDeleteAllAttachments" oncommand="attachmentextractor.doAttachmentextraction('deleteAtt',true);" observes="ae_commandset_folder"/>
+	</commandset>
+	<commandset id="ae_commandset_ind">
+		<command id="cmd_ae_extractIndToDefault" oncommand="attachmentextractor.doIndividualAttachmentextraction('default',false);" observes="ae_commandset_ind"/>
+		<command id="cmd_ae_extractIndToFolder" oncommand="attachmentextractor.doIndividualAttachmentextraction('0',false);" observes="ae_commandset_ind"/>
+		<command id="cmd_ae_extractIndToFolder_menu" oncommand="event.stopPropagation();" observes="ae_commandset_ind"/>
+		<command id="cmd_ae_extractIndAllToDefault" oncommand="attachmentextractor.doIndividualAttachmentextraction('default',true);"/>
+		<command id="cmd_ae_extractIndAllToFolder" oncommand="attachmentextractor.doIndividualAttachmentextraction('0',true);"/>
+		<command id="cmd_ae_extractIndAllToFolder_menu" oncommand="event.stopPropagation();"/>
+	</commandset>
+  </commandset>
+</commandset>
+
+</overlay>
+
