@@ -82,6 +82,8 @@
 		    <menuitem label="#subject#"   class="tokens" oncommand="add_to_pattern(this);" />
 		    <menuitem label="#from#"      class="tokens" oncommand="add_to_pattern(this);" />
 		    <menuitem label="#fromemail#" class="tokens" oncommand="add_to_pattern(this);" />
+		    <menuitem label="#to#"      class="tokens" oncommand="add_to_pattern(this);" />
+		    <menuitem label="#toemail#" class="tokens" oncommand="add_to_pattern(this);" />
 		    <menuitem label="#folder#"    class="tokens" oncommand="add_to_pattern(this);" />
   		  </menupopup>
 	    </button>

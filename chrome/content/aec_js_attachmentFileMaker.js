@@ -60,11 +60,13 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 		this.datetime=null;
 		this.author=null;
 		this.authoremail=null;
+		this.receipient=null;
+		this.receipientemail=null;
 		this.subject=null;
 		this.mailfolder=null;
 		var that=this;
 		this.toString=function() {
-			return "["+that.datetime+","+that.author+","+that.authoremail+","+that.subject+","+that.mailfolder+"]";
+			return "["+that.datetime+","+that.author+","+that.authoremail+","+that.receipient+","+that.receipientemail+","+that.subject+","+that.mailfolder+"]";
 		}
 	};
 	
@@ -223,6 +225,8 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 		stringin=stringin.replace(/#date#/g,cache.datetime)
 						 .replace(/#from#/g,cache.author)
 						 .replace(/#fromemail#/g,cache.authoremail)
+ 						 .replace(/#to#/g,cache.receipient)
+ 						 .replace(/#toemail#/g,cache.receipientemail)
 						 .replace(/#folder#/g,cache.mailfolder)
 						 .replace(/#subject#/g,cache.subject);
 			
@@ -234,6 +238,8 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 	AttachmentFileMaker.prototype.tokenregexs= {
 		  author:      / <.*>|[\/\\#]+/g,
 		  authoremail: /.*<|>.*|[\/\\#]+/g,
+		  receipient:      / <.*>|[\/\\#]+/g,
+		  receipientemail: /.*<|>.*|[\/\\#]+/g,
 		  subject:     /[\/\\#]+/g,
 		  folder:	   /[\/\\#]+/g,
 		  dollars:     /\$/g
@@ -252,6 +258,15 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 		if (!cache.authoremail&&(stringin.indexOf('#fromemail#')>-1)) {
 			cache.authoremail=(msheader.mime2DecodedAuthor?msheader.mime2DecodedAuthor+"":"").replace(this.tokenregexs.authoremail, "")
 																							 .replace(this.tokenregexs.dollars,"$$$$");
+		}
+		
+		if (!cache.author&&(stringin.indexOf('#to#')>-1)) {
+		 cache.receipient=(msheader.mime2DecodedAuthor?msheader.mime2DecodedAuthor+"":"").replace(this.tokenregexs.receipient, "")
+																					 .replace(this.tokenregexs.dollars,"$$$$");
+		}
+		if (!cache.receipientemail&&(stringin.indexOf('#toemail#')>-1)) {
+		 cache.receipientemail=(msheader.mime2DecodedAuthor?msheader.mime2DecodedAuthor+"":"").replace(this.tokenregexs.receipientemail, "")
+																							.replace(this.tokenregexs.dollars,"$$$$");
 		}
 		/*if (!cache.recipients&&(stringin.indexOf('#toemail#')>-1)) {
 			//cache.authoremail=(msheader.mime2DecodedAuthor?msheader.mime2DecodedRecipients+"":"").replace(/.*<|>.*|[\/\\#]+/g, "");
