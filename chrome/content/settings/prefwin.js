@@ -15,7 +15,7 @@
  *
  * The Initial Developer of the Original Code is
  * Andrew Williamson <eviljeff@eviljeff.com>.
- * Portions created by the Initial Developer are Copyright (C) 2006
+ * Portions created by the Initial Developer are Copyright (C) 2006-2009
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -34,25 +34,11 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-function onGeneralPaneLoad(event)
-{
-	document.getElementById('savefolder').value=syncFromFilePref('pref_savefolder');
-	document.getElementById('afterextractendlaunchapplication').value=syncFromFilePref('pref_afterextractendlaunchapplication');
-	enableField(document.getElementById('afterextractpolicydetach'),'afterextractpolicydetachmode');
-	enableField(document.getElementById('afterextractsavemessage'),['fnpsavemessage','fnpsavemessagecountpattern']);
-	//flex();
-}
-
 function syncFromFilePref(pref) {
-	var prefval=document.getElementById(pref);
+	var prefName=(pref.getAttribute)?pref.getAttribute("preference"):pref;
+	var prefval=document.getElementById(prefName);
 	if (prefval && prefval.value && prefval.value.path) return prefval.value.path;
 	return "";
-}
-
-/*function syncFromFilePref(this) {
-	var pref=document.getElementById(this.getAttribute("preference"));
-	var prefval=document.getElementById(pref);
-	if (prefval && prefval.value && prefval.value.path) return prefval.value.path;
 }
 
 /*function syncToFilePref(this) {
@@ -78,15 +64,23 @@ function enableField(aCheckbox, fieldID) {
 	if (fieldID instanceof Array) enableField(aCheckbox, fieldID);
 }
 	
-function browseFolder(pref_el_id,text_el_id) { 
-	var prefn=document.getElementById(pref_el_id);
-	var newv=attachmentextractor.getSaveFolder(prefn.getAttribute("name"),false);
-	if (!newv) return;
-  	prefn.value=newv;
-	document.getElementById(text_el_id).value=newv.path;
+function browseForFolder(pref_el_id) {
+	var Cc=Components.classes;
+	var Ci=Components.interfaces;
+	var pref=document.getElementById(pref_el_id);
+	var fp = Cc["@mozilla.org/filepicker;1"].createInstance(Ci.nsIFilePicker);
+	var windowTitle = document.getElementById("aestrbundle").getString("FolderPickerDialogTitle");
+    try {
+		fp.init(window, windowTitle, Ci.nsIFilePicker.modeGetFolder);
+		try {
+			if (pref.value) fp.displayDirectory = pref.value;
+		} catch (e) {aedump(e,1);}
+		if (fp.show() == Ci.nsIFilePicker.returnCancel) return;
+	} catch(e) {aedump(e,0);}
+	pref.value=fp.file;
 }
 
-function browseForExecutable(pref_el_id,text_el_id) {
+function browseForExecutable(pref_el_id) {
 	var Cc=Components.classes;
 	var Ci=Components.interfaces;
 	var pref=document.getElementById(pref_el_id);
@@ -96,14 +90,28 @@ function browseForExecutable(pref_el_id,text_el_id) {
          fp.init(window, windowTitle, Ci.nsIFilePicker.modeOpen);
 		 fp.appendFilters(Ci.nsIFilePicker.filterApps || Ci.nsIFilePicker.filterAll )
          try {
-         	var initial = pref.value;
-            if (initial) fp.displayDirectory = initial.parent;
+         	 if (pref.value) fp.displayDirectory = pref.value.parent;
          } catch (e) {aedump(e,1);}
-         var r = fp.show();
-         if (r == Ci.nsIFilePicker.returnCancel) return;
+         if (fp.show() == Ci.nsIFilePicker.returnCancel) return;
     } catch(e) {aedump(e,0);}
 	pref.value=fp.file ;
-	document.getElementById(text_el_id).value=fp.file.path;
+}
+
+function browseForCss(pref_el_id) {
+	var Cc=Components.classes;
+	var Ci=Components.interfaces;
+	var pref=document.getElementById(pref_el_id);
+	var fp = Cc["@mozilla.org/filepicker;1"].createInstance(Ci.nsIFilePicker);
+	var windowTitle = document.getElementById("aestrbundle").getString("CSSFilePickerDialogTitle");
+	try {
+         fp.init(window, windowTitle, Ci.nsIFilePicker.modeOpen);
+         fp.appendFilter(document.getElementById("aestrbundle").getString("CSSFileFilterDescription"),"*.css"); 
+		 try {
+         	if (pref.value) fp.displayDirectory = pref.value.parent;
+         } catch (e) {dump(e);}
+         if (fp.show() == Ci.nsIFilePicker.returnCancel) return;
+    } catch(e) {dump(e);}
+	pref.value=fp.file;
 }
 
 function showDetachWarning(radiobox) {
@@ -113,37 +121,106 @@ function showDetachWarning(radiobox) {
 }
 
 function showReturnReceiptSettings() {
-	document.documentElement.openSubDialog("chrome://attachmentextractor/content/settings/general_receipt.xul","", null);
+	document.documentElement.openSubDialog("chrome://attachmentextractor/content/settings/post_receipt.xul","", null);
 }
 
-function onAdvancedPaneLoad(event) {
-	enableField(document.getElementById('extractmode1'),new Array('setdatetoemail','minimumsize'));
-	//flex();
+function showSuggestFolderSettings() {
+	document.documentElement.openSubDialog("chrome://attachmentextractor/content/settings/general_suggest.xul","", null);
 }
 
-function onReportPaneLoad(event) {
-	document.getElementById('reportgencssfile').value=syncFromFilePref('pref_reportgencssfile');
-	//flex();
+function showReportSettings() {
+	document.documentElement.openSubDialog("chrome://attachmentextractor/content/settings/post_report.xul","", null);
 }
 
+function showDateSettings() {
+	document.documentElement.openSubDialog("chrome://attachmentextractor/content/settings/filename_date.xul","", null);
 
-function browseForCss(pref_el_id,text_el_id) {
-	var Cc=Components.classes;
-	var Ci=Components.interfaces;
-	var pref=document.getElementById(pref_el_id);
-	var fp = Cc["@mozilla.org/filepicker;1"].createInstance(Ci.nsIFilePicker);
-	try {
-         fp.init(window, document.getElementById("aestrbundle").getString("CSSFilePickerDialogTitle"), Ci.nsIFilePicker.modeOpen);
-         fp.appendFilter(document.getElementById("aestrbundle").getString("CSSFileFilterDescription"),"*.css"); 
-		 try {
-         	var initial = pref.value;
-            if (initial) fp.displayDirectory = initial.parent;
-         } catch (e) {dump(e);}
-         var r = fp.show();
-         if (r == Ci.nsIFilePicker.returnCancel) return;
-    } catch(e) {dump(e);}
-	pref.value=fp.file;
-	document.getElementById(text_el_id).value=fp.file.path;
+}
+
+function appendPrefEntry(listbox,prefid,emptytext) {
+	var entry=listbox.appendItem(".",prefid);
+	var tb2idfix=listbox.itemCount? null:listbox.id+listbox.childNodes.length;  //bloody tb2 ! "this" doesnt resolve properly within onsyncfrompreference in tb2 so workaround.
+	entry.setAttribute("preference",prefid);
+	if (tb2idfix) entry.setAttribute("id",tb2idfix);
+	entry.setAttribute("onsyncfrompreference","var l=syncFromFilePref('"+prefid+"');"+(tb2idfix?"document.getElementById('"+tb2idfix+"')":"this")+".setAttribute('label',(l==''?'"+emptytext+"':l))");
+	return entry;
+}
+
+function fillParentFolderList(folderlist) {
+	//aedump(folderlist.nodeName+",");
+	if (folderlist.childNodes.length!=0) return;
+	var emptytext=document.getElementById("aestrbundle").getString("EmptyLineText");
+	var prefid=folderlist.getAttribute("preference");
+	//aedump(prefid+"\n");
+	var pref=document.getElementById(prefid);
+	if (pref && pref.name) {
+		for (var i=1;i<=100;i++) {
+		  var entryid=prefid+"_"+i;
+		  if (!document.getElementById(entryid)) {
+			var newpref=document.createElement("preference");
+			newpref.setAttribute("id",entryid);
+			newpref.setAttribute("name",pref.name+"."+i);
+			newpref.setAttribute("type","file");
+			/*newpref.setAttribute("onchange","removeBlanks(document.getElementById('"+folderlist.id+"'));");*/
+			pref.preferences.appendChild(newpref);
+			//if (newpref.value==null) break; /*newpref=document.getElementById(entryid);*/
+		  }
+		  else {
+		    if (!document.getElementById(entryid)) break;
+			appendPrefEntry(folderlist,entryid,emptytext);
+			if (i==1) folderlist.selectedIndex=0;
+			if (!document.getElementById(entryid).value) break;
+		  }
+		}
+	}
+}
+
+function removeEntry(button, folderlist) {
+	//aedump("*");
+	var resetpref=document.getElementById(button.getAttribute('_preference'));
+	/*for (f in resetpref) aedump(f+":"+resetpref[f]+"\n") */
+	if (!resetpref.value) return;
+	else resetpref.reset();
+	var prefid=folderlist.getAttribute("preference");
+	var pref=document.getElementById(prefid);
+	if (!pref) return;
+	for (var i=1;i<100;i++) {
+		var cpref=document.getElementById(prefid+"_"+i);
+		var npref=document.getElementById(prefid+"_"+(i+1));
+		if (!cpref||!npref) break;
+		//aedump(i+") cval: "+(cpref.value?cpref.value.leafName:cpref.value)+"; nval: "+(npref.value?npref.value.leafName:npref.value)+"\n");
+		if (!cpref.value && npref.value) {
+			cpref.value=npref.value;
+			npref.reset();
+			//continue;
+		}
+	}
+	folderlist.removeItemAt(folderlist.childNodes.length-1);
+}
+ 
+function addEntry(button,folderlist) {
+	var prefid=button.getAttribute('_preference');
+	browseForFolder(prefid);
+	var addpref=document.getElementById(prefid);
+	//aedump(prefid+"="+addpref.value+"\n");
+	if (!addpref.value) return;
+	//aedump('*');
+	if (folderlist.getItemAtIndex(folderlist.childNodes.length-1).getAttribute('preference')==prefid) {
+		var clearpref=folderlist.getAttribute("preference")+"_"+(folderlist.childNodes.length+1);
+		appendPrefEntry(folderlist,clearpref,document.getElementById("aestrbundle").getString("EmptyLineText"));
+		document.getElementById(clearpref).updateElements();
+	}
+}
+
+function updateEditBox(ele) {
+	var pref=ele.selectedItem.getAttribute("preference");
+	//aedump(pref+";\n");
+	document.getElementById("parent1").setAttribute("preference",pref);
+	document.getElementById(pref).updateElements();
+	document.getElementById("parentbutton").setAttribute("_preference",pref);
+	document.getElementById("parentbutton").removeAttribute("disabled");
+	document.getElementById("parentresetbutton").setAttribute("_preference",pref);
+	document.getElementById("parentresetbutton").removeAttribute("disabled");
 }
 
 try {
@@ -151,21 +228,33 @@ var filemaker= new AttachmentFileMaker(null,null,null);
 var exampleDate=new Date();
 }catch (e) {}
 
-function onFilenamePaneLoad(event) {
-	enableField(document.getElementById('iep0false'),'excludepatterns');
-	enableField(document.getElementById('iep1true'),'includepatterns');
-	document.getElementById('filenamepattern_exampledate').value=exampleDate.toLocaleString();
-	updateexamplefilename();
-	//flex();
+function check_filenamepattern(element,countpattern) {
+	if ((!countpattern&&filemaker.isValidFilenamePattern(element.value))||(filemaker.isValidCountPattern(element.value))) return;
+	var Cc=Components.classes;
+	var Ci=Components.interfaces;
+	var prompts = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
+		
+	/*if (prompts.confirm(window,
+						bundle.getString("FileNamePatternFixTitle") ,
+						bundle.getString("FileNamePatternFixMessage").replace("%1$s",filemaker.fixFilenamePattern(element.value))
+						) {*/
+	var bundle=	document.getElementById("aestrbundle");	
+	var fixed= (!countpattern)?filemaker.fixFilenamePattern(element.value):filemaker.fixCountPattern(element.value);
+	if (prompts.confirmEx(window,
+    				  bundle.getString("FileNamePatternFixTitle"),
+					  bundle.getString("FileNamePatternFixMessage").replace("%1$s",fixed),
+                   	  prompts.STD_YES_NO_BUTTONS,
+                      "",
+                      "",
+                      "",
+                      null,
+                      {})==0) {
+			element.value=fixed;
+	}
 }
 
-function check_filenamepattern(element) {
-	if (filemaker.isValidFilenamePattern(element.value)) return;
-	element.value=filemaker.fixFilenamePattern(element.value);
-}
-
-function updateexamplefilename() {
-	var pattern=document.getElementById('filenamepattern').value;
+function updateexamplefilename(fnpbox) {
+	var pattern=fnpbox.value;
 	var countpattern=document.getElementById('filenamepatterncount').value;
 	var datepattern=document.getElementById('pref_datepattern').value;
 	var docleansubject=document.getElementById('filenamepatterncleansubject').checked;
@@ -191,29 +280,10 @@ function updateexamplefilename() {
 	document.getElementById('filenamepattern_examplegenerated2').value=st2;
 }
 
-function add_to_pattern(button) {
-	var fnpbox=document.getElementById('filenamepattern');
+function add_to_pattern(button,fnpbox) {
 	var postindex=fnpbox.selectionStart+button.label.length;
 	fnpbox.value=fnpbox.value.substring(0,fnpbox.selectionStart)+button.label+fnpbox.value.substring(fnpbox.selectionEnd);
 	fnpbox.setSelectionRange(postindex,postindex);
-}
-
-function showDateSettings() {
-	var param={p1:document.getElementById('pref_datepattern').value,out:null};
-	window.openDialog("chrome://attachmentextractor/content/settings/filename_date.xul", "",
-    				  "chrome, dialog, modal, resizable=yes", param).focus();
-	if (param.out) {
-    	document.getElementById('pref_datepattern').value=param.out;
-		updateexamplefilename();
-  	}
-}
-
-function onAutoPaneLoad(event) {
-	enableField(document.getElementById('autotriggeronly'),'autotriggertag');
-	enableField(document.getElementById('autodetach'),'autodetachmode');
-	enableField(document.getElementById('autosavemessage'),['autofnpsavemessage','autofnpsavemessagecountpattern']);
-	document.getElementById('autosavefolder').value=syncFromFilePref('pref_autosavefolder');
-	//flex();
 }
 
 function showAutoDetachWarning(checkbox) {

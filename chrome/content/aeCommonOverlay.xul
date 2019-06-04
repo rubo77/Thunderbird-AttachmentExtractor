@@ -43,51 +43,70 @@
 <overlay id="attachmentextractorCommonOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+<script type="application/x-javascript" src="chrome://attachmentextractor/content/aecommon.js"/>
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/attachmentextractor.js"/>
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/aeprogresstracker.js"/>
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/aemessenger.js"/>
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/aewindow.js"/>
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/attachmentFileMaker.js"/>
 
-<script type="application/x-javascript"><![CDATA[ 
+<script type="application/x-javascript">
+<![CDATA[ 
 	window.addEventListener('load', function() {
 		//aedump('load\n');
-		document.getElementById('attachmentListContext').addEventListener('popupshowing',attachmentextractor.onShowAttachmentContextMenu2,false);
 		attachmentextractor.addHeaderButton();
+		
+		var t;
+		if ((t=document.getElementById('attachmentListContext'))) t.addEventListener('popupshowing',attachmentextractor.onShowAttachmentContextMenu,false);
+		if ((t=document.getElementById('messagePaneContext')))    t.addEventListener('popupshowing',attachmentextractor.updateMRUVisability,false); //tb2 + tb3b1
+		if ((t=document.getElementById('mailContext')))           t.addEventListener('popupshowing',attachmentextractor.updateMRUVisability,false); //tb3>=b2
+				
 	  }, true);
+	
 	/*window.addEventListener('unload', function() {
 		aedump('unload\n');
-		document.getElementById('attachmentListContext').removeEventListener('popupshowing',attachmentextractor.onShowAttachmentContextMenu2,false);
+		document.getElementById('attachmentListContext').removeEventListener('popupshowing',attachmentextractor.onShowAttachmentContextMenu,false);
 	  }, true);  // use: addEventListener('messagepane-loaded', msgHdrViewSMIMEOnLoad, true); ?*/
-]]></script>
+]]>
+</script>
 
 <commandset id="mailCommands">
   <commandset id="ae_commandset">
     <commandset id="ae_commandset_msg">
-		<command id="cmd_ae_extractToDefault" oncommand="attachmentextractor.doAttachmentextraction('default',false);" observes="ae_commandset_msg"/>
-		<command id="cmd_ae_extractToFolder"  oncommand="attachmentextractor.doAttachmentextraction('0',false);" observes="ae_commandset_msg" />
+		<command id="cmd_ae_extractToDefault"          oncommand="attachmentextractor.doAttachmentextraction(event,'default',false);" observes="ae_commandset_msg"/>
+		<command id="cmd_ae_extractToFolder"           oncommand="attachmentextractor.doAttachmentextraction(event,'0',false);" observes="ae_commandset_msg" />
 		<command id="cmd_ae_extractToFolder_menu" oncommand="event.stopPropagation();" observes="ae_commandset_msg"/>
-		<command id="cmd_ae_extractPatternDefault" oncommand="attachmentextractor.doPatternAttachmentextraction('default',false);" observes="ae_commandset_msg"/>
-		<command id="cmd_ae_extractPatternFolder" oncommand="attachmentextractor.doPatternAttachmentextraction('0',false);" observes="ae_commandset_msg"/>
+		<command id="cmd_ae_extractPatternDefault"     oncommand="attachmentextractor.doPatternAttachmentextraction(event,'default',false);" observes="ae_commandset_msg"/>
+		<command id="cmd_ae_extractPatternFolder"      oncommand="attachmentextractor.doPatternAttachmentextraction(event,'0',false);" observes="ae_commandset_msg"/>
 		<command id="cmd_ae_extractPatternFolder_menu" oncommand="event.stopPropagation();" observes="ae_commandset_msg" />
-		<command id="cmd_ae_justDeleteAttachments" oncommand="attachmentextractor.doAttachmentextraction('deleteAtt',false);" observes="ae_commandset_msg"/>
+		<command id="cmd_ae_justDeleteAttachments"     oncommand="attachmentextractor.doAttachmentextraction(event,'deleteAtt',false);" observes="ae_commandset_msg"/>
+		<command id="cmd_ae_extractToSuggest"          oncommand="attachmentextractor.doAttachmentextraction(event,'suggest',false);" observes="ae_commandset_msg"/>		
 	</commandset>
 	<commandset id="ae_commandset_folder">
-		<command id="cmd_ae_extractAllToDefault" oncommand="attachmentextractor.doAttachmentextraction('default',1);" observes="ae_commandset_folder"/>
-		<command id="cmd_ae_extractAllToFolder" oncommand="attachmentextractor.doAttachmentextraction('0',1);" observes="ae_commandset_folder"/> 
+		<command id="cmd_ae_extractAllToDefault"       oncommand="attachmentextractor.doAttachmentextraction(event,'default',1);" observes="ae_commandset_folder"/>
+		<command id="cmd_ae_extractAllToFolder"        oncommand="attachmentextractor.doAttachmentextraction(event,'0',1);" observes="ae_commandset_folder"/> 
 		<command id="cmd_ae_extractAllToFolder_menu" oncommand="event.stopPropagation();" observes="ae_commandset_folder" />
-		<command id="cmd_ae_extractDeepToDefault" oncommand="attachmentextractor.doAttachmentextraction('default',2);" observes="ae_commandset_folder"/>
-		<command id="cmd_ae_extractDeepToFolder" oncommand="attachmentextractor.doAttachmentextraction('0',2);" observes="ae_commandset_folder"/> 
+		<command id="cmd_ae_extractDeepToDefault"      oncommand="attachmentextractor.doAttachmentextraction(event,'default',2);" observes="ae_commandset_folder"/>
+		<command id="cmd_ae_extractDeepToFolder"       oncommand="attachmentextractor.doAttachmentextraction(event,'0',2);" observes="ae_commandset_folder"/> 
 		<command id="cmd_ae_extractDeepToFolder_menu" oncommand="event.stopPropagation();" observes="ae_commandset_folder" />
-		<command id="cmd_ae_justDeleteAllAttachments" oncommand="attachmentextractor.doAttachmentextraction('deleteAtt',true);" observes="ae_commandset_folder"/>
+		<command id="cmd_ae_justDeleteAllAttachments"  oncommand="attachmentextractor.doAttachmentextraction(event,'deleteAtt',1);" observes="ae_commandset_folder"/>
+		<command id="cmd_ae_extractAllToSuggest"       oncommand="attachmentextractor.doAttachmentextraction(event,'suggest',1);" observes="ae_commandset_folder"/>
 	</commandset>
 	<commandset id="ae_commandset_ind">
-		<command id="cmd_ae_extractIndToDefault" oncommand="attachmentextractor.doIndividualAttachmentextraction('default',false);" observes="ae_commandset_ind"/>
-		<command id="cmd_ae_extractIndToFolder" oncommand="attachmentextractor.doIndividualAttachmentextraction('0',false);" observes="ae_commandset_ind"/>
+		<command id="cmd_ae_extractIndToDefault"         oncommand="attachmentextractor.doIndividualAttachmentextraction('default','selected');" observes="ae_commandset_ind"/>
+		<command id="cmd_ae_extractIndToFolder"          oncommand="attachmentextractor.doIndividualAttachmentextraction('0','selected');" observes="ae_commandset_ind"/>
 		<command id="cmd_ae_extractIndToFolder_menu" oncommand="event.stopPropagation();" observes="ae_commandset_ind"/>
-		<command id="cmd_ae_extractIndAllToDefault" oncommand="attachmentextractor.doIndividualAttachmentextraction('default',true);"/>
-		<command id="cmd_ae_extractIndAllToFolder" oncommand="attachmentextractor.doIndividualAttachmentextraction('0',true);"/>
+		<command id="cmd_ae_extractIndToSuggest"         oncommand="attachmentextractor.doIndividualAttachmentextraction('suggest','selected');" />
+		
+		<command id="cmd_ae_extractIndAllToDefault"      oncommand="attachmentextractor.doIndividualAttachmentextraction('default','all');"/>
+		<command id="cmd_ae_extractIndAllToFolder"       oncommand="attachmentextractor.doIndividualAttachmentextraction('0','all');"/>
 		<command id="cmd_ae_extractIndAllToFolder_menu" oncommand="event.stopPropagation();"/>
+		<command id="cmd_ae_extractIndAllToSuggest"      oncommand="attachmentextractor.doIndividualAttachmentextraction('suggest','all');" />
+		
+		<command id="cmd_ae_extractContextToDefault"     oncommand="attachmentextractor.doIndividualAttachmentextraction('default','context');" />
+		<command id="cmd_ae_extractContextToFolder"      oncommand="attachmentextractor.doIndividualAttachmentextraction('0','context');" />
+		<command id="cmd_ae_extractContextToFolder_menu" oncommand="event.stopPropagation();"/>
+		<command id="cmd_ae_extractContextToSuggest"     oncommand="attachmentextractor.doIndividualAttachmentextraction('suggest','context');" />
 	</commandset>
   </commandset>
 </commandset>

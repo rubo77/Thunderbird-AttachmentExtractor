@@ -46,7 +46,7 @@ var progress_tracker = {
 	/* access functions */
 	starting_extraction : function () {
 		this.debug("{function:progress_tracker.starting_extraction}\n");
-		if (aewindow.attachmentextractor.prefs.get("reportgen") && aewindow.currentTask.isExtractEnabled) {
+		if (aewindow.prefs.get("reportgen") && aewindow.currentTask.isExtractEnabled) {
 			try{
 				this.reportgen=new AE_Reportgen();
 			} catch(ee) {
@@ -56,7 +56,7 @@ var progress_tracker = {
 		}
 		this.pwindow=this.getWindowByType("mail:AEDialog");
 		if (this.pwindow) {
-			this.pwindow.toggleText(aewindow.attachmentextractor.prefs.get("progressdialog.showtext"));
+			this.pwindow.toggleText(aewindow.prefs.get("progressdialog.showtext"));
 			this.pwindow.setupFileProgress();	
 		}
 		this.set_status_text("StatusTextStarting");
@@ -75,7 +75,7 @@ var progress_tracker = {
 		if (this.reportgen) this.reportgen.start_message(message_index,length);
 		if (!this.pwindow) return;
 		this.pwindow.updateCounts(message_index,length,-1,-1);
-		if (aewindow.attachmentextractor.prefs.get("progressdialog.showtext")) {
+		if (aewindow.prefs.get("progressdialog.showtext")) {
 			this.pwindow.updateSubject(aewindow.currentTask.getMessageHeader().subject);
 		}		
 	},
@@ -90,7 +90,7 @@ var progress_tracker = {
 		this.debug("{function:progress_tracker.starting_attachment("+attachment_index+")}\n");
 		if (this.pwindow) {
 		  this.pwindow.updateCounts(-1,-1,attachment_index,length);
-		  if (aewindow.attachmentextractor.prefs.get("progressdialog.showtext")) {
+		  if (aewindow.prefs.get("progressdialog.showtext")) {
 			this.pwindow.updateFilename(aewindow.currentTask.currentMessage.getAttachment(attachment_index).displayName);
 		  }
 		}
@@ -126,8 +126,8 @@ var progress_tracker = {
 	set_status_text: function(entry,param) {
 	  try{
 		if (this.statusFeedback && entry && entry!="") {
-			var txt=(param)?aewindow.attachmentextractor.aeStringBundle.formatStringFromName(entry,param,param.length):
-							aewindow.attachmentextractor.aeStringBundle.GetStringFromName(entry);
+			var txt=(param)?aewindow.aeStringBundle.formatStringFromName(entry,param,param.length):
+							aewindow.aeStringBundle.GetStringFromName(entry);
 			this.statusFeedback.showStatusString(txt);
 		}
 	  }catch (e) {aedump(e);}
@@ -156,7 +156,7 @@ var progress_tracker = {
 }
 
 function AE_Reportgen() {
-  var prefs = aewindow.attachmentextractor.prefs ;
+  var prefs = aewindow.prefs ;
   var Cc=Components.classes;
   var Ci=Components.interfaces;
   var Cr=Components.results;
@@ -173,9 +173,8 @@ function AE_Reportgen() {
 	  reportFile.initWithPath(prefs.get("reportgen.reportname"));
 	  absolutereport=true;
   }
-  aedump('//ae: '+reportFile.path+'\n');
 	
-  var strBundle=aewindow.attachmentextractor.strBundleService.createBundle("chrome://attachmentextractor/locale/attachmentextractor-reportgen.properties");
+  var strBundle=aewindow.strBundleService.createBundle("chrome://attachmentextractor/locale/attachmentextractor-reportgen.properties");
   var fileHandler = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService).getProtocolHandler("file")
                      .QueryInterface(Ci.nsIFileProtocolHandler);
 	
@@ -204,7 +203,9 @@ function AE_Reportgen() {
   function load_oldreport() {
 	try {
 		var inputStream = Cc['@mozilla.org/network/file-input-stream;1'].createInstance(Ci.nsIFileInputStream);
-		var parser = new DOMParser();
+		var repurl=fileHandler.newFileURI(reportFile);
+		aedump(repurl);
+		var parser = new DOMParser(null,repurl);
 		inputStream.init(reportFile, 1, 0, false);
 		aerg_document=parser.parseFromStream(inputStream,null,-1,"text/xml");
 		inputStream.close();
@@ -251,7 +252,7 @@ function AE_Reportgen() {
   function makeScriptSection() {
 	var fileIn;
 	try{
-		fileIn=prefs.getComplex("reportgen.cssfile", Ci.nsILocalFile);
+		fileIn=prefs.getFile("reportgen.cssfile");
 	}catch (e) {}
 	if (!fileIn) return null;
 	var styleElem;
@@ -273,10 +274,9 @@ function AE_Reportgen() {
 		}
 	}
 	else {
-		var fileurl=Cc["@mozilla.org/network/protocol;1?name=file"].createInstance(Ci.nsIFileProtocolHandler).getURLSpecFromFile(fileIn);
 		styleElem= aerg_document.createElement("link");
 		styleElem.setAttribute("REL","stylesheet")
-		styleElem.setAttribute("HREF",fileurl);
+		styleElem.setAttribute("HREF",fileHandler.getURLSpecFromFile(fileIn));
 		styleElem.setAttribute("TITLE","Style");
 	}
 	styleElem.setAttribute("TYPE","text/css");
@@ -345,13 +345,13 @@ function AE_Reportgen() {
 	//dump("{*start attachment*{"+arguments+"}*length("+arguments.length+")*}\n");
 	var d1=parseInt(arguments[0]);
 	//dump("{*start attachment[0]*{"+d1+"}**}\n");
-	var savedFile=aewindow.currentTask.currentMessage.attachments_savedfile[d1];
+	var savedFile=aewindow.currentMessage.attachments_savedfile[d1];
 	if (!savedFile) return;
-	var savedAppendage=aewindow.currentTask.currentMessage.attachments_appendage[d1];
+	var savedAppendage=aewindow.currentMessage.attachments_appendage[d1];
 	var filename=(absolutereport)?fileHandler.getURLSpecFromFile(savedFile):encodeURIComponent(savedAppendage);
 	
 	var thumbnail=prefs.get("reportgen.thumbnail");
-	if (thumbnail) thumbnail=imagetype_check(aewindow.currentTask.currentMessage.attachments_ct[d1]);
+	if (thumbnail) thumbnail=imagetype_check(aewindow.currentMessage.attachments_ct[d1]);
 	
 	var att_elem=aerg_document.createElement("div");
 	att_elem.setAttribute("class","attachment");

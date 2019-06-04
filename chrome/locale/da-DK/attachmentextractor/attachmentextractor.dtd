@@ -4,6 +4,8 @@
 <!ENTITY attachmentextractor.extracttodefault.accesskey "V">
 <!ENTITY attachmentextractor.extracttofolder.label "Gem vedhæftede filer fra de valgte beskeder i...">
 <!ENTITY attachmentextractor.extracttofolder.accesskey "I">
+<!ENTITY attachmentextractor.extracttosuggest.label "Gem vedhæftede filer i den foreslåede folder">
+<!ENTITY attachmentextractor.extracttosuggest.accesskey "F">
 <!ENTITY attachmentextractor.extractalldefault.label "Gem vedhæftede filer fra alle beskeder i den valgte folder">
 <!ENTITY attachmentextractor.extractalldefault.accesskey "A">
 <!ENTITY attachmentextractor.extractallfolder.label "Gem vedhæftede filer fra alle beskeder i den valgte folder i...">
@@ -12,6 +14,8 @@
 <!ENTITY attachmentextractor.extractdeepdefault.accesskey "U">
 <!ENTITY attachmentextractor.extractdeepfolder.label "Gem vedhæftede filer fra alle beskeder i den valgte folder og underfoldere i...">
 <!ENTITY attachmentextractor.extractdeepfolder.accesskey "H">
+<!ENTITY attachmentextractor.extractalltosuggest.label "Gem vedhæftede filer fra alle beskeder i den foreslåede folder">
+<!ENTITY attachmentextractor.extractalltosuggest.accesskey "E">
 <!ENTITY attachmentextractor.extractpattern.label "Gem med alternativt mønster til filnavn">
 <!ENTITY attachmentextractor.extractpattern.accesskey "A">
 <!ENTITY attachmentextractor.extractpatternfolder.label "Gem med alternativt mønster til filnavn i...">
@@ -22,10 +26,6 @@
 <!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "F">
 <!ENTITY attachmentextractor.menusettingsdialog.label "Indstillinger">
 <!ENTITY attachmentextractor.menusettingsdialog.accesskey "I">
-<!ENTITY attachmentextractor.context.extracttodefault.label "Gem vedhæftede filer fra de valgte beskeder">
-<!ENTITY attachmentextractor.context.extracttodefault.accesskey "G">
-<!ENTITY attachmentextractor.context.extracttofolder.label "Gem vedhæftede filer fra de valgte beskeder i...">
-<!ENTITY attachmentextractor.context.extracttofolder.accesskey "I">
 <!ENTITY attachmentextractor.context.extractalldefault.label "Gem alle vedhæftede filer">
 <!ENTITY attachmentextractor.context.extractalldefault.accesskey "G">
 <!ENTITY attachmentextractor.context.extractallfolder.label "Gem alle vedhæftede filer i...">
@@ -34,6 +34,8 @@
 <!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "U">
 <!ENTITY attachmentextractor.context.extractdeepfolder.label "Gem vedhæftede filer fra alle beskeder i den valgte folder og underfoldere i...">
 <!ENTITY attachmentextractor.context.extractdeepfolder.accesskey "H">
+<!ENTITY attachmentextractor.context.extractalltosuggest.label "Gem vedhæftede filer i den foreslåede folder">
+<!ENTITY attachmentextractor.context.extractalltosuggest.accesskey "M">
 <!ENTITY attachmentextractor.attachment.extracttodefault.label "(AE) Gem alle">
 <!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "A">
 <!ENTITY attachmentextractor.attachment.extracttofolder.label "(AE) Gem alle til...">
@@ -57,3 +59,12 @@
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.label "Gør mønsteret til standard">
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.accesskey "G">
 <!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Klik for at tilføj et token">
+<!ENTITY attachmentextractor.suggestedFolderDialog.title "Attachment Extractor - foreslåede foldere:">
+<!ENTITY attachmentextractor.suggestedFolderDialog.label "Foreslåede folder baseret på emnet i de valgte beskeder:">
+<!ENTITY attachmentextractor.suggestedFolderDialog.acceptbutton "Brug valgt folder">
+<!ENTITY attachmentextractor.imagetoolbar.label "Skift valg">
+<!ENTITY attachmentextractor.imagetoolbar.accesskey "S">
+<!ENTITY attachmentextractor.context.extracttodefault.label "Gem vedhæftede filer fra de valgte beskeder">
+<!ENTITY attachmentextractor.context.extracttofolder.label "Gem vedhæftede filer fra de valgte beskeder i...">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "G">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "I">

@@ -4,6 +4,8 @@
 <!ENTITY attachmentextractor.extracttodefault.accesskey "U">
 <!ENTITY attachmentextractor.extracttofolder.label "Uložit přílohy z vybraných zpráv jako...">
 <!ENTITY attachmentextractor.extracttofolder.accesskey "P">
+<!ENTITY attachmentextractor.extracttosuggest.label "Uložit přílohy do doporučeného adresáře">
+<!ENTITY attachmentextractor.extracttosuggest.accesskey "D">
 <!ENTITY attachmentextractor.extractalldefault.label "Uložit přílohy ze všech zpráv">
 <!ENTITY attachmentextractor.extractalldefault.accesskey "V">
 <!ENTITY attachmentextractor.extractallfolder.label "Uložit přílohy ze všech zpráv jako...">
@@ -12,6 +14,8 @@
 <!ENTITY attachmentextractor.extractdeepdefault.accesskey "V">
 <!ENTITY attachmentextractor.extractdeepfolder.label "Uložit přílohy ze všech zpráv ve složce, včetně podsložek jako...">
 <!ENTITY attachmentextractor.extractdeepfolder.accesskey "J">
+<!ENTITY attachmentextractor.extractalltosuggest.label "Uložit přílohy ze všech zpráv do doporučeného adresáře">
+<!ENTITY attachmentextractor.extractalltosuggest.accesskey "D">
 <!ENTITY attachmentextractor.extractpattern.label "Uložit s použitím šablony">
 <!ENTITY attachmentextractor.extractpattern.accesskey "U">
 <!ENTITY attachmentextractor.extractpatternfolder.label "Uložit s použitím šablony jako...">
@@ -22,18 +26,16 @@
 <!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "V">
 <!ENTITY attachmentextractor.menusettingsdialog.label "Nastavení rozšíření AttachmentExtractor">
 <!ENTITY attachmentextractor.menusettingsdialog.accesskey "S">
-<!ENTITY attachmentextractor.context.extracttodefault.label "Uložit přílohy z vybraných zpráv">
-<!ENTITY attachmentextractor.context.extracttodefault.accesskey "U">
-<!ENTITY attachmentextractor.context.extracttofolder.label "Uložit přílohy z vybraných zpráv jako...">
-<!ENTITY attachmentextractor.context.extracttofolder.accesskey "P">
 <!ENTITY attachmentextractor.context.extractalldefault.label "Uložit přílohy ze všech zpráv">
 <!ENTITY attachmentextractor.context.extractalldefault.accesskey "U">
 <!ENTITY attachmentextractor.context.extractallfolder.label "Uložit přílohy ze všech zpráv jako...">
 <!ENTITY attachmentextractor.context.extractallfolder.accesskey "P">
-<!ENTITY attachmentextractor.context.extractdeepdefault.label "Uložit přílohy ze všech, včetně podsložek">
+<!ENTITY attachmentextractor.context.extractdeepdefault.label "Uložit přílohy ze všech zpráv, včetně podsložek">
 <!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "V">
-<!ENTITY attachmentextractor.context.extractdeepfolder.label "Uložit přílohy ze všech, včetně podsložek jako...">
+<!ENTITY attachmentextractor.context.extractdeepfolder.label "Uložit přílohy ze všech zpráv, včetně podsložek jako...">
 <!ENTITY attachmentextractor.context.extractdeepfolder.accesskey "J">
+<!ENTITY attachmentextractor.context.extractalltosuggest.label "Uložit přílohy ze všech zpráv do doporučeného adresáře">
+<!ENTITY attachmentextractor.context.extractalltosuggest.accesskey "D">
 <!ENTITY attachmentextractor.attachment.extracttodefault.label "Uložit vše">
 <!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "V">
 <!ENTITY attachmentextractor.attachment.extracttofolder.label "Uložit vše jako...">
@@ -57,3 +59,12 @@
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.label "Nastavit šablonu jako výchozí">
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.accesskey "V">
 <!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Přidat příznak">
+<!ENTITY attachmentextractor.suggestedFolderDialog.title "Doporučené adresáře">
+<!ENTITY attachmentextractor.suggestedFolderDialog.label "Doporučené adresáře (na zaákládě předmětů vybraných zpráv):">
+<!ENTITY attachmentextractor.suggestedFolderDialog.acceptbutton "Použít zvolený adresář">
+<!ENTITY attachmentextractor.imagetoolbar.label "Změnit výběr">
+<!ENTITY attachmentextractor.imagetoolbar.accesskey "Z">
+<!ENTITY attachmentextractor.context.extracttodefault.label "Uložit přílohy z vybraných zpráv">
+<!ENTITY attachmentextractor.context.extracttofolder.label "Uložit přílohy z vybraných zpráv jako...">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "U">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "P">

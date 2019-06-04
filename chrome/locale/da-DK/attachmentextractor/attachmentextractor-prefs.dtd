@@ -1,7 +1,9 @@
 <!ENTITY attachmentextractor.settings.windowtitle "Indstillinger for Attachment Extractor">
 <!ENTITY attachmentextractor.settings.width "60em">
+<!ENTITY attachmentextractor.settings.homepage.label "Website for Attachment Extractor">
 <!ENTITY attachmentextractor.settings.generaltab.label "Generelt">
 <!ENTITY attachmentextractor.settings.normal.caption "Gemning af vedhæftede filer">
+<!ENTITY attachmentextractor.settings.savefolders.caption "Hvor skal de vedhæftede filer gemmes?">
 <!ENTITY attachmentextractor.settings.overwritepolicy.label "Hvad skal der ske hvis filnavnet allerede eksisterer?">
 <!ENTITY attachmentextractor.settings.overwrite-replace.label "Overskriv altid den eksisterende fil med den vedhæftede">
 <!ENTITY attachmentextractor.settings.overwrite-replace.accesskey "O">
@@ -11,7 +13,26 @@
 <!ENTITY attachmentextractor.settings.overwrite-rename.accesskey "G">
 <!ENTITY attachmentextractor.settings.overwrite-ask.label "Spørg mig hver gang">
 <!ENTITY attachmentextractor.settings.overwrite-ask.accesskey "S">
-<!ENTITY attachmentextractor.settings.homepage.label "Website for Attachment Extractor">
+<!ENTITY attachmentextractor.settings.suggestfolder.button.label "Indstillinger for foreslåede foldere...">
+<!ENTITY attachmentextractor.settings.suggestfolder.dialogtitle "Foreslåede foldere">
+<!ENTITY attachmentextractor.settings.suggestfolder.description "En folder at gemme til kan blive foreslået baseret på nøgleord i emne linien på de beskeder du vælger.">
+<!ENTITY attachmentextractor.settings.suggestfolder.disregardduplicates.label "Ignorer dobbelt forekomster af nøgleord når foreslåede foldere rangeres?">
+<!ENTITY attachmentextractor.settings.suggestfolder.disregardduplicates.accesskey "I">
+<!ENTITY attachmentextractor.settings.suggestfolder.parents.label "Folder der kan indeholde underfoldere skal gemme til:">
+<!ENTITY attachmentextractor.settings.suggestfolder.excludedkeywords.label "Nøgleord der skal ses bort fra: (adskilt med komma)">
+<!ENTITY attachmentextractor.settings.suggestfolder.clearbutton.label "Ryd">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.label "Brug løsning til at vise fjernede billeder.">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.linktext "Dokumentation tilgængelig">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.accesskey "D">
+<!ENTITY attachmentextractor.settings.savepathmru.caption "Oftest brugte foldere">
+<!ENTITY attachmentextractor.settings.savepathmru.label "Gem liste over brugte foldere.">
+<!ENTITY attachmentextractor.settings.savepathmru.count.label1 "Gem den seneste">
+<!ENTITY attachmentextractor.settings.savepathmru.count.label2 "foldere.">
+<!ENTITY attachmentextractor.settings.savepathmru.accesskey "G">
+<!ENTITY attachmentextractor.settings.savepathmru.clearbutton.label "Slet liste">
+<!ENTITY attachmentextractor.settings.savefolder.label "Standard placering">
+<!ENTITY attachmentextractor.settings.savefolder.browsebutton "Søg...">
+<!ENTITY attachmentextractor.settings.posttab.label "Efter processering">
 <!ENTITY attachmentextractor.settings.afterextractpolicy.label "Efter de vedhæftede filer er gemt skal:">
 <!ENTITY attachmentextractor.settings.afterextractpolicy.internaltab.label "Handlinger for Thunderbird">
 <!ENTITY attachmentextractor.settings.afterextractpolicy.externaltab.label "Handlinger for eksterne programmer">
@@ -35,8 +56,6 @@
 <!ENTITY attachmentextractor.settings.after-launch.accesskey "I">
 <!ENTITY attachmentextractor.settings.after-endlaunch.label "Indlæs alle filer med det specificerede program:">
 <!ENTITY attachmentextractor.settings.after-endlaunch.accesskey "S">
-<!ENTITY attachmentextractor.settings.savefolder.label "Standard placering">
-<!ENTITY attachmentextractor.settings.savefolder.browsebutton "Søg...">
 <!ENTITY attachmentextractor.settings.returnreceipts.button.label "Kvitteringer...">
 <!ENTITY attachmentextractor.settings.returnreceipts.dialogtitle "Kvitteringer">
 <!ENTITY attachmentextractor.settings.returnreceipts.label "AttachmentExtractor kan sende kvitteringer automatisk når en besked markeres som læst">
@@ -47,11 +66,19 @@
 <!ENTITY attachmentextractor.settings.returnreceipts.override.disabled.accesskey "B">
 <!ENTITY attachmentextractor.settings.returnreceipts.override.enabled.label "Omgør &quot;Spørg mig&quot; indstillinger og send kvittering efter prompt">
 <!ENTITY attachmentextractor.settings.returnreceipts.override.enabled.accesskey "O">
-<!ENTITY attachmentextractor.settings.showprogressdialog.label "Vis dialogboks med status mens de vedhæftede filer gemmes">
-<!ENTITY attachmentextractor.settings.showprogressdialog.accesskey "V">
-<!ENTITY attachmentextractor.settings.progressdialogtext.label "Vis emne og navne på vedhæftede filer i dialogboks med status.">
-<!ENTITY attachmentextractor.settings.progressdialogtext.accesskey "E">
+<!ENTITY attachmentextractor.settings.reporttab.label "Rapport Generator">
+<!ENTITY attachmentextractor.settings.reportgen.caption "Generation af HTML rapporter">
+<!ENTITY attachmentextractor.settings.reportgen.label "Generer en rapport hver gang Attachment Extractor arbejder.">
+<!ENTITY attachmentextractor.settings.reportgen.accesskey "G">
+<!ENTITY attachmentextractor.settings.reportgen.thumbnail.label "Brug miniaturer når det er muligt.">
+<!ENTITY attachmentextractor.settings.reportgen.thumbnail.accesskey "M">
+<!ENTITY attachmentextractor.settings.reportgen.embedcss.label "Brug internt style sheet til rapporten.">
+<!ENTITY attachmentextractor.settings.reportgen.embedcss.accesskey "I">
+<!ENTITY attachmentextractor.settings.reportgen.cssfile.caption "Style sheet til rapport:">
+<!ENTITY attachmentextractor.settings.reportgen.reportname2.label "Filnavn eller komplet path til rapport:">
+<!ENTITY attachmentextractor.settings.reportgen.button.label "Indstillinger for generering af rapport">
 <!ENTITY attachmentextractor.settings.advancedtab.label "Avanceret">
+<!ENTITY attachmentextractor.settings.advancedmoretab.label "Mere">
 <!ENTITY attachmentextractor.settings.extract.caption "Gemning af filer">
 <!ENTITY attachmentextractor.settings.extract.tbextract.label "Gem vedhæftede filer med Thunderbirds metode">
 <!ENTITY attachmentextractor.settings.extract.tbextract.accesskey "T">
@@ -72,31 +99,19 @@
 <!ENTITY attachmentextractor.settings.setdatetoemail.accesskey "S">
 <!ENTITY attachmentextractor.settings.inlinepolicy.label "Gem indsatte billeder">
 <!ENTITY attachmentextractor.settings.inlinepolicy.accesskey "G">
-<!ENTITY attachmentextractor.settings.savepathmru.caption "Oftest brugte foldere">
-<!ENTITY attachmentextractor.settings.savepathmru.label "Gem liste over brugte foldere.">
-<!ENTITY attachmentextractor.settings.savepathmru.count.label1 "Gem den seneste">
-<!ENTITY attachmentextractor.settings.savepathmru.count.label2 "foldere.">
-<!ENTITY attachmentextractor.settings.savepathmru.accesskey "G">
-<!ENTITY attachmentextractor.settings.savepathmru.clearbutton.label "Slet liste">
 <!ENTITY attachmentextractor.settings.debug.caption "Debugging">
 <!ENTITY attachmentextractor.settings.debug.label "Start i debug tilstand ved genstart. Beskeder bliver logget i fejlkonsolen og skrevet til filen &quot;aedebug.txt&quot; i din profil folder.">
 <!ENTITY attachmentextractor.settings.debug.accesskey "D">
-<!ENTITY attachmentextractor.settings.reporttab.label "Rapport Generator">
-<!ENTITY attachmentextractor.settings.reportgen.caption "Generation af HTML rapporter">
-<!ENTITY attachmentextractor.settings.reportgen.label "Generer en rapport hver gang Attachment Extractor arbejder.">
-<!ENTITY attachmentextractor.settings.reportgen.accesskey "G">
-<!ENTITY attachmentextractor.settings.reportgen.thumbnail.label "Brug miniaturer når det er muligt.">
-<!ENTITY attachmentextractor.settings.reportgen.thumbnail.accesskey "M">
-<!ENTITY attachmentextractor.settings.reportgen.embedcss.label "Brug internt style sheet til rapporten.">
-<!ENTITY attachmentextractor.settings.reportgen.embedcss.accesskey "I">
-<!ENTITY attachmentextractor.settings.reportgen.cssfile.caption "Style sheet til rapport:">
-<!ENTITY attachmentextractor.settings.reportgen.reportname2.label "Filnavn eller komplet path til rapport:">
-<!ENTITY attachmentextractor.settings.filenametab.label "Filnavne">
+<!ENTITY attachmentextractor.settings.showprogressdialog.label "Vis dialogboks med status mens de vedhæftede filer gemmes">
+<!ENTITY attachmentextractor.settings.showprogressdialog.accesskey "V">
+<!ENTITY attachmentextractor.settings.progressdialogtext.label "Vis emne og navne på vedhæftede filer i dialogboks med status.">
+<!ENTITY attachmentextractor.settings.progressdialogtext.accesskey "E">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2.label "Filtreringspolitik for filnavne">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-false.label "Gem alle vedhæftede filer undtagen hvis filnavnet indeholder:">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-false.accesskey "A">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-true.label "Gem kun vedhæftede filer hvis filnavnet indeholder">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-true.accesskey "G">
+<!ENTITY attachmentextractor.settings.filenametab.label "Filnavne">
 <!ENTITY attachmentextractor.settings.filenamepatterngroup.label "Generering af filnavn">
 <!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Tilføj et element">
 <!ENTITY attachmentextractor.settings.filenamepattern.label "Mønster til at generere filnavne:">
@@ -129,6 +144,8 @@
 <!ENTITY attachmentextractor.settings.autoextract.cleartriggertag.accesskey "F">
 <!ENTITY attachmentextractor.settings.autoextract.waitforall.label "Vent på at alle beskeder er blevet downloadet før vedhæftede filer gemmes.">
 <!ENTITY attachmentextractor.settings.autoextract.waitforall.accesskey "V">
+<!ENTITY attachmentextractor.settings.autoextract.onattachmentsonly.label "Start kun Automatisk gemning med beskeder der ser ud til at have vedhæftede filer">
+<!ENTITY attachmentextractor.settings.autoextract.onattachmentsonly.accesskey "S">
 <!ENTITY attachmentextractor.settings.abouttab.label "Om">
 <!ENTITY attachmentextractor.settings.requiresrestart.label "(Kræver genstart)">
 <!ENTITY attachmentextractor.settings.skipidentical.label "Ignorer filer med samme størrelse">

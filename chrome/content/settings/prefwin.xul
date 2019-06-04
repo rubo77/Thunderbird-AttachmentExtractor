@@ -32,7 +32,7 @@
    - and other provisions required by the LGPL or the GPL. If you do not delete
    - the provisions above, a recipient may use your version of this file under
    - the terms of any one of the MPL, the GPL or the LGPL.
-   -  	
+   -		
    - ***** END LICENSE BLOCK ***** -->
 
 <?xml-stylesheet href="chrome://messenger/skin/prefPanels.css" type="text/css"?>
@@ -46,7 +46,7 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 		windowtype="attachmentextractor:preferences"
         title="&attachmentextractor.settings.windowtitle;"
-		style = "width:&attachmentextractor.settings.width;;"
+		style = "width:&attachmentextractor.settings.width;"
 		persist="screenX screenY width height">
 
 <stringbundleset id="extensionsSet">
@@ -58,29 +58,34 @@
 	image="chrome://attachmentextractor/skin/attachmentextractor.png"
 	src="chrome://attachmentextractor/content/settings/general.xul"/>
     
-  <prefpane id="paneAdvanced" 
-  	label="&attachmentextractor.settings.advancedtab.label;"
-	image="chrome://attachmentextractor/skin/advanced.png"
-	src="chrome://attachmentextractor/content/settings/advanced.xul"/>
-
-  <prefpane id="paneReport" 
-  	label="&attachmentextractor.settings.reporttab.label;"
-	image="chrome://attachmentextractor/skin/report.png"
-	src="chrome://attachmentextractor/content/settings/report.xul"/>
 
   <prefpane id="paneFilename" 
   	label="&attachmentextractor.settings.filenametab.label;"
 	image="chrome://attachmentextractor/skin/filename.png"
 	src="chrome://attachmentextractor/content/settings/filename.xul"/>
 
+  <prefpane id="panePost" 
+  	label="&attachmentextractor.settings.posttab.label;"
+	image="chrome://attachmentextractor/skin/after.png"
+	src="chrome://attachmentextractor/content/settings/post.xul"/>
+	
   <prefpane id="paneAuto" 
   	label="&attachmentextractor.settings.autotab.label;"
 	image="chrome://attachmentextractor/skin/auto.png"
 	src="chrome://attachmentextractor/content/settings/auto.xul"/>
 
+  <prefpane id="paneAdvanced" 
+  	label="&attachmentextractor.settings.advancedtab.label;"
+	image="chrome://attachmentextractor/skin/advanced.png"
+	src="chrome://attachmentextractor/content/settings/advanced.xul"/>
+
   <!--<prefpane id="paneAbout" 
   	label="&attachmentextractor.settings.abouttab.label;"
 	image="chrome://attachmentextractor/skin/config.png"
 	src="chrome://attachmentextractor/content/settings/about.xul"/>-->
+	<groupbox flex="1">
+		<label value="&attachmentextractor.settings.homepage.label;"/>
+		<label value="www.eviljeff.com/?page=moz-extensions" class="text-link" href="http://www.eviljeff.com/?page=moz-extensions"/>
+	</groupbox>
 
 </prefwindow>

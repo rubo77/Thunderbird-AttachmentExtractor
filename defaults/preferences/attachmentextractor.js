@@ -15,7 +15,7 @@
  *
  * The Initial Developer of the Original Code is
  * Andrew Williamson <eviljeff@eviljeff.com>.
- * Portions created by the Initial Developer are Copyright (C) 2005
+ * Portions created by the Initial Developer are Copyright (C) 2005-2009
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -34,7 +34,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
  
-// rememeber that prefs ending in numbers won't show up in debug log unless added to regex in createaedumpfile //
+// rememeber that prefs that start with numbers won't show up in debug log //
 
 pref("attachmentextractor.extract.mode",1);
 pref("attachmentextractor.extract.minimumsize",0);
@@ -71,6 +71,8 @@ pref("attachmentextractor.notifywhendone",true);
 pref("attachmentextractor.nextattachmentdelay",5);
 pref("attachmentextractor.nextmessagedelay",50);
 pref("attachmentextractor.defaultsavepath","");
+pref("attachmentextractor.defaultsavepath.relative","");
+pref("attachmentextractor.defaultsavepath.relative.key","");
 pref("attachmentextractor.savepathmru",true);
 pref("attachmentextractor.savepathmru.count",5);
 pref("attachmentextractor.setdatetoemail",false);
@@ -81,9 +83,18 @@ pref("attachmentextractor.firstuse.toolbarbutton",false);
 pref("extensions.{35834d20-efdb-4f78-ab77-9635fb4e56c4}.description","chrome://attachmentextractor/locale/attachmentextractor.properties");
 
 pref("attachmentextractor.skipidentical",false);
+pref("attachmentextractor.suggestfolder",false);
+pref("attachmentextractor.suggestfolder.parent",true);
+pref("attachmentextractor.suggestfolder.excludekeywords",""); 
+pref("attachmentextractor.suggestfolder.disregardduplicates",true);
+pref("attachmentextractor.suggestfolder.maxmatches",10);
+
+pref("attachmentextractor.fixdetachedimages",false);
 
 pref("attachmentextractor.autoextract",false);
 pref("attachmentextractor.autoextract.savepath","");
+pref("attachmentextractor.autoextract.savepath.relative","");
+pref("attachmentextractor.autoextract.savepath.relative.key","");
 pref("attachmentextractor.autoextract.ontriggeronly",true);
 pref("attachmentextractor.autoextract.triggertag","ae_autoextract");
 pref("attachmentextractor.autoextract.cleartag",false);
@@ -97,6 +108,8 @@ pref("attachmentextractor.autoextract.delete",false);
 pref("attachmentextractor.autoextract.detach",false);
 pref("attachmentextractor.autoextract.detach.mode",1);
 pref("attachmentextractor.autoextract.overwritepolicy",2);
+pref("attachmentextractor.autoextract.onattachmentsonly",true);
+pref("attachmentextractor.autoextract.filenamepattern","");
 
 pref("attachmentextractor.reportgen",false);
 pref("attachmentextractor.reportgen.cssfile", "");

@@ -48,7 +48,12 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 	  
 	  this.lastMadeAppendage=null;
 	  this.currentfilenamepattern=currentfilenamepattern;
-	  this.prefs = (aewindow)? aewindow.attachmentextractor.prefs : new Object();
+	  this.prefs = (aewindow)? aewindow.prefs : new Object();
+	  
+	  this.OVERWRITEPOLICY_ASK=0;
+	  this.OVERWRITEPOLICY_REPLACE=1;
+	  this.OVERWRITEPOLICY_RENAME=2;
+	  this.OVERWRITEPOLICY_IGNORE=3;	
 	}
 	
 	AttachmentFileMaker.AttachmentFileMakerCache=function() {
@@ -65,18 +70,16 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 	
 	AttachmentFileMaker.prototype.make=function (filename,metacache) {	
 		if (!filename) return false;
-		var folder=this.destFolder;
 		
 		var proposedfileobject = aewindow.fileObject;
 		var count_pattern=this.prefs.get("filenamepattern.countpattern");
 		
-		proposedfileobject.initWithFile(folder);
+		proposedfileobject.initWithFile(this.destFolder);
 		//aewindow.aedump("cfnp: "+this.currentfilenamepattern);
-		
-		var proposedappendage = this.substitutetokens(this.currentfilenamepattern.replace(/#count#/g,""),folder,filename,0,metacache);
+		var proposedappendage = this.substitutetokens(this.currentfilenamepattern.replace(/#count#/g,""),this.destFolder,filename,0,metacache);
 		proposedfileobject.appendRelativePath(proposedappendage);
 		
-		if (aewindow.currentTask.overwritePolicy == aewindow.attachmentextractor.OVERWRITEPOLICY_REPLACE) {
+		if (aewindow.currentTask.overwritePolicy == this.OVERWRITEPOLICY_REPLACE) {
 			aewindow.aedump(">> '"+proposedappendage+"' - replace so no need to check.  proceed\n",1);
 			this.lastMadeAppendage=proposedappendage;
 			return proposedfileobject;
@@ -87,28 +90,24 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 			this.lastMadeAppendage=proposedappendage;
 			return proposedfileobject;
 		}
-		else if (aewindow.currentTask.overwritePolicy == aewindow.attachmentextractor.OVERWRITEPOLICY_IGNORE) {
+		else if (aewindow.currentTask.overwritePolicy == this.OVERWRITEPOLICY_IGNORE) {
 			aewindow.aedump(">> '"+proposedappendage+"' exists and policy is to skip so abort extraction\n",1);
 			return false;
 		}
-		else if (aewindow.currentTask.overwritePolicy == aewindow.attachmentextractor.OVERWRITEPOLICY_ASK) {
-			var extbundle = aewindow.attachmentextractor.aeStringBundle;
+		else if (aewindow.currentTask.overwritePolicy == this.OVERWRITEPOLICY_ASK) {
+			var flags=aewindow.promptService.BUTTON_TITLE_IS_STRING * aewindow.promptService.BUTTON_POS_0 +
+				  	  aewindow.promptService.BUTTON_TITLE_IS_STRING * aewindow.promptService.BUTTON_POS_1 +
+				  	  aewindow.promptService.BUTTON_TITLE_IS_STRING * aewindow.promptService.BUTTON_POS_2;
 				
-			var promptService = aewindow.attachmentextractor.promptService;
-			var flags=promptService.BUTTON_TITLE_IS_STRING * promptService.BUTTON_POS_0 +
-				  promptService.BUTTON_TITLE_IS_STRING * promptService.BUTTON_POS_1 +
-				  promptService.BUTTON_TITLE_IS_STRING * promptService.BUTTON_POS_2;
-	
-			var dmessage= extbundle.GetStringFromName("OverwriteDialogMessage").replace(/%/g,proposedappendage);
 			var checkedstate={};
-			var selectedbutton= promptService.confirmEx(window,
-									extbundle.GetStringFromName("OverwriteDialogTitle"),
-									dmessage,
+			var selectedbutton= aewindow.promptService.confirmEx(window,
+									aewindow.aeStringBundle.GetStringFromName("OverwriteDialogTitle"),
+									aewindow.aeStringBundle.GetStringFromName("OverwriteDialogMessage").replace(/%/g,proposedappendage),
 									flags, 
-									extbundle.GetStringFromName("OverwriteDialogReplace"), 
-									extbundle.GetStringFromName("OverwriteDialogRename"), 
-									extbundle.GetStringFromName("OverwriteDialogIgnore"), 
-									extbundle.GetStringFromName("OverwriteDialogDontAskAgain"), 
+									aewindow.aeStringBundle.GetStringFromName("OverwriteDialogReplace"), 
+									aewindow.aeStringBundle.GetStringFromName("OverwriteDialogRename"), 
+									aewindow.aeStringBundle.GetStringFromName("OverwriteDialogIgnore"), 
+									aewindow.aeStringBundle.GetStringFromName("OverwriteDialogDontAskAgain"), 
 									checkedstate);
 			if (checkedstate.value==true) {
 				this.prefs.set("overwritepolicy",selectedbutton+1);
@@ -118,14 +117,14 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 				return proposedfileobject;
 			}
 			if (selectedbutton==1) { 
-				return this.iterativegenerator(folder, filename ,proposedfileobject,this.currentfilenamepattern.replace(/#count#/g,count_pattern),1,metacache);					
+				return this.iterativegenerator(this.destFolder, filename ,proposedfileobject,this.currentfilenamepattern.replace(/#count#/g,count_pattern),1,metacache);					
 			}
 			if (selectedbutton==2) { 
 				return false;
 			}
 			return false;
 		}
-		else return this.iterativegenerator(folder, filename ,proposedfileobject,this.currentfilenamepattern.replace(/#count#/g,count_pattern),1,metacache);	
+		else return this.iterativegenerator(this.destFolder, filename ,proposedfileobject,this.currentfilenamepattern.replace(/#count#/g,count_pattern),1,metacache);	
 	};
 	 
 	  
@@ -157,6 +156,9 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 	AttachmentFileMaker.prototype.FULLMONTHS=Array("January","Febuary","March","April","May","June","July","August","September","October","November","December");
 	AttachmentFileMaker.prototype.AMPM=Array("AM","PM","am","pm");
 
+	/*AttachmentFileMaker.prototype.dateStringBundle=(Components.classes["@mozilla.org/intl/stringbundle;1"].getService()).
+													QueryInterface(Components.interfaces.nsIStringBundleService).
+													createBundle("chrome://global/dateFormat.properties");*/
 	// <?php
 	/*AttachmentFileMaker.prototype.padZeros=function(num, length) {
 		num=num.toString();             
@@ -183,6 +185,7 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 				case "w": out+=date.getDay(); break;
 				//month
 				case "F": out+=this.FULLMONTHS[date.getMonth()]; break;
+							  /*(this.dateStringBundle.GetStringFromName("month."+(date.getMonth()+1)+".name"));*/
 				case "m": out+=(tmp=date.getMonth()+1)<10?"0"+tmp:tmp; break;
 				case "M": out+=this.SHORTMONTHS[date.getMonth()]; break;
 				case "n": out+=date.getMonth()+1; break;
@@ -219,9 +222,7 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 	  };*/
 	  // ?>
 	  
-	AttachmentFileMaker.prototype.iterativegenerator=function(folder,file,proposedfileobject,filename_pattern,count,cache)
-	  {
-
+	AttachmentFileMaker.prototype.iterativegenerator=function(folder,file,proposedfileobject,filename_pattern,count,cache) {
 		var proposedappendage;
 		do {
 			proposedfileobject.initWithFile(folder);
@@ -234,8 +235,7 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 		return proposedfileobject;
 	};
 	
-	AttachmentFileMaker.prototype.substitutetokens_sub=function(stringin,folder,filename,count,cache)
-	{
+	AttachmentFileMaker.prototype.substitutetokens_sub=function(stringin,folder,filename,count,cache) {
 		var extpart="";
 		if ((stringin.indexOf("#namepart#")> -1) || (stringin.indexOf("#extpart#")> -1)) {
 			var namepart;
@@ -343,8 +343,12 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 		  else return fnp+"#count#";
 	};
 	
+	AttachmentFileMaker.prototype.isValidCountPattern=function(cp) {
+		  return (cp && (cp.indexOf("%")!=-1));
+	};
+	
 	AttachmentFileMaker.prototype.fixCountPattern=function(cp) {
-		  return (cp.indexOf("%")!=-1)? cp : cp+"%";
+		  return (!cp || this.isValidCountPattern(cp))? cp : cp+"%";
 	};
 	  
 	  /* *** contribution below from Matteo F Zazzetta.  Support functions to rewritten validateFilename() 
@@ -395,7 +399,7 @@ dump("##AttachmentFileMaker Prototype Definition start##\n");
 		  count = ""+count;    
 		  if (navigator.appVersion.indexOf("Windows") != -1) {
 			aFileName = aFileName.replace(/[\"]+/g, "'")			/*  " = '			*/
-								 .replace(/[\*\:\?]+/g, " ")  		/*  * : ? = 		*/
+								 .replace(/[\*\:\?\t\v]+/g, " ")  	/*  * : ? tab vtab = 	*/
 								 .replace(/[\<]+/g, "(")			/*  < = (			*/
 								 .replace(/[\>]+/g, ")")			/*  > = )			*/
 								 .replace(/[\/\|]+/g, "_");        	/*  /| = _ 		    */

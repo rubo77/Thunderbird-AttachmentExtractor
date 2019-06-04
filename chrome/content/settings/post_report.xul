@@ -16,10 +16,10 @@
    -
    - The Initial Developer of the Original Code is
    - Andrew Williamson <eviljeff@eviljeff.com>.
-   - Portions created by the Initial Developer are Copyright (C) 2007
+   - Portions created by the Initial Developer are Copyright (C) 2006-2009
    - the Initial Developer. All Rights Reserved.
    -
-   - Contributor(s):
+   - Contributor(s): 
    -
    - Alternatively, the contents of this file may be used under the terms of
    - either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -35,30 +35,37 @@
    -
    - ***** END LICENSE BLOCK ***** -->
 
-<!DOCTYPE overlay SYSTEM "chrome://attachmentextractor/locale/attachmentextractor-prefs.dtd" >
+<?xml-stylesheet href="chrome://messenger/skin/prefPanels.css" type="text/css"?>
+<?xml-stylesheet href="chrome://attachmentextractor/skin/attachmentextractor.css" type="text/css"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
-<overlay id="aereportprefsOverlay"
-         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<!DOCTYPE dialog SYSTEM "chrome://attachmentextractor/locale/attachmentextractor-prefs.dtd" >
 
-<script type="application/x-javascript" src="chrome://attachmentextractor/content/settings/prefwin.js"/>
-<script type="application/x-javascript" src="chrome://attachmentextractor/content/attachmentextractor.js"/>
-	
-<prefpane id="paneReport" onpaneload="onReportPaneLoad(event)">
-	
-    <preferences>
-      <preference id="pref_reportgen" name="attachmentextractor.reportgen" type="bool"/>
-	  <preference id="pref_reportgenthumbnail" name="attachmentextractor.reportgen.thumbnail" type="bool"/>
-	  <preference id="pref_reportgenembedcss"  name="attachmentextractor.reportgen.embedcss" type="bool"/>
-	  <preference id="pref_reportgenreportname" name="attachmentextractor.reportgen.reportname" type="string"/>
-	  <preference id="pref_reportgencssfile" name="attachmentextractor.reportgen.cssfile" type="file"/>
- 	</preferences>
-	
+<prefwindow
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  type="child"
+  id="attachmentextractorPreferencesReport"
+  title="&attachmentextractor.settings.reporttab.label;"
+  persist="screenX screenY width height"
+  windowtype="attachmentextractor:preferences:sub"
+  dlgbuttons="accept,cancel">
+  
+  <script type="application/x-javascript" src="chrome://attachmentextractor/content/settings/prefwin.js"/>
+  
+  <prefpane id="ReportDialogPane">
+	<preferences>
+		<preference id="pref_reportgenthumbnail" name="attachmentextractor.reportgen.thumbnail" type="bool"/>
+		<preference id="pref_reportgenembedcss"  name="attachmentextractor.reportgen.embedcss" type="bool"/>
+		<preference id="pref_reportgenreportname" name="attachmentextractor.reportgen.reportname" type="string"/>
+		<preference id="pref_reportgencssfile" name="attachmentextractor.reportgen.cssfile" type="file"/>  
+		</preferences>
+	<stringbundleset id="extensionsSet">
+    	<stringbundle id="aestrbundle" src="chrome://attachmentextractor/locale/attachmentextractor.properties"/>
+	</stringbundleset>
+
 	<groupbox>
 		<caption label="&attachmentextractor.settings.reportgen.caption;" />
-		<checkbox id="reportgen" 
-			preference="pref_reportgen" 
-			label="&attachmentextractor.settings.reportgen.label;"
-			accesskey="&attachmentextractor.settings.reportgen.accesskey;" />
+		
 		<hbox align="center">
 			<label value="&attachmentextractor.settings.reportgen.reportname2.label;"/>
 			<textbox id="reportname" preftype="char"  flex="1" preference="pref_reportgenreportname"/>
@@ -70,9 +77,9 @@
 		<groupbox>
 			<caption label="&attachmentextractor.settings.reportgen.cssfile.caption;"/>
 			<hbox>
-				<textbox id="reportgencssfile" flex="1" size="50" readonly="true"/>
+				<textbox id="reportgencssfile" flex="1" size="50" readonly="true" preference="pref_reportgencssfile" onsyncfrompreference="return syncFromFilePref('pref_reportgencssfile');"/>
 				<button type="button" 
-					oncommand="browseForCss('pref_reportgencssfile','reportgencssfile');" 
+					oncommand="browseForCss('pref_reportgencssfile');" 
 					id="browsebutton"
 					label="&attachmentextractor.settings.savefolder.browsebutton;"/>
 			</hbox>
@@ -82,7 +89,6 @@
 			  	accesskey="&attachmentextractor.settings.reportgen.embedcss.accesskey;" />
 		</groupbox>
 	</groupbox>
-
-	<label value=" "/>
+    
   </prefpane>
-</overlay>
+</prefwindow>

@@ -35,110 +35,141 @@
  * ***** END LICENSE BLOCK ***** */
 
 var aewindow= {
-	currentTask:null,
-	queuedTasks:new Array(),
+	/* task variables */
+	_tasks:new Array(),
+	get currentTask() {/*aedump("[l:"+this._tasks.length+","+arguments.callee.caller.name+"]");*/ return this._tasks.length==0?null:this._tasks[0];},
+	get remainingTasks() {return this._tasks.length-1;},
+	addTask: function (t) {this.aedump('{function:AEWindow.addtask}\n');this._tasks.push(t);},
+	nextTask: function () {this.aedump('{function:AEWindow.nexttask}\n');if (this._tasks.length>0) {this._tasks[0].tidyUp(); this._tasks.shift();} return;},
+	
+	/* shared objects */
 	progress_tracker:null,
-	attachmentextractor:null,
 	messenger:null,
-	aedump: {},
 	prefs: null,
 	
-	filecomponent:Components.classes["@mozilla.org/file/local;1"],
-    fileinterface:Components.interfaces.nsILocalFile,
-	nsMsgViewCommandType:Components.interfaces.nsMsgViewCommandType,
-	
-	supportsarraycomponent:Components.classes['@mozilla.org/supports-array;1'],
-	supportsarrayinterface:Components.interfaces.nsISupportsArray,
-	arraycomponent:Components.classes['@mozilla.org/array;1'],
-	mutablearrayinterface:Components.interfaces.nsIMutableArray,
-	
-	get fileObject() {return this.filecomponent.createInstance(this.fileinterface);},
-	get nsIArray() {
-		return (this.tb3)?  this.arraycomponent.createInstance(this.mutablearrayinterface):
-							this.supportsarraycomponent.createInstance(this.supportsarrayinterface);  		
-	},
-	get tb3() {return this.messenger.saveAttachmentToFile!=null;},
+	/* classes */
 	AEMessage:{},
+	AETask: {},
+	AEMsgDBViewCommandUpdater: function () {},
+	
+	/* useful get functions */
+	get tb3() {return this.messenger.saveAttachmentToFile!=null;},
+	get taskWaiting() {return (window.opener&&window.opener.attachmentextractor)?window.opener.attachmentextractor.queuedTasks.length>0:false;},
+	get currentMessage() {
+		return (this._tasks.length>0)?this._tasks[0].currentMessage:null;
+	},
+	
+	_filecomponent:Components.classes["@mozilla.org/file/local;1"],
+    _fileinterface:Components.interfaces.nsILocalFile,
+	get fileObject() {return this._filecomponent.createInstance(this._fileinterface);},
+	
+	_supportsarraycomponent:Components.classes['@mozilla.org/supports-array;1'],
+	_supportsarrayinterface:Components.interfaces.nsISupportsArray,
+	_arraycomponent:Components.classes['@mozilla.org/array;1'],
+	_mutablearrayinterface:Components.interfaces.nsIMutableArray,
+	get nsIArray() {
+		return (this.tb3)?  this._arraycomponent.createInstance(this._mutablearrayinterface):
+							this._supportsarraycomponent.createInstance(this._supportsarrayinterface);  		
+	},
+		
+	_fileStatusHbox:null,
+	set fileStatusVisible(v) {
+		if (v) this._fileStatusHbox.removeAttribute('hidden');
+    	else this._fileStatusHbox.setAttribute('hidden',true);
+    },
+	get fileStatusVisible() {
+		return this._fileStatusHbox.getAttribute('hidden');
+	},
+
+	get messagePane() {
+		return document.getElementById("aemessagepane");
+	},
+	
+	/* useful utility functions */
+	aedump: {},
 	
 	arraycompact: function(array) {
-		var out=new Array();
-		for (var i=0;i<array.length;i++) {if (!(array[i]===undefined)) out.push(array[i]);}
-		return out;
+		return array.filter(function(item){return (item!==undefined);});
   	},
-	
+
 	DOWNLOADMANAGER_RETENTION_PREFNAME :"browser.download.manager.retention",
 	DOWNLOADMANAGER_SHOWWINDOW_PREFNAME:"browser.download.manager.showWhenStarting" //openDelay
 };
 
 aewindow.init=function() {
-    if (aewindow.progress_tracker) return; //already been set so abort
+    if (aewindow.progress_tracker) return null; //already been set so abort
     aewindow.progress_tracker=progress_tracker;
-    aewindow.attachmentextractor=attachmentextractor;
-    aewindow.prefs=attachmentextractor.prefs;
+    aewindow.prefs=new AEPrefs();
     aewindow.aedump=aedump;
     aewindow.AEMessage=AEMessage;
     window.onerror=aewindow.errorCatcher;
 	var Cc=Components.classes;
     var Ci=Components.interfaces;
-  
-    aewindow.messenger = Cc["@mozilla.org/messenger;1"].createInstance().QueryInterface(Ci.nsIMessenger);
+    
+	aewindow.messenger = Cc["@mozilla.org/messenger;1"].createInstance().QueryInterface(Ci.nsIMessenger);
 	aewindow.msgWindow = Cc["@mozilla.org/messenger/msgwindow;1"].createInstance().QueryInterface(Ci.nsIMsgWindow);
  	aewindow.mailSession = Cc["@mozilla.org/messenger/services/session;1"].getService(Ci.nsIMsgMailSession);
-			
-	aewindow.startTime=(new Date()).getTime();
-    		
-	if ("arguments" in window && window.arguments.length > 0) {
-		var task=new AETask(window.arguments[0],window.arguments[1],window.arguments[2],aewindow, 
-							window.arguments[3],window.arguments[4],window.arguments[5]);
-		aewindow.queuedTasks.push(task);
-		aewindow.consumeAETask();
-    } else window.close();
-}
+	aewindow._fileStatusHbox=document.getElementById("status_file_hbox")
+	aewindow.promptService = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
+	aewindow.strBundleService = (Cc["@mozilla.org/intl/stringbundle;1"].getService()).QueryInterface(Ci.nsIStringBundleService);
+		
+	aewindow.aeStringBundle=aewindow.strBundleService.createBundle("chrome://attachmentextractor/locale/attachmentextractor.properties");
+	aewindow.messengerStringBundle=aewindow.strBundleService.createBundle("chrome://messenger/locale/messenger.properties");
 	
+	aewindow.startTime=(new Date()).getTime();
+	
+	if ("arguments" in window && window.arguments.length > 0) {
+		var task=new aewindow.AETask(window.arguments[0],window.arguments[1],window.arguments[2],aewindow, 
+							window.arguments[3],window.arguments[4],window.arguments[5]);
+		aewindow.addTask(task);
+		if (!aewindow.currentTask.initialize()) return aewindow.consumeAETask();
+		aewindow.currentTask.start();
+    } else window.close();
+	return null;
+}
+
 aewindow.uninit=function() {
-	if (!aewindow.currentTask) return;
-	aewindow.currentTask.tidyUp();
+	aewindow.aedump('{function:AEWindow.uninit}\n',2);
+	aewindow.nextTask();
 }
 
 aewindow.errorCatcher=function(message,url,number) {
   try{
 	aewindow.aedump("// error thrown: '"+message+"' @ line:"+number+" in "+url+"\n",0);
 	var pwindow=(aewindow.progress_tracker)?aewindow.progress_tracker.getWindowByType("mail:3pane"):window;
-	var bundle=aewindow.attachmentextractor.aeStringBundle;
-	aewindow.attachmentextractor.promptService.alert(pwindow,
-			bundle.GetStringFromName("GenericErrorDialog"),
-			bundle.GetStringFromName("GenericErrorMessage2"));
+	aewindow.promptService.alert(pwindow,
+			aewindow.aeStringBundle.GetStringFromName("GenericErrorDialog"),
+			aewindow.aeStringBundle.GetStringFromName("GenericErrorMessage2")+"\n\n"+message);
   }catch (e) {aewindow.aedump("// Catch 22: Error in the error catcher! : "+e+"\n",0);}
   window.close();
-}	
+}
 
 aewindow.consumeAETask=function() {
-	aewindow.aedump('{function:consumeAETask}\n',2);
-	if (aewindow.currentTask) aewindow.currentTask.tidyUp();
-	aewindow.currentTask=(aewindow.queuedTasks.length==0)? null : aewindow.queuedTasks.shift();
+	aewindow.aedump('{function:AEWindow.consumeAETask}\n',2);
+	aewindow.nextTask();
+	aewindow.aedump('current task: '+aewindow.currentTask+"\n",2);
 	if (!aewindow.currentTask) {
+		aewindow.aedump("// AEDialog close.\n",2);
 		window.close();
 		//aewindow.aedump("// timespent: "+(((new Date).getTime())-aewindow.startTime)+" \n");
 		return null;
-	}
+	}	
 	if (!aewindow.currentTask.initialize()) return aewindow.consumeAETask();
-	aewindow.aedump(aewindow.currentTask+"\n",2);
 	aewindow.currentTask.start();
 	return null;
 };
-	
+
 /* ****************************** AETask ******************************************************** */
 
-function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,isBackground,justDeleteAttachments) {
+aewindow.AETask = function (savefolder,selectedMsgs,filenamepattern,aewindow,originalView,isBackground,justDeleteAttachments) {
   // utility functions
-  var prefs = aewindow.attachmentextractor.prefs;
+  var prefs = aewindow.prefs;
   
   //public vars
   /* this.membername=value */
-  if (!filenamepattern) filenamepattern=prefs.get("filenamepattern");
-  this.filemaker=(justDeleteAttachments? null : new AttachmentFileMaker(filenamepattern,savefolder,aewindow));
+  if (isBackground && !filenamepattern) filenamepattern=prefs.get("autoextract.filenamepattern");
+  if (!filenamepattern || filenamepattern=="") filenamepattern=prefs.get("filenamepattern");
   this.currentMessage=null;
-  this.currentDisplayedURI=null;
   this.currentUrl=null;
   this.detachCancellationTimeout=null;
   this.listeningforMessageId="";
@@ -150,7 +181,7 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
   this.isLaunchEnabled        = (!justDeleteAttachments && prefs.get(isBackground?"autoextract.launch":"actionafterextract.launch"));
   this.isDetachEnabled        = (justDeleteAttachments || prefs.get(isBackground?"autoextract.detach":"actionafterextract.detach"));
   this.isCleartagEnabled      = (isBackground && (prefs.get("autoextract.ontriggeronly") && prefs.get("autoextract.cleartag")));
-  this.isNotifywhendoneEnabled= (!isBackground && (selectedURIs.length>1 && prefs.get("notifywhendone")));
+  this.isNotifywhendoneEnabled= (!isBackground && (selectedMsgs.length>1 && prefs.get("notifywhendone")));
   this.isEndLaunchEnabled     = (!justDeleteAttachments && prefs.get(isBackground?"autoextract.endlaunch":"actionafterextract.endlaunch"));
   this.overwritePolicy        = (prefs.get(isBackground?"autoextract.overwritepolicy":"overwritepolicy"));
   this.detachMode             = (justDeleteAttachments? 1 : prefs.get(isBackground?"autoextract.detach.mode":"actionafterextract.detach.mode"));
@@ -175,34 +206,39 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
   function initialize() {
 	if (initialized) return true;
 	aewindow.aedump('{function:AETask.initialize}\n',2);
-	if (!selectedURIs || selectedURIs.length==0 ) {
+	this.filemaker=(justDeleteAttachments? null : new AttachmentFileMaker(filenamepattern,savefolder,aewindow));
+  
+	if (!selectedMsgs || selectedMsgs.length==0 ) {
 		aewindow.aedump("// ae aborted because no messages selected.\n",0);
 		return false;		
 	}
-	if (!selectedURIs && !justDeleteAttachments) {
+	if (!savefolder && !justDeleteAttachments) {
 		aewindow.aedump("// ae aborted because no save path passed on.\n",0);
 		return false;		
 	}
 	if (isBackground && justDeleteAttachments) {
 		aewindow.aedump("// ae aborted as you can't currently just delete attachments on auto-extract.\n",0);
-		return false;		
+		return false;	
 	}
-	if (this.confirmDetach && !aewindow.attachmentextractor.promptService.confirm(
+	if (this.confirmDetach && !aewindow.promptService.confirm(
 		aewindow.progress_tracker.getWindowByType("mail:3pane"),
-		aewindow.attachmentextractor.aeStringBundle.GetStringFromName("ConfirmDetachDialogTitle"),
-		aewindow.attachmentextractor.aeStringBundle.GetStringFromName("ConfirmDetachDialogMessage"))) {
+		aewindow.aeStringBundle.GetStringFromName("ConfirmDetachDialogTitle"),
+		aewindow.aeStringBundle.GetStringFromName("ConfirmDetachDialogMessage"))) {
 			aewindow.aedump("// ae aborted detach confirmation cancelled.\n",1);
 			return false;
 	}
-	window.MsgWindowCommands = new AEMsgWindowCommands(that); 
-	// new aewindow.currentTask.nsMsgWindowCommands();  
-	//aewindow.msgWindow.windowCommands = new nsMsgWindowCommands();//not in 1.8 branch, only trunk.
+	currentviewpref=prefs.get("mailnews.display.html_as","");
+    downloadwindowpref=prefs.get(aewindow.DOWNLOADMANAGER_RETENTION_PREFNAME,"");
+    downloadwindowdelay=prefs.get(aewindow.DOWNLOADMANAGER_SHOWWINDOW_PREFNAME,"");
+    compactfolderspref=prefs.get("mail.prompt_purge_threshhold","");
+	
+	window.MsgWindowCommands = that;//new AEMsgWindowCommands(that); 
 	
 	if (originalView) {
-	aewindow.gDBView = originalView.cloneDBView(aewindow.messenger, aewindow.msgWindow, new aeMsgDBViewCommandUpdater());
+		aewindow.gDBView = originalView.cloneDBView(aewindow.messenger, aewindow.msgWindow, new aewindow.AEMsgDBViewCommandUpdater());
 	}else {
 		aewindow.gDBView = Cc["@mozilla.org/messenger/msgdbview;1?type=threaded"].createInstance(Ci.nsIMsgDBView);
-		aewindow.gDBView.init(aewindow.messenger, aewindow.msgWindow, new aeMsgDBViewCommandUpdater());
+		aewindow.gDBView.init(aewindow.messenger, aewindow.msgWindow, new aewindow.AEMsgDBViewCommandUpdater());
 	}
 	if (aewindow.msgWindow.SetDOMWindow) aewindow.msgWindow.SetDOMWindow(window); //tb2
 	else aewindow.msgWindow.domWindow = window;  //tb3
@@ -210,30 +246,27 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
 	aewindow.msgWindow.msgHeaderSink = that;
 	aewindow.mailSession.AddMsgWindow(aewindow.msgWindow); 
 	
-	if (aewindow.messenger.SetWindow) aewindow.messenger.SetWindow(document.getElementById("aemessagepane").contentWindow, aewindow.msgWindow); //tb2
-	else aewindow.messenger.setWindow(document.getElementById("aemessagepane").contentWindow, aewindow.msgWindow); //tb3
-	aewindow.msgWindow.rootDocShell.appType = Ci.nsIDocShell.APP_TYPE_MAIL;
+	/*if (!aewindow.messagePane || !aewindow.messagePane.contentWindow) {
+		aewindow.aedump("// aemessagepane not found.  Dialog already closed.\n",1);
+		return false;
+	}*/
+	if (aewindow.messenger.SetWindow) aewindow.messenger.SetWindow(aewindow.messagePane.contentWindow, aewindow.msgWindow); //tb2
+	else aewindow.messenger.setWindow(aewindow.messagePane.contentWindow, aewindow.msgWindow); //tb3
+	aewindow.msgWindow.rootDocShell.appType = Ci.nsIDocShell.APP_TYPE_MAIL; 
 	aewindow.msgWindow.rootDocShell.allowPlugins = false;
 	aewindow.msgWindow.rootDocShell.allowJavascript = false;
 	if (prefs.get("dontloadimages")) {
 		aewindow.msgWindow.rootDocShell.allowImages = false;
-		document.getElementById("aemessagepane").docShell.allowImages = false;
+		aewindow.messagePane.docShell.allowImages = false;
 	}
 	initialized=true;
-	
-    currentviewpref=prefs.get("mailnews.display.html_as","");
-    downloadwindowpref=prefs.get(aewindow.DOWNLOADMANAGER_RETENTION_PREFNAME,"");
-    downloadwindowdelay=prefs.get(aewindow.DOWNLOADMANAGER_SHOWWINDOW_PREFNAME,"");
-    compactfolderspref=prefs.get("mail.prompt_purge_threshhold","");
-	
+	  
 	Cc["@mozilla.org/messenger/services/session;1"].getService(Ci.nsIMsgMailSession).AddFolderListener(that, Ci.nsIFolderListener.added);
 	
 	// just check the first uri.  if its rss then show the third progress bar.
-    if (aewindow.messenger.msgHdrFromURI(selectedURIs[0]).folder.server.type=="rss") {
-	  document.getElementById("status_file_hbox").removeAttribute('hidden');
-    } else {
-	  document.getElementById("status_file_hbox").setAttribute('hidden',true);
-    }
+	//aewindow.aedump(selectedMsgs+selectedMsgs[0]+"\n");
+    aewindow.fileStatusVisible=(selectedMsgs[0].folder && selectedMsgs[0].folder.server.type=="rss");
+	//aewindow.fileStatusVisible=(aewindow.messenger.msgHdrFromURI(selectedURIs[0]).folder.server.type=="rss");
 	return true;
   }
   this.initialize=initialize;
@@ -259,16 +292,14 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
 	aewindow.aedump('{function:AETask.selectNextMessage}\n',2);
 	if (currentindex>-1 && that.isEndLaunchEnabled) that.storeSavedFiles();
 	currentindex++;
-	if (currentindex==selectedURIs.length) {
+	if (currentindex==selectedMsgs.length) {
 		that.endAttachmentextraction();
 	}
 	else {
       try{		
-		var uri=selectedURIs[currentindex];
-		that.currentDisplayedURI=uri;
-		that.currentMessage=new aewindow.AEMessage(uri,currentindex,aewindow);
-		aewindow.progress_tracker.starting_message(currentindex,selectedURIs.length);	
-		var uriFolder=aewindow.messenger.msgHdrFromURI(uri).folder;
+		var msg=selectedMsgs[currentindex];
+		that.currentMessage=new aewindow.AEMessage(msg,currentindex,aewindow);
+		aewindow.progress_tracker.starting_message(currentindex,selectedMsgs.length);	
 		//var changeFolder=isBackground;
 		//var changeFolder=(aewindow.gDBView.searchSession==null)
 		var changeFolder=true;
@@ -278,19 +309,19 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
 		} catch (e) {aewindow.aedump("//ae: can safely change folder: "+changeFolder+"\n",3);}
 		
 		//aewindow.aedump("// current Folder: "+aewindow.gDBView.msgFolder.name+"\n");
-		if (changeFolder&&aewindow.gDBView.msgFolder!=uriFolder) {
+		if (changeFolder&&aewindow.gDBView.msgFolder!=msg.folder) {
 			aewindow.aedump("// ae: folder different so open new folder\n",3);
-			var msgDatabase = uriFolder.getMsgDatabase(aewindow.msgWindow);
-			var sortType=(msgDatabase)?msgDatabase.dBFolderInfo.sortType:aewindow.gDBView.sortType;
-			var sortOrder=(msgDatabase)?msgDatabase.dBFolderInfo.sortOrder:aewindow.gDBView.sortOrder;
-			var viewFlags=(msgDatabase)?msgDatabase.dBFolderInfo.viewFlags:aewindow.gDBView.viewFlags;
+			var msgDb = (msg.folder.msgDatabase)?msg.folder.msgDatabase : msg.folder.getMsgDatabase(aewindow.msgWindow); 
+			var sortType=(msgDb)?msgDb.dBFolderInfo.sortType:aewindow.gDBView.sortType;
+			var sortOrder=(msgDb)?msgDb.dBFolderInfo.sortOrder:aewindow.gDBView.sortOrder;
+			var viewFlags=(msgDb)?msgDb.dBFolderInfo.viewFlags:aewindow.gDBView.viewFlags;
 			var count=new Object();
-			aewindow.gDBView.open(uriFolder,sortType,sortOrder,viewFlags,count);
+			aewindow.gDBView.open(msg.folder,sortType,sortOrder,viewFlags,count);
 		} else aewindow.aedump("// ae: folder same so no need to open\n",3);
 	
-		var msgkey=aewindow.messenger.msgHdrFromURI(uri).messageKey;
+		var msgkey=msg.messageKey;
 		var vindex=aewindow.gDBView.findIndexFromKey(msgkey, true);
-		aewindow.aedump("[uri: "+uri+"; view index: "+vindex+"; folder: "+uriFolder.name+"]\n",1);
+		aewindow.aedump("[msgkey: "+msgkey+"; view index: "+vindex+"; folder: "+(msg.folder?msg.folder.name:null)+"]\n",1);
 		//aewindow.gDBView.selectMsgByKey(msgkey); //disabled 5/1/07 to fix del/det bug
 		aewindow.gDBView.loadMessageByViewIndex(vindex);
 	  }catch (e) {
@@ -314,7 +345,7 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
 		var pref=(isBackground?"autoextract":"actionafterextract")+".endlaunch.application";
 		if (prefs.hasUserValue(pref)&& savedFiles.length>0) {
 		  try{ 
-		    var exec=prefs.getComplex(pref, Ci.nsILocalFile);
+		    var exec=prefs.getFile(pref);
 			var process=Cc["@mozilla.org/process/util;1"].createInstance(Ci.nsIProcess);
 			aewindow.aedump("// Launching external App ... '"+exec.leafName+"' with '"+savedFiles+"'\n",3);
 			process.init(exec);
@@ -325,17 +356,17 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
 		}
 	}
 	setTimeout(aewindow.consumeAETask,1);
-	if (that.isNotifywhendoneEnabled&&aewindow.queuedTasks.length==0) 
+	if (that.isNotifywhendoneEnabled&&aewindow.remainingTasks==0&&!aewindow.taskWaiting) 
 		aewindow.currentTask.alertCheck(
-			aewindow.attachmentextractor.aeStringBundle.GetStringFromName("DoneExtractingDialogTitle"),
-			aewindow.attachmentextractor.aeStringBundle.GetStringFromName("DoneExtractingDialogMessage"),
-			aewindow.attachmentextractor.aeStringBundle.GetStringFromName("DoneExtractingDialogNotifyAgain"),
+			aewindow.aeStringBundle.GetStringFromName("DoneExtractingDialogTitle"),
+			aewindow.aeStringBundle.GetStringFromName("DoneExtractingDialogMessage"),
+			aewindow.aeStringBundle.GetStringFromName("DoneExtractingDialogNotifyAgain"),
 			'notifywhendone',
 			true);
 	//window.close();
   };
   
-  this.tidyUp = function() {  
+  this.tidyUp = function() { 
     if (!initialized) return;
 	aewindow.aedump('{function:AETask.tidyUp}\n',2);
 	if (that.currentMessage) that.currentMessage.cancel();
@@ -357,11 +388,11 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
 	
 	aewindow.progress_tracker.ended_extraction();
   }
-  
+
   this.alertCheck= function(titletext,messagetext,dontasktext,pref,prefvalue){
 	var checkResult = {value:prefvalue};
 	var pwindow=aewindow.progress_tracker.getWindowByType("mail:3pane");
-	aewindow.attachmentextractor.promptService.alertCheck(pwindow,titletext,messagetext,dontasktext,checkResult);
+	aewindow.promptService.alertCheck(pwindow,titletext,messagetext,dontasktext,checkResult);
 	prefs.set(pref,checkResult.value);
   };
   
@@ -381,7 +412,7 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
   		aewindow.aedump(displayName+" failed include/exclude filename check\n",1);
 		return;
   	}
-	that.currentMessage.addAttachment(contentType,url,displayName.replace(/ +/g, " "),uri,isExternalAttachment); 
+  	that.currentMessage.addAttachment(contentType,url,displayName.replace(/ +/g, " "),uri,isExternalAttachment); 
   };
     
   this.onEndAllAttachments= function() {
@@ -394,9 +425,9 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
 			return;
 		}
 		if ((!aewindow.progress_tracker.attachment_busy) && 
-			(selectedURIs[currentindex]==that.currentDisplayedURI)){ 
+		  (selectedMsgs[currentindex]==that.currentMessage.msgHdr) ){ 
 			that.currentMessage.attachmentextraction();
-		}
+	    } 
   };    
 
   this.processHeaders= function(headerNameEnumerator, headerValueEnumerator, dontCollectAddress) {};
@@ -412,16 +443,18 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
   };
     
   /* to implement nsIMsgWindowCommands */
-  this.SelectFolder= function(folderUri) {};
+  this.selectFolder= function(folderUri) {}; //tb3
+  this.SelectFolder=this.selectFolder; //tb2
   
-  this.SelectMessage= function(messageUri) {
-	 that.currentDisplayedURI=messageUri;
-	 aewindow.aedump("{function:AETask.SelectMessage("+messageUri+")}\n");
-	 var msgkey=aewindow.messenger.msgHdrFromURI(messageUri).messageKey;
+  this.selectMessage= function(messageUri) {
+	 that.currentMessage.msgHdr=aewindow.messenger.msgHdrFromURI(messageUri);
+	 aewindow.aedump("{function:AETask.selectMessage("+messageUri+")}\n");
+	 var msgkey=that.currentMessage.msgHdr.messageKey;
 	 aewindow.gDBView.loadMessageByViewIndex(aewindow.gDBView.findIndexFromKey(msgkey, true));
   };
+  this.SelectMessage=this.selectMessage; //tb2
     
-  /* to implement nsIMsgMessagePaneController */
+  /* to implement nsIMsgMessagePaneController or nsIMsgWindowCommands*/
   this.clearMsgPane= function() {};  
   
   /* to implement nsIFolderListener */
@@ -432,10 +465,20 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
     var folder=parentItem.QueryInterface(Components.interfaces.nsIMsgFolder); 
    	if (mail.messageId==that.listeningforMessageId) {
 		var vindex=aewindow.gDBView.findIndexFromKey(mail.messageKey, true);
-		if (vindex==0xFFFFFFFF) return;
-		aewindow.aedump("{function:AETask.OnItemAdded()}: view index: "+vindex+", oldURI: "+aewindow.currentTask.currentDisplayedURI+", newURI: "+folder.getUriForMsg(mail)+"\n",2);
-		that.currentDisplayedURI=folder.getUriForMsg(mail);
-		aewindow.gDBView.loadMessageByViewIndex(vindex);
+		var newuri=folder.getUriForMsg(mail);
+		aewindow.aedump("{function:AETask.OnItemAdded()}: view index: "+vindex+", oldURI: "+aewindow.currentMessage.msgHdr.folder.getUriForMsg(aewindow.currentMessage.msgHdr)+", newURI: "+newuri+"\n",2);
+		if (vindex==0xFFFFFFFF) {
+			aewindow.aedump("// try loading URI directly because can't find vindex\n",3)
+			try {aewindow.messenger.openURL(newuri);
+			}catch(e) {
+				aewindow.aedump("// loading with OpenURL failed too\n",1);
+				return;
+			}
+		} else {
+			aewindow.gDBView.loadMessageByViewIndex(vindex);
+		}
+		that.currentMessage.msgHdr=mail;
+		
 	} else aewindow.aedump("// 'wrong' msgid added: "+mail.messageId+", ignoring.\n",3);
   };
  
@@ -451,7 +494,7 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
   this.QueryInterface= function (iid)
   {
     if (iid.equals(Ci.nsIMsgWindowCommands) ||
-		iid.equals(Ci.nsIMsgMessagePaneController) ||
+		(aewindow.tb3 ? false : iid.equals(Ci.nsIMsgMessagePaneController)) || // only in tb2, in tb3 clearMsgPane is in nsIMsgWindowCommands
         iid.equals(Ci.nsIMsgHeaderSink) ||
 		iid.equals(Ci.nsIFolderListener) ||
         iid.equals(Ci.nsISupports))
@@ -467,10 +510,10 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
   };
   
   this.getMessageHeader=function() {
-	  return aewindow.messenger.messageServiceFromURI(that.currentDisplayedURI).messageURIToMsgHdr(that.currentDisplayedURI);
-  };
+	  return aewindow.currentMessage.msgHdr;
+  };  
   
-  //private methods
+   //private methods
   
   function strToReg(value,index,array) {
 	  if (value.charAt(0)=='/') {
@@ -487,7 +530,7 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
 	if (includeexcludearray==null) {
 		includeexcludearray=prefs.get((prefs.get("includeenabled")==1)?"includepatterns4":"excludepatterns4").split(';');
 		includeexcludearray=includeexcludearray.map(strToReg);
-		aewindow.aedump("//includeexcludearray: "+includeexcludearray+"\n",3);
+		aewindow.aedump("//includeexcludearray: "+includeexcludearray+"\n",3);	
 	}
 	if (prefs.get("includeenabled")==1) {
 		var test=function(element) {return element.test(filename);};
@@ -497,11 +540,11 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
 		var negtest=function(element) {return !element.test(filename);};
 		return includeexcludearray.every(negtest,this);
 	}
-  }; 
+  };  
   
   function toString() {
 	  return "savefolder: "+(savefolder?savefolder.path:null)+
-	  		", selectedURIs: "+selectedURIs+
+	  		", selectedMsgs: "+selectedMsgs+
 			", filenamepattern: "+filenamepattern+
 			", isBackground: "+isBackground+
 			", justDeleteAttachments: "+justDeleteAttachments;
@@ -510,24 +553,29 @@ function AETask(savefolder,selectedURIs,filenamepattern,aewindow,originalView,is
 
 /* ****************************** AEIndTask ******************************************************** */
 
-function createAEIndTask(savefolder,message,attachments,filenamepattern) {
+aewindow.createAEIndTask = function (savefolder,message,attachments,filenamepattern) {
+	var aeinternalobject=attachmentextractor; //exists because loaded in main window.
 	aewindow.progress_tracker=progress_tracker;
-    aewindow.attachmentextractor=attachmentextractor;
-    aewindow.prefs=attachmentextractor.prefs;
+    aewindow.prefs=aeinternalobject.prefs;
     aewindow.aedump=aedump;
     aewindow.AEMessage=AEMessage;
     aewindow.messenger = messenger;
 	aewindow.msgWindow = msgWindow;
+	aewindow.promptService=aeinternalobject.promptService;
+	aewindow.strBundleService=aeinternalobject.strBundleService;
+	aewindow.aeStringBundle=aeinternalobject.aeStringBundle;
+	aewindow.messengerStringBundle=aeinternalobject.messengerStringBundle;
+	
 	if (!savefolder || !message) {
 		aewindow.aedump("// ae aborted because either no message selected or no save path.\n",0);
 		return;
 	}
-	aewindow.currentTask=new AEIndTask(savefolder,message,attachments,filenamepattern,aewindow);
+	aewindow.addTask(new aewindow.AEIndTask(savefolder,message,attachments,filenamepattern,aewindow));
 	aewindow.progress_tracker.statusFeedback=aewindow.msgWindow.statusFeedback;
-	if (aewindow.currentTask.confirmDetach && !aewindow.attachmentextractor.promptService.confirm(
+	if (aewindow.currentTask.confirmDetach && !aewindow.promptService.confirm(
 			null,
-			aewindow.attachmentextractor.aeStringBundle.GetStringFromName("ConfirmDetachDialogTitle"),
-			aewindow.attachmentextractor.aeStringBundle.GetStringFromName("ConfirmDetachDialogMessage"))) {
+			aewindow.aeStringBundle.GetStringFromName("ConfirmDetachDialogTitle"),
+			aewindow.aeStringBundle.GetStringFromName("ConfirmDetachDialogMessage"))) {
 				aewindow.aedump("// ae aborted detach confirmation cancelled.\n",1);
 				return;
 	}	
@@ -536,8 +584,8 @@ function createAEIndTask(savefolder,message,attachments,filenamepattern) {
 }; 
 
 
-function AEIndTask(savefolder,messageUri,attachments,filenamepattern,aewindow) {
-  var prefs = aewindow.attachmentextractor.prefs ;
+aewindow.AEIndTask = function (savefolder,message,attachments,filenamepattern,aewindow) {
+  var prefs = aewindow.prefs ;
  
   //public vars
   /* this.membername=value */
@@ -545,7 +593,6 @@ function AEIndTask(savefolder,messageUri,attachments,filenamepattern,aewindow) {
   this.filemaker=new AttachmentFileMaker(filenamepattern,savefolder,aewindow);
   this.currentMessage=null;
   this.detachCancellationTimeout=null;
-  this.currentDisplayedURI    = messageUri;
   this.listeningforMessageId  = "";
   
   this.isDeleteEnabled        = false;
@@ -558,7 +605,7 @@ function AEIndTask(savefolder,messageUri,attachments,filenamepattern,aewindow) {
   this.isLaunchEnabled        = prefs.get("actionafterextract.launch");
   this.isEndLaunchEnabled     = prefs.get("actionafterextract.endlaunch");
   this.overwritePolicy        = prefs.get("overwritepolicy");
-  this.getDetachMode          = prefs.get("actionafterextract.detach.mode");
+  this.detachMode             = prefs.get("actionafterextract.detach.mode");
   this.confirmDetach          = (this.isDetachEnabled && (this.detachMode!=0) && prefs.get("actionafterextract.detach.confirm"));
   
   //private vars
@@ -584,11 +631,11 @@ function AEIndTask(savefolder,messageUri,attachments,filenamepattern,aewindow) {
 	//
 	that.active=true; 
 	aewindow.progress_tracker.reset_tracker();
-	that.currentMessage=new aewindow.AEMessage(messageUri,0,aewindow);
+	that.currentMessage=new aewindow.AEMessage(message,0,aewindow);
 	for (var i=0; i<attachments.length;i++) {
 		var a=attachments[i];
 		if (!a.uri) a.uri=a.messageUri; // tb2 doesn't use uri.
-		if (!a.isExternalAttachment) that.handleAttachment(a.contentType,a.url,a.displayName,a.uri,a.isExternalAttachment);
+		/*if (!a.isExternalAttachment)*/ that.handleAttachment(a.contentType,a.url,a.displayName,a.uri,a.isExternalAttachment);
 	}
 	aewindow.progress_tracker.starting_message(0,1);	
 	that.currentMessage.attachmentextraction()
@@ -602,7 +649,7 @@ function AEIndTask(savefolder,messageUri,attachments,filenamepattern,aewindow) {
 	aewindow.aedump('{function:AETask.endAttachmentextraction}\n',2);
 	if (!that.active) return;
 	that.active=false;
-	that.tidyUp();
+	aewindow.nextTask();
   };
   
   this.tidyUp = function() {  
@@ -629,11 +676,11 @@ function AEIndTask(savefolder,messageUri,attachments,filenamepattern,aewindow) {
 	}
 	that.currentMessage.addAttachment(contentType,url,displayName.replace(/ +/g, " "),uri,isExternalAttachment); 
   };
-  
+ 
   this.getMessageHeader=function() {
-	  return aewindow.messenger.messageServiceFromURI(that.currentDisplayedURI).messageURIToMsgHdr(that.currentDisplayedURI);
-  };
-  
+	  return aewindow.currentMessage.msgHdr;
+  };  
+
   
   //private methods
   
@@ -652,7 +699,7 @@ function AEIndTask(savefolder,messageUri,attachments,filenamepattern,aewindow) {
 	if (includeexcludearray==null) {
 		includeexcludearray=prefs.get((prefs.get("includeenabled")==1)?"includepatterns4":"excludepatterns4").split(';');
 		includeexcludearray=includeexcludearray.map(strToReg);
-		aewindow.aedump("//includeexcludearray: "+includeexcludearray+"\n",3);
+		aewindow.aedump("//includeexcludearray: "+includeexcludearray+"\n",3);	
 	}
 	if (prefs.get("includeenabled")==1) {
 		var test=function(element) {return element.test(filename);};
@@ -666,16 +713,18 @@ function AEIndTask(savefolder,messageUri,attachments,filenamepattern,aewindow) {
   
   function toString() {
 	  return "savefolder: "+(savefolder?savefolder.path:null)+
-	  		", messageUri: "+messageUri+
-			", filenamepattern: "+filenamepattern;
+	  		", message: "+message+
+			", attachments: "+attachments.map(function (c) {return c.url;})+
+			", filenamepattern: "+filenamepattern+
+			", detachmode: "+this.getDetachMode;
   }; this.toString=toString;
 }
 
 /* ******************************** AEMessage ******************************************************* */
 
 if (typeof AEMessage == "undefined") {
-	
-	function AEMessage(uri,messageIndex,aewindow) 
+
+	function AEMessage(msghdr,messageIndex,aewindow) 
 	{
 		this.attachments_ct=new Array();
 		this.attachments_url=new Array();
@@ -691,8 +740,8 @@ if (typeof AEMessage == "undefined") {
 		this.cleanUpFilterTimeout=null;
 		this.started=false;
 		this.messageIndex=messageIndex;
-		this.uri=uri;
-		this.prefs = aewindow.attachmentextractor.prefs;
+		this.msgHdr=msghdr;
+		this.prefs = aewindow.prefs;
 		this.browserPersistObject=null;
 	}
 	
@@ -704,92 +753,97 @@ if (typeof AEMessage == "undefined") {
 	AEMessage.prototype.attachmentextraction = function() {
 		this.started=true;
 		if (aewindow.currentTask.isExtractEnabled&&this.attachments_ct.length>0) this.saveAtt(0);	
-	else {
-		aewindow.aedump("// no attachments to extract in this message\n",3);
+		else {
+			aewindow.aedump("// no attachments to extract in this message\n",3);
 			aewindow.progress_tracker.starting_markread();
 			this.doAfterActions(-1);
-	}
-  };
-  
+		}
+	};
+	  
 	AEMessage.prototype.saveAtt= function(attachmentindex) {
-	aewindow.aedump('{function:AEMessage.saveAtt('+attachmentindex+')}\n',2);
+		aewindow.aedump('{function:AEMessage.saveAtt('+attachmentindex+')}\n',2);
 		aewindow.progress_tracker.starting_attachment(attachmentindex,this.attachments_ct.length);
-    	 
+			 
 		var attachment = this.getAttachment(attachmentindex);
 		var file=aewindow.currentTask.filemaker.make(attachment.displayName,this.headerDataCache);
-    if (file&&file.parent&&!file.parent.exists()) file.parent.create(file.DIRECTORY_TYPE,0600);
-  	//aewindow.aedump(attachment.uri+"\n"+attachment.url+"\n"+attachment);
-  
-		if (file && attachment.isExternalAttachment) {
-		  try{
-			this.browserPersistObject=aeMessenger.saveExternalAttachment(attachment.url,file,attachmentindex);
-			if (!this.browserPersistObject) file=null;
-		  } catch (e) {
-			  aewindow.aedump(e+"\n");
-			  file=null;
+		if (file&&file.parent&&!file.parent.exists()) file.parent.create(file.DIRECTORY_TYPE,0600);
+		//aewindow.aedump(attachment.uri+"\n"+attachment.url+"\n"+attachment);
+	    
+		var needsTimeout=false; //basically only TB2 needs this.
+		if (file) {
+		  if (attachment.isExternalAttachment) {
+			try{
+			  this.browserPersistObject=aeMessenger.saveExternalAttachment(attachment.url,file,attachmentindex);
+			  if (!this.browserPersistObject) file=null;
+			} catch (e) {
+				aewindow.aedump(e+"\n");
+				file=null;
+			}
 		  }
-		}
-		else if (file) {
-      try {
-			if (this.prefs.get("extract.mode")==0) {
-			  /*aedump("// attachment.url = "+attachment.url+"\n"+
-					   "// attachment.uri = "+attachment.uri+"\n"+
-					   "// attachment.contentType = "+attachment.contentType+"\n");*/
-		      if (aewindow.messenger.saveAttachmentToFile) {
-				aewindow.messenger.saveAttachmentToFile(
-				file,
-				attachment.url,
-				attachment.uri,
-				attachment.contentType,
-				null); // tb3 only
+		  else {
+			try {
+			  if (this.prefs.get("extract.mode")!=0) {
+				  file=aeMessenger.saveAttachmentToFolder(
+				  attachment.contentType,
+				  attachment.url,
+				  file.leafName,
+				  attachment.uri,
+				  file.parent,
+				  attachmentindex);
 			  }
 			  else {
+				if (aewindow.messenger.saveAttachmentToFile) {
+				  var listener={  OnStartRunningUrl:function (url) {},
+					 			  OnStopRunningUrl:function (url,exitcode) {
+									aewindow.currentMessage.saveAtt_cleanUp(attachmentindex,(exitcode!=0));
+								  } };
+				  aewindow.messenger.saveAttachmentToFile(
+					file,
+					attachment.url,
+					attachment.uri,
+					attachment.contentType,
+					listener ); // tb3 only
+				}
+				else {
 				  file=aewindow.messenger.saveAttachmentToFolder(
-	 		attachment.contentType,
-			attachment.url,
-			encodeURIComponent(file.leafName),
-			attachment.uri,
-			file.parent);
-			  }  //tb2
-		}else{
-			  file=aeMessenger.saveAttachmentToFolder(
-	 		attachment.contentType,
-			attachment.url,
-			file.leafName,
-			attachment.uri,
-			file.parent,
-			attachmentindex);
+					attachment.contentType,
+					attachment.url,
+					encodeURIComponent(file.leafName),
+					attachment.uri,
+					file.parent); //tb2
+				  needsTimeout=true;
+				}  
+			  }
+			} catch (e) {
+				aewindow.aedump(e+"\n");
+				file=null;
+			}
+		  }
 		}
-			
-      } catch (e) {
-		  aewindow.aedump(e+"\n");
-		  file=null;
-	  }
-	} 
 		if (file) {
 			this.attachments_savedfile[attachmentindex]=file;
 			this.attachments_appendage[attachmentindex]=aewindow.currentTask.filemaker.lastMadeAppendage;
-			if (!attachment.isExternalAttachment && this.prefs.get("extract.mode")==0) {
-				aewindow.currentTask.currentMessage.saveAtt_cleanUpFilter(attachmentindex);
-				this.zerofileTimeout=setTimeout("aewindow.currentTask.currentMessage.saveAtt_cleanUp("+attachmentindex+",false)",5000);
-	}
-	}
-		else aewindow.currentTask.currentMessage.saveAtt_cleanUp(attachmentindex,true);
-  };
-
+			if (needsTimeout) {
+				aewindow.currentMessage.saveAtt_cleanUpFilter(attachmentindex);
+				this.zerofileTimeout=setTimeout("aewindow.currentMessage.saveAtt_cleanUp("+attachmentindex+",false)",5000);
+			}
+		}
+		else aewindow.currentMessage.saveAtt_cleanUp(attachmentindex,true);
+	};
+	
 	AEMessage.prototype.saveAtt_cleanUpFilter=function(attachmentindex) {
 		var sfile=this.attachments_savedfile[attachmentindex];
-	if (sfile==null || (sfile.exists() && sfile.fileSize>0 /*aewindow.downloadManager.activeDownloadCount==0*/)  ) {
-		aewindow.currentTask.currentMessage.saveAtt_cleanUp(attachmentindex,false);
-	}
-		else this.cleanUpFilterTimeout=setTimeout("aewindow.currentTask.currentMessage.saveAtt_cleanUpFilter("+attachmentindex+")",5);
-  };
-
+		if (sfile==null || (sfile.exists() && sfile.fileSize>0 /*aewindow.downloadManager.activeDownloadCount==0*/)  ) {
+			aewindow.currentMessage.saveAtt_cleanUp(attachmentindex,false);
+		}
+		else this.cleanUpFilterTimeout=setTimeout("aewindow.currentMessage.saveAtt_cleanUpFilter("+attachmentindex+")",5);
+	};
+	
 	AEMessage.prototype.saveAtt_cleanUp= function(attachmentindex,failure) {
-	aewindow.aedump('{function:AEMessage.saveAtt_cleanUp('+attachmentindex+','+failure+')}\n',2);
+		aewindow.aedump('{function:AEMessage.saveAtt_cleanUp('+attachmentindex+','+failure+')}\n',2);
 		clearTimeout(this.zerofileTimeout);
 		this.browserPersistObject=null;
-	if (failure) {
+		if (failure) {
 			//aewindow.aedump("//ae: saving failure notification. ["+this.attachments_ct.length+"]\n",1);
 			this.attachments_ct[attachmentindex]=undefined;
 			this.attachments_url[attachmentindex]=undefined;
@@ -798,96 +852,97 @@ if (typeof AEMessage == "undefined") {
 			this.attachments_savedfile[attachmentindex]=undefined;
 			this.attachments_appendage[attachmentindex]=undefined;
 			this.attachments_external[attachmentindex]=undefined;
-	}
-	try{ 
+		}
+		try{ 
 		  if (aewindow.currentTask.isLaunchEnabled &&
 				this.attachments_savedfile[attachmentindex]!=null && 
 				this.attachments_savedfile[attachmentindex].exists()) {
-		aewindow.aedump('{function:AEMessage.doLaunch}\n',2);
+			aewindow.aedump('{function:AEMessage.doLaunch}\n',2);
 			this.attachments_savedfile[attachmentindex].launch();
-	  } 
-	} catch (e) {aewindow.aedump(e+"\n");}
-	aewindow.progress_tracker.stopping_attachment(attachmentindex);
-	attachmentindex++;
+		  } 
+		} catch (e) {aewindow.aedump(e+"\n");}
+		aewindow.progress_tracker.stopping_attachment(attachmentindex);
+		attachmentindex++;
 		if (attachmentindex>=this.attachments_ct.length) {
-			setTimeout("aewindow.currentTask.currentMessage.doAfterActions("+aewindow.progress_tracker.message_states.MARKREAD+")",
+			setTimeout("aewindow.currentMessage.doAfterActions("+aewindow.progress_tracker.message_states.MARKREAD+")",
 							this.prefs.get("nextattachmentdelay"));
-	}
-  	else {
-			setTimeout("aewindow.currentTask.currentMessage.saveAtt("+attachmentindex+")",this.prefs.get("nextattachmentdelay"));
-	}
-  };
-  
+		}
+		else {
+			setTimeout("aewindow.currentMessage.saveAtt("+attachmentindex+")",this.prefs.get("nextattachmentdelay"));
+		}
+	};
+	  
 	AEMessage.prototype.doAfterActions=function(startWithAction) {
+		var thistask=aewindow.currentTask;
 		if (startWithAction!=-1) aewindow.progress_tracker.state=startWithAction;
 		
 		var states=aewindow.progress_tracker.message_states;
 		switch (aewindow.progress_tracker.state) {
 			case states.MARKREAD : 
-			  if (aewindow.currentTask.isMarkreadEnabled) {
-		aewindow.aedump('{function:AEMessage.doMarkread}\n',2);
-		aewindow.gDBView.doCommand(aewindow.nsMsgViewCommandType.markMessagesRead);
+			  if (thistask.isMarkreadEnabled) {
+				aewindow.aedump('{function:AEMessage.doMarkread}\n',2);
+				aewindow.gDBView.doCommand(0); /* 0 = markMessagesRead */
 				if (this.prefs.get("returnreceipts")) this.handleMDNResponse();
 				//aedump(">> "+getMessageHeader().getStringProperty("AEMetaData.savepath")+"\n");
 				//aedump(">> "+getMessageHeader().getStringProperty("AEMetaData.savedfiles")+"\n");
-	}
+			  }
 			case states.SAVEMESSAGE :
-			  if (aewindow.currentTask.isSaveMessageEnabled) { 
-	  aewindow.aedump('{function:AEMessage.doSaveMessage}\n',2);
-	  aeMessenger.saveMessageToDisk(aewindow.currentTask.currentDisplayedURI,
-											  aewindow.currentTask.filemaker.makeSaveMessage(this.headerDataCache));
+			  if (thistask.isSaveMessageEnabled) { 
+				aewindow.aedump('{function:AEMessage.doSaveMessage}\n',2);
+				aeMessenger.saveMessageToDisk(thistask.currentMessage.msgHdr,
+											  thistask.filemaker.makeSaveMessage(this.headerDataCache));
 				break;
-  }
+			  }
 			case states.CLEARTAG : 
-			  if (aewindow.currentTask.isCleartagEnabled&&!this.isNewsMessage()) {
-		aewindow.aedump('{function:AEMessage.doCleartag}\n',2);
+			  if (thistask.isCleartagEnabled&&!this.isNewsMessage()) {
+				aewindow.aedump('{function:AEMessage.doCleartag}\n',2);
 				var uriarray = aewindow.nsIArray;
 				var triggerTag=this.prefs.get("autoextract.triggertag");
-				var hdr=aewindow.currentTask.getMessageHeader();
+				var hdr=thistask.getMessageHeader();
 				if (uriarray.appendElement) uriarray.appendElement(hdr,false); //tb3
 				else uriarray.AppendElement(hdr); // tb2
 				try { 
 					if (hdr.folder.removeKeywordsFromMessages) hdr.folder.removeKeywordsFromMessages(uriarray,triggerTag); //tb3
 					else hdr.folder.removeKeywordFromMessages(uriarray,triggerTag); //tb2
-		}catch (e) {aewindow.aedump("// removeKeywordFromMessages throws error: "+e+"\n",1);}
-	}
+				}catch (e) {aewindow.aedump("// removeKeywordFromMessages throws error: "+e+"\n",1);}
+			  }
 			case states.DETACH :
-			  if (aewindow.currentTask.isDetachEnabled&&!this.isNewsMessage()&&!this.isRSSMessage()) {
-		aewindow.aedump('{function:AEMessage.doDetach}\n',2);
+			  if (thistask.isDetachEnabled&&!this.isNewsMessage()&&!this.isRSSMessage()) {
+				aewindow.aedump('{function:AEMessage.doDetach}\n',2);
 				aewindow.progress_tracker.state=states.DETACH;
-				aewindow.currentTask.listeningforMessageId=aewindow.currentTask.getMessageHeader().messageId;
+				thistask.listeningforMessageId=thistask.getMessageHeader().messageId;
 				var acl=aewindow.arraycompact(this.attachments_ct);
-		if (acl.length>0) {
-				  if (aewindow.currentTask.detachMode!=0) { 
-					var deleteAtt=(aewindow.currentTask.detachMode==1) || !aewindow.currentTask.isExtractEnabled;
+				if (acl.length>0) {
+				  if (thistask.detachMode!=0) { 
+					var deleteAtt=(thistask.detachMode==1) || !thistask.isExtractEnabled;
 					var savedfiles=(deleteAtt)? null : aewindow.arraycompact(this.attachments_savedfile);
 					this.detachTempFile=aeMessenger.detachAttachments(aewindow.messenger,aewindow.msgWindow,acl,
 																 aewindow.arraycompact(this.attachments_url),
 																 aewindow.arraycompact(this.attachments_display),
 																 aewindow.arraycompact(this.attachments_uri),
-															 savedfiles);
-			} else {
-				aewindow.messenger.detachAllAttachments(acl.length,acl,
+																 savedfiles);
+				  } else {
+					aewindow.messenger.detachAllAttachments(acl.length,acl,
 																 aewindow.arraycompact(this.attachments_url),
 																 aewindow.arraycompact(this.attachments_display), 
 																 aewindow.arraycompact(this.attachments_uri),
-															 false);
-			}				
-				  aewindow.currentTask.detachCancellationTimeout=setTimeout("aewindow.currentTask.currentMessage.doAfterActions("+states.DELTEMPFILE+")",5000);
+																 false);
+				  }	
+				  thistask.detachCancellationTimeout=setTimeout("aewindow.currentMessage.doAfterActions("+states.DELTEMPFILE+")",5000);
 				  break;
-	}
-	}
+				}
+			  }
 			case states.DELTEMPFILE :
 			  if (this.detachTempFile) {
-      aewindow.aedump('{function:AEMessage.deleteDetachTempfile}\n',2);
-      try {
+				aewindow.aedump('{function:AEMessage.deleteDetachTempfile}\n',2);
+				try {
 					this.detachTempFile.remove(false);
-      } catch (e) {aewindow.aedump(e);}
+				} catch (e) {aewindow.aedump(e);}
 				this.detachTempFile=null;
-    }
+			  }
 			case states.SAVEMETADATA :
-			  if (aewindow.currentTask.isExtractEnabled) {
-				aewindow.currentTask.getMessageHeader().setStringProperty("AEMetaData.savepath",aewindow.currentTask.filemaker.destFolder.path);
+			  if (thistask.isExtractEnabled) {
+				thistask.getMessageHeader().setStringProperty("AEMetaData.savepath",thistask.filemaker.destFolder.path);
 				var Cc=Components.classes;
 				var Ci=Components.interfaces;
 				
@@ -899,64 +954,64 @@ if (typeof AEMessage == "undefined") {
 				  meta=(meta)? meta+"," : meta="";
 				  meta+= fileHandler.getURLSpecFromFile(savedfiles[u]).replace(/,/g,"%2C");
 				}
-				if (meta) aewindow.currentTask.getMessageHeader().setStringProperty("AEMetaData.savedfiles",meta);
+				if (meta) thistask.getMessageHeader().setStringProperty("AEMetaData.savedfiles",meta);
 			  }
 			case states.DELETE : 
-			  aewindow.currentTask.listeningforMessageId="";
+			  thistask.listeningforMessageId="";
 			  if (this.deleted) break; else this.deleted=true;
 		
 			  aewindow.progress_tracker.stopping_message(this.messageIndex);
-			  if (aewindow.currentTask.isDeleteEnabled&&!this.isNewsMessage()) {
-		aewindow.aedump('{function:AEMessage.doDelete}\n',2);
-		/*aewindow.gDBView.doCommand(aewindow.nsMsgViewCommandType.deleteMsg);
-	 	aewindow.gDBView.onDeleteCompleted(true);*/
+			  if (thistask.isDeleteEnabled&&!this.isNewsMessage()) {
+				aewindow.aedump('{function:AEMessage.doDelete}\n',2);
+				/*aewindow.gDBView.doCommand(7); // 7 = deleteMsg
+				aewindow.gDBView.onDeleteCompleted(true);*/
 				var messageArray = aewindow.nsIArray;
-				var hdr=aewindow.currentTask.getMessageHeader();
+				var hdr=thistask.getMessageHeader();
 				if (messageArray.appendElement) messageArray.appendElement(hdr,false); //tb3
 				else messageArray.AppendElement(hdr); // tb2
-		function DCopyListener(aewindow,delay) { 
-		  this.OnStartCopy=function() {}
-		  this.OnProgress=function(aProgress,aProgressMax) {}
-		  this.GetMessageId=function() {return null}
-		  this.SetMessageKey=function(aKey) {}
+				function DCopyListener(aewindow,delay) { 
+					this.OnStartCopy=function() {}
+					this.OnProgress=function(aProgress,aProgressMax) {}
+					this.GetMessageId=function() {return null}
+					this.SetMessageKey=function(aKey) {}
 					this.OnStopCopy=function(aStatus) {setTimeout("aewindow.currentTask.selectNextMessage()",delay);}		
-		};
+				};
 				var dCopyListener=new DCopyListener(aewindow,this.prefs.get("nextmessagedelay"));
-		hdr.folder.deleteMessages(messageArray,aewindow.msgWindow,false,false,dCopyListener,true); 
+				hdr.folder.deleteMessages(messageArray,aewindow.msgWindow,false,false,dCopyListener,true); 
 				break;
-	}
+			  }
 			  setTimeout("aewindow.currentTask.selectNextMessage()",this.prefs.get("nextmessagedelay"));
 			  break;
 			default: aewindow.aedump('{function:AEMessage.doAfterActions('+startWithAction+')}\n',2);
-  }
-  };
-  
+		}	  
+	};
+	  
 	AEMessage.prototype.postProcessMessage=function(html) {
 		aewindow.aedump('{function:AEMessage.postProcessMessage}\n',2);
-	
-	function replacer(str,p1,p2,p3) {
+		
+		function replacer(str,p1,p2,p3) {
 			//aewindow.aedump(str+", ");
-		var dn=/&filename=([^&]*)/.exec(p2);
-		dn=decodeURIComponent(dn[1]);
+			var dn=/&filename=([^&]*)/.exec(p2);
+			dn=decodeURIComponent(dn[1]);
 			//aewindow.aedump(dn+"\n");
-			for (var i=0;i<aewindow.currentTask.currentMessage.attachments_display.length;i++) {
-				if (aewindow.currentTask.currentMessage.attachments_display[i]==dn) {
-				  if (aewindow.currentTask.currentMessage.attachments_savedfile[i]) return p1+encodeURIComponent(aewindow.currentTask.currentMessage.attachments_appendage[i])+p3;
-			  else break;
-			}
-		}	  
-		return str;
-	}
+			for (var i=0;i<aewindow.currentMessage.attachments_display.length;i++) {
+				if (aewindow.currentMessage.attachments_display[i]==dn) {
+				  if (aewindow.currentMessage.attachments_savedfile[i]) return p1+encodeURIComponent(aewindow.currentMessage.attachments_appendage[i])+p3;
+				  else break;
+				}
+			}	  
+			return str;
+		}
 		return html.replace(/(<IMG .*?SRC=")(?:mailbox|imap|news)-message([^"]*)(">)/gi,replacer);
-  }
-  
+	}
+	   
 	  // copied from mailnews/source/mail/base/content/mailWindowOverlay.js rev 1.210
 	  // compacted, specialised for ae and return reciept pref overriding added.
 	AEMessage.prototype.handleMDNResponse=function() {
 		aewindow.aedump('{function:AEMessage.handleMDNResponse}\n',2);
 		if (this.isNewsMessage()) return;
 		var msgHdr = aewindow.currentTask.getMessageHeader();
-  
+		
 		// if the message is marked as junk, do NOT attempt to process a return receipt in order to better protect the user
 		var isJunk=false;
 		try {
@@ -965,12 +1020,12 @@ if (typeof AEMessage == "undefined") {
 		}
 		catch (ex) {}
 		if (isJunk) return;
-  
+	
 		var mimeHdr;
 		try {
 		  mimeHdr = aewindow.currentTask.currentUrl.mimeHeaders;
 		} catch (ex) {return;}
-  
+		
 		// If we didn't get the message id when we downloaded the message header, we cons up an md5: message id. 
 		// If we've done that, we'll try to extract the message id out of the mime headers for the whole message.
 		var msgId = msgHdr.messageId;
@@ -984,12 +1039,12 @@ if (typeof AEMessage == "undefined") {
 		var msgFlags = msgHdr.flags;
 		if ((msgFlags & MSG_FLAG_IMAP_DELETED) || (msgFlags & MSG_FLAG_MDN_REPORT_SENT)) return;
 		if (!mimeHdr.extractHeader("Disposition-Notification-To",false) && !mimeHdr.extractHeader("Return-Receipt-To",false)) return;
-  
+	
 		// Everything looks good so far, let's generate the MDN response.
 		var Ci=Components.interfaces;
 		var Cr=Components.results;
 		var mdnGenerator = Cc["@mozilla.org/messenger-mdn/generator;1"].createInstance(Ci.nsIMsgMdnGenerator);
-  
+		
 		// 
 		if (this.prefs.get("returnreceipts.override")) {
 			var currentotherreturnpref =     prefs.get("mail.mdn.report.other","");
@@ -1007,30 +1062,30 @@ if (typeof AEMessage == "undefined") {
 			prefs.set("mail.mdn.report.outside_domain",currentoutsidereturnpref,"");
 			prefs.set("mail.mdn.report.not_in_to_cc",currentnotreturnpref,"");
 		}
-  
+		
 		// Reset mark msg MDN "Sent" and "Not Needed".
 		const MSG_FLAG_MDN_REPORT_NEEDED = 0x400000;
 		msgHdr.flags = (msgFlags & ~MSG_FLAG_MDN_REPORT_NEEDED);
 		msgHdr.OrFlags(MSG_FLAG_MDN_REPORT_SENT);
-  
+	
 		// Commit db changes.
-		var msgdb = aewindow.currentTask.currentUrl.folder.getMsgDatabase(aewindow.msgWindow);
+		var msgdb = (aewindow.currentTask.currentUrl.folder.msgDatabase)? aewindow.currentTask.currentUrl.folder.msgDatabase : aewindow.currentTask.currentUrl.folder.getMsgDatabase(aewindow.msgWindow);
 		if (msgdb) msgdb.Commit(1);
-  }
-  
+	}
+	  
 	AEMessage.prototype.isNewsMessage=function() {
-		  return (this.uri.indexOf('news')==0);
-  }
-  
+		  return (this.msgHdr.folder.baseMessageURI.indexOf('news')==0);
+	}
+	  
 	AEMessage.prototype.isRSSMessage=function() {
-		  return (this.uri.indexOf('rss')==0); // ?? does this even work?
-		}
+		  return (this.msgHdr.folder.baseMessageURI.indexOf('rss')==0); // ?? does this even work?
+	}
 	   
 	AEMessage.prototype.addAttachment=function(contentType, url, displayName, uri, isExternalAttachment) {
 		if (this.started) {
 			if (aewindow && aewindow.aedump) aewindow.aedump("// AE: Extraction already started but TB adding more attachments.  Ignoring. \n",1);
 			return;
-	}
+		}
 		//aewindow.aedump("{function:AEMessage.addAttachment("+contentType+","+url+","+displayName+","+uri+","+isExternalAttachment+")\n",3);
 		this.attachments_ct.push(contentType);
 		this.attachments_url.push(url);
@@ -1048,8 +1103,7 @@ if (typeof AEMessage == "undefined") {
 	};
 }
 
-function aeMsgDBViewCommandUpdater() {}
-aeMsgDBViewCommandUpdater.prototype = 
+aewindow.AEMsgDBViewCommandUpdater.prototype = 
 {
   updateCommandStatus : function() {},
   displayMessageChanged : function(aFolder, aSubject, aKeywords) {},
@@ -1066,3 +1120,4 @@ function AEMsgWindowCommands(task) {
   this.SelectFolder= function(folderUri) {return task.SelectFolder(folderUri);};
   this.SelectMessage= function(messageUri) {return task.SelectMessage(messageUri);};
 };
+

@@ -4,6 +4,8 @@
 <!ENTITY attachmentextractor.extracttodefault.accesskey "S">
 <!ENTITY attachmentextractor.extracttofolder.label "Extraire des messages sélectionnés vers…">
 <!ENTITY attachmentextractor.extracttofolder.accesskey "V">
+<!ENTITY attachmentextractor.extracttosuggest.label "Extraire dans le dossier suggéré">
+<!ENTITY attachmentextractor.extracttosuggest.accesskey "G">
 <!ENTITY attachmentextractor.extractalldefault.label "Extraire de tous les messages du dossier">
 <!ENTITY attachmentextractor.extractalldefault.accesskey "t">
 <!ENTITY attachmentextractor.extractallfolder.label "Extraire de tous les messages du dossier vers…">
@@ -12,6 +14,8 @@
 <!ENTITY attachmentextractor.extractdeepdefault.accesskey "m">
 <!ENTITY attachmentextractor.extractdeepfolder.label "Extraire de tous les messages dans les dossiers et sous-dossiers vers…">
 <!ENTITY attachmentextractor.extractdeepfolder.accesskey "o">
+<!ENTITY attachmentextractor.extractalltosuggest.label "Extraire de tous les messages dans le dossier suggéré">
+<!ENTITY attachmentextractor.extractalltosuggest.accesskey "I">
 <!ENTITY attachmentextractor.extractpattern.label "Extraire en utilisant un modèle personnalisé du nom de fichier">
 <!ENTITY attachmentextractor.extractpattern.accesskey "M">
 <!ENTITY attachmentextractor.extractpatternfolder.label "Extraire en utilisant un modèle personnalisé du nom de fichier vers…">
@@ -22,10 +26,6 @@
 <!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "U">
 <!ENTITY attachmentextractor.menusettingsdialog.label "Paramètres d&apos;Attachment Extractor">
 <!ENTITY attachmentextractor.menusettingsdialog.accesskey "P">
-<!ENTITY attachmentextractor.context.extracttodefault.label "Extraire les pièces jointes sélectionnées">
-<!ENTITY attachmentextractor.context.extracttodefault.accesskey "E">
-<!ENTITY attachmentextractor.context.extracttofolder.label "Extraire les pièces jointes sélectionnées vers…">
-<!ENTITY attachmentextractor.context.extracttofolder.accesskey "V">
 <!ENTITY attachmentextractor.context.extractalldefault.label "Extraire toutes les pièces jointes">
 <!ENTITY attachmentextractor.context.extractalldefault.accesskey "X">
 <!ENTITY attachmentextractor.context.extractallfolder.label "Extraire toutes les pièces jointes vers…">
@@ -34,6 +34,8 @@
 <!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "t">
 <!ENTITY attachmentextractor.context.extractdeepfolder.label "Extraire tous les sous-dossiers inclus vers…">
 <!ENTITY attachmentextractor.context.extractdeepfolder.accesskey "i">
+<!ENTITY attachmentextractor.context.extractalltosuggest.label "Tout extraire dans le dossier suggéré">
+<!ENTITY attachmentextractor.context.extractalltosuggest.accesskey "I">
 <!ENTITY attachmentextractor.attachment.extracttodefault.label "Tout extraire">
 <!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "X">
 <!ENTITY attachmentextractor.attachment.extracttofolder.label "Tout extraire vers…">
@@ -57,3 +59,12 @@
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.label "Définir comme modèle par défaut">
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.accesskey "S">
 <!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Cliquez pour ajouter un jeton">
+<!ENTITY attachmentextractor.suggestedFolderDialog.title "Attachment Extractor - Dossiers suggérés">
+<!ENTITY attachmentextractor.suggestedFolderDialog.label "Dossiers suggérés selon la ligne de sujet de(s) message(s) sélectionné(s) :">
+<!ENTITY attachmentextractor.suggestedFolderDialog.acceptbutton "Utiliser le dossier sélectionné">
+<!ENTITY attachmentextractor.imagetoolbar.label "Changer la sélection">
+<!ENTITY attachmentextractor.imagetoolbar.accesskey "T">
+<!ENTITY attachmentextractor.context.extracttodefault.label "Extraire les pièces jointes sélectionnées">
+<!ENTITY attachmentextractor.context.extracttofolder.label "Extraire les pièces jointes sélectionnées vers…">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "E">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "V">

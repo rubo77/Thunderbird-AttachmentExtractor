@@ -1,7 +1,9 @@
 <!ENTITY attachmentextractor.settings.windowtitle "Možnosti rozšíření Attachment Extractor">
 <!ENTITY attachmentextractor.settings.width "50em">
+<!ENTITY attachmentextractor.settings.homepage.label "Domovská stránka rozšíření AttachmentExtractor a popis možností:">
 <!ENTITY attachmentextractor.settings.generaltab.label "Základní">
 <!ENTITY attachmentextractor.settings.normal.caption "Ukládání přílohy">
+<!ENTITY attachmentextractor.settings.savefolders.caption "Kam se mají přílohy uložit?">
 <!ENTITY attachmentextractor.settings.overwritepolicy.label "V případě, že existuje soubor se stejným jménem jako ukládaná příloha">
 <!ENTITY attachmentextractor.settings.overwrite-replace.label "Vždy nahradi původní soubor">
 <!ENTITY attachmentextractor.settings.overwrite-replace.accesskey "N">
@@ -11,7 +13,26 @@
 <!ENTITY attachmentextractor.settings.overwrite-rename.accesskey "U">
 <!ENTITY attachmentextractor.settings.overwrite-ask.label "Dotázat se">
 <!ENTITY attachmentextractor.settings.overwrite-ask.accesskey "D">
-<!ENTITY attachmentextractor.settings.homepage.label "Domovská stránka rozšíření AttachmentExtractor a popis možností:">
+<!ENTITY attachmentextractor.settings.suggestfolder.button.label "Nastavení doporučených adresářů...">
+<!ENTITY attachmentextractor.settings.suggestfolder.dialogtitle "Doporučené adresáře">
+<!ENTITY attachmentextractor.settings.suggestfolder.description "Adresář může být doporučen k uložení příloh na základě klíčových slov obsažených v předmětu zprávy.">
+<!ENTITY attachmentextractor.settings.suggestfolder.disregardduplicates.label "Ignorovat zdvojená klíčová slova při hodnocení váhy doporučeného adresáře?">
+<!ENTITY attachmentextractor.settings.suggestfolder.disregardduplicates.accesskey "I">
+<!ENTITY attachmentextractor.settings.suggestfolder.parents.label "Adresáře obsahující potencionální podadresáře:">
+<!ENTITY attachmentextractor.settings.suggestfolder.excludedkeywords.label "Ignorovat klíčová slova: (oddělená čárkou)">
+<!ENTITY attachmentextractor.settings.suggestfolder.clearbutton.label "Smazat">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.label "Použít opravu k označení vyjmutých obrázků v přílohách.">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.linktext "Dokumentace k dispozici">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.accesskey "D">
+<!ENTITY attachmentextractor.settings.savepathmru.caption "Poslední cesty ukládání">
+<!ENTITY attachmentextractor.settings.savepathmru.label "Pamatovat si poslední cesty ukládání.">
+<!ENTITY attachmentextractor.settings.savepathmru.count.label1 "Pamatovat si posledních">
+<!ENTITY attachmentextractor.settings.savepathmru.count.label2 "cest.">
+<!ENTITY attachmentextractor.settings.savepathmru.accesskey "C">
+<!ENTITY attachmentextractor.settings.savepathmru.clearbutton.label "Vymazat">
+<!ENTITY attachmentextractor.settings.savefolder.label "Výchozí cesta pro ukládání příloh:">
+<!ENTITY attachmentextractor.settings.savefolder.browsebutton "Procházet...">
+<!ENTITY attachmentextractor.settings.posttab.label "Po Uložení">
 <!ENTITY attachmentextractor.settings.afterextractpolicy.label "Po dokončení ukládání:">
 <!ENTITY attachmentextractor.settings.afterextractpolicy.internaltab.label "Thunderbird">
 <!ENTITY attachmentextractor.settings.afterextractpolicy.externaltab.label "Externí aplikace">
@@ -35,8 +56,6 @@
 <!ENTITY attachmentextractor.settings.after-launch.accesskey "O">
 <!ENTITY attachmentextractor.settings.after-endlaunch.label "Otevřít všechny přílohy v externí aplikaci:">
 <!ENTITY attachmentextractor.settings.after-endlaunch.accesskey "E">
-<!ENTITY attachmentextractor.settings.savefolder.label "Výchozí cesta pro ukládání příloh:">
-<!ENTITY attachmentextractor.settings.savefolder.browsebutton "Procházet...">
 <!ENTITY attachmentextractor.settings.returnreceipts.button.label "Potvrzení o přečtení...">
 <!ENTITY attachmentextractor.settings.returnreceipts.dialogtitle "Potvrzení o přečtení">
 <!ENTITY attachmentextractor.settings.returnreceipts.label "Rozšíření AttachmentExtractor umí odesílat automaticky potvrzení o přečtení, během označování zpráv jako přečtených.">
@@ -47,11 +66,19 @@
 <!ENTITY attachmentextractor.settings.returnreceipts.override.disabled.accesskey "T">
 <!ENTITY attachmentextractor.settings.returnreceipts.override.enabled.label "Překrýt nastavení &apos;Dotázat se&apos; a odeslat potvrzení o přečtení s dotazem.">
 <!ENTITY attachmentextractor.settings.returnreceipts.override.enabled.accesskey "P">
-<!ENTITY attachmentextractor.settings.showprogressdialog.label "Zobrazovat průběh ukládání.">
-<!ENTITY attachmentextractor.settings.showprogressdialog.accesskey "P">
-<!ENTITY attachmentextractor.settings.progressdialogtext.label "Zobrazovat předměty zpráv a názvy příloh během ukládání.">
-<!ENTITY attachmentextractor.settings.progressdialogtext.accesskey "Z">
+<!ENTITY attachmentextractor.settings.reporttab.label "Generátor výpisů">
+<!ENTITY attachmentextractor.settings.reportgen.caption "Generátor HTML výpisů">
+<!ENTITY attachmentextractor.settings.reportgen.label "Generovat kontrolní výpis při každém použití.">
+<!ENTITY attachmentextractor.settings.reportgen.accesskey "G">
+<!ENTITY attachmentextractor.settings.reportgen.thumbnail.label "Používat náhledy obrázků pro přílohy.">
+<!ENTITY attachmentextractor.settings.reportgen.thumbnail.accesskey "N">
+<!ENTITY attachmentextractor.settings.reportgen.embedcss.label "Vložit údaje o stylu přímo do výpisu (nepoužívat externí styl).">
+<!ENTITY attachmentextractor.settings.reportgen.embedcss.accesskey "S">
+<!ENTITY attachmentextractor.settings.reportgen.cssfile.caption "CSS styl výpisů">
+<!ENTITY attachmentextractor.settings.reportgen.reportname2.label "Název souboru (nebo absolutní cesta) výpisu:">
+<!ENTITY attachmentextractor.settings.reportgen.button.label "Nastavení generátoru výpisů">
 <!ENTITY attachmentextractor.settings.advancedtab.label "Rozšířené">
+<!ENTITY attachmentextractor.settings.advancedmoretab.label "Rozšířené">
 <!ENTITY attachmentextractor.settings.extract.caption "Ukládání přílohy">
 <!ENTITY attachmentextractor.settings.extract.tbextract.label "Ukládat přílohy standardní funkcí aplikace Thunderbird.">
 <!ENTITY attachmentextractor.settings.extract.tbextract.accesskey "S">
@@ -72,31 +99,19 @@
 <!ENTITY attachmentextractor.settings.setdatetoemail.accesskey "N">
 <!ENTITY attachmentextractor.settings.inlinepolicy.label "Ukládat také vložené obrázky">
 <!ENTITY attachmentextractor.settings.inlinepolicy.accesskey "O">
-<!ENTITY attachmentextractor.settings.savepathmru.caption "Poslední cesty ukládání">
-<!ENTITY attachmentextractor.settings.savepathmru.label "Pamatovat si poslední cesty ukládání.">
-<!ENTITY attachmentextractor.settings.savepathmru.count.label1 "Pamatovat si posledních">
-<!ENTITY attachmentextractor.settings.savepathmru.count.label2 "cest.">
-<!ENTITY attachmentextractor.settings.savepathmru.accesskey "C">
-<!ENTITY attachmentextractor.settings.savepathmru.clearbutton.label "Vymazat">
 <!ENTITY attachmentextractor.settings.debug.caption "Ladění">
 <!ENTITY attachmentextractor.settings.debug.label "Povolit režim ladění. Ladící informace budou vypsány do konzole a do souboru &apos;aedebug.txt&apos; v adresáři použitého profilu. (projeví se až po restartu aplikace)">
 <!ENTITY attachmentextractor.settings.debug.accesskey "L">
-<!ENTITY attachmentextractor.settings.reporttab.label "Generátor výpisů">
-<!ENTITY attachmentextractor.settings.reportgen.caption "Generátor HTML výpisů">
-<!ENTITY attachmentextractor.settings.reportgen.label "Generovat kontrolní výpis při každém použití.">
-<!ENTITY attachmentextractor.settings.reportgen.accesskey "G">
-<!ENTITY attachmentextractor.settings.reportgen.thumbnail.label "Používat náhledy obrázků pro přílohy.">
-<!ENTITY attachmentextractor.settings.reportgen.thumbnail.accesskey "N">
-<!ENTITY attachmentextractor.settings.reportgen.embedcss.label "Vložit údaje o stylu přímo do výpisu (nepoužívat externí styl).">
-<!ENTITY attachmentextractor.settings.reportgen.embedcss.accesskey "S">
-<!ENTITY attachmentextractor.settings.reportgen.cssfile.caption "CSS styl výpisů">
-<!ENTITY attachmentextractor.settings.reportgen.reportname2.label "Název souboru (nebo absolutní cesta) výpisu:">
-<!ENTITY attachmentextractor.settings.filenametab.label "Jména souborů">
+<!ENTITY attachmentextractor.settings.showprogressdialog.label "Zobrazovat průběh ukládání.">
+<!ENTITY attachmentextractor.settings.showprogressdialog.accesskey "P">
+<!ENTITY attachmentextractor.settings.progressdialogtext.label "Zobrazovat předměty zpráv a názvy příloh během ukládání.">
+<!ENTITY attachmentextractor.settings.progressdialogtext.accesskey "Z">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2.label "Filtr názvů souborů:">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-false.label "Ukládat všechny přílohy kromě těch, které ve jménu obsahují:">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-false.accesskey "V">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-true.label "Ukládat pouze přílohy které ve jménu obsahují:">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-true.accesskey "P">
+<!ENTITY attachmentextractor.settings.filenametab.label "Jména souborů">
 <!ENTITY attachmentextractor.settings.filenamepatterngroup.label "Šablona jmen souborů:">
 <!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Přidat příznak">
 <!ENTITY attachmentextractor.settings.filenamepattern.label "Šablona pro generování jmen souborů:">
@@ -129,6 +144,8 @@
 <!ENTITY attachmentextractor.settings.autoextract.cleartriggertag.accesskey "O">
 <!ENTITY attachmentextractor.settings.autoextract.waitforall.label "Začít automatické ukládání až po stažení všech zpráv">
 <!ENTITY attachmentextractor.settings.autoextract.waitforall.accesskey "Z">
+<!ENTITY attachmentextractor.settings.autoextract.onattachmentsonly.label "Použít automatické ukládání pouze pro zprávy, které pravděpodobně mají přílohy">
+<!ENTITY attachmentextractor.settings.autoextract.onattachmentsonly.accesskey "P">
 <!ENTITY attachmentextractor.settings.abouttab.label "O rozšíření">
 <!ENTITY attachmentextractor.settings.requiresrestart.label "(Vyžaduje restart aplikace Thunderbird)">
 <!ENTITY attachmentextractor.settings.skipidentical.label "Přeskakovat stejně velké soubory">

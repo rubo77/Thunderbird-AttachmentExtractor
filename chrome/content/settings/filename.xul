@@ -43,13 +43,23 @@
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/attachmentFileMaker.js"/>
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/settings/prefwin.js"/>
 
+<script>
+<![CDATA[ 
+var filenamepatternbox;
+
+function onFilenamePaneLoad(event) {
+	document.getElementById('filenamepattern_exampledate').value=exampleDate.toLocaleString();
+	filenamepatternbox=document.getElementById('filenamepattern');
+	updateexamplefilename(filenamepatternbox);
+	//flex();
+}
+]]> 
+</script>	
+
 <prefpane id="paneFilename" onpaneload="onFilenamePaneLoad(event)">
 	
     <preferences>
-      <preference id="pref_includeexcludepolicy" name="attachmentextractor.includeenabled" type="int"/>
-	  <preference id="pref_excludepatterns" name="attachmentextractor.excludepatterns4" type="string"/>
-	  <preference id="pref_includepatterns" name="attachmentextractor.includepatterns4" type="string"/>
-	  <preference id="pref_filenamepattern" name="attachmentextractor.filenamepattern" type="unichar"/>
+      <preference id="pref_filenamepattern" name="attachmentextractor.filenamepattern" type="unichar"/>
 	  <preference id="pref_countpattern" name="attachmentextractor.filenamepattern.countpattern" type="unichar"/>
 	  <preference id="pref_datepattern" name="attachmentextractor.filenamepattern.datepattern" type="unichar"/>
 	  <preference id="pref_cleansubject" name="attachmentextractor.filenamepattern.cleansubject" type="bool"/>
@@ -57,57 +67,28 @@
  	</preferences>
 	
 	<groupbox>
-	  <caption label="&attachmentextractor.settings.includeexcludepolicy2.label;"/>
-	  <radiogroup id="includeexcludepolicy" preference="pref_includeexcludepolicy">
-	  <grid>
-		<columns>
-		  <column/>
-		   <column flex="1"/>
-		</columns>
-        <rows>  
-          <row>
-		    <radio id="iep0false" value="0" label="&attachmentextractor.settings.includeexcludepolicy2-false.label;"
-			 accesskey="&attachmentextractor.settings.includeexcludepolicy2-false.accesskey;"
-			 oncommand="enableField(this,'excludepatterns');enableField(document.getElementById('iep1true'),'includepatterns');"/>
-	
-			<textbox id="excludepatterns" size="50" preference="pref_excludepatterns"/>
-    	  </row>   
-          <row>
-			<radio id="iep1true" value="1" label="&attachmentextractor.settings.includeexcludepolicy2-true.label;"
-			  accesskey="&attachmentextractor.settings.includeexcludepolicy2-true.accesskey;"
-			  oncommand="enableField(this,'includepatterns');enableField(document.getElementById('iep0false'),'excludepatterns');"/>
-	
-			<textbox id="includepatterns" size="50" preference="pref_includepatterns"/>
-		  </row>
-        </rows>
-      </grid>
-	  </radiogroup>
-    </groupbox>
-	
-	<groupbox>
 	  <caption label="&attachmentextractor.settings.filenamepatterngroup.label;"/>
-	    
 	  <hbox align="center">
 	    <label value="&attachmentextractor.settings.filenamepattern.label;"/>
 	    <spacer flex="1"/>  
 	    <button type="menu" class="tokens" label="&attachmentextractor.filenamepatterndialog.tokenbutton.label;">
-  		  <menupopup>
-    	    <menuitem label="#namepart#"  class="tokens" oncommand="add_to_pattern(this);updateexamplefilename();"/>
-    	    <menuitem label="#extpart#"   class="tokens" oncommand="add_to_pattern(this);updateexamplefilename();"/>
-		    <menuitem label="#count#"     class="tokens" oncommand="add_to_pattern(this);updateexamplefilename();" />
-			<menuitem label="%"           class="tokens" oncommand="add_to_pattern(this);updateexamplefilename();" />
-		    <menuitem label="#date#"      class="tokens" oncommand="add_to_pattern(this);updateexamplefilename();" />
-		    <menuitem label="#subject#"   class="tokens" oncommand="add_to_pattern(this);updateexamplefilename();" />
-		    <menuitem label="#from#"      class="tokens" oncommand="add_to_pattern(this);updateexamplefilename();" />
-		    <menuitem label="#fromemail#" class="tokens" oncommand="add_to_pattern(this);updateexamplefilename();" />
-		    <menuitem label="#folder#"    class="tokens" oncommand="add_to_pattern(this);updateexamplefilename();" />
+  		  <menupopup >
+    	    <menuitem label="#namepart#"  class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);"/>
+    	    <menuitem label="#extpart#"   class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);"/>
+		    <menuitem label="#count#"     class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
+			<menuitem label="%"           class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
+		    <menuitem label="#date#"      class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
+		    <menuitem label="#subject#"   class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
+		    <menuitem label="#from#"      class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
+		    <menuitem label="#fromemail#" class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
+		    <menuitem label="#folder#"    class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
   		  </menupopup>
 	    </button>
 	  </hbox>
 	  <textbox id="filenamepattern" preftype="char" 
 	  	preference="pref_filenamepattern" 
 		oninput="updateexamplefilename()"
-		onchange="check_filenamepattern(this);updateexamplefilename();"/>
+		onchange="check_filenamepattern(this,false);updateexamplefilename(this);"/>
 	  <vbox flex="1"><grid>
        	  <columns><column /><column flex="1"/></columns>
     	  <rows>
@@ -131,7 +112,7 @@
 		    <row align="center">
 		  	  <label value="&attachmentextractor.settings.filenamepattern.explanation.withsubject;"/>
 		  	  <textbox id="filenamepattern_examplesubject" flex="1" 
-			  	oninput="updateexamplefilename()" value="[Fwd: Re: Important Mail]"/>
+			  	oninput="updateexamplefilename(filenamepatternbox)" value="[Fwd: Re: Important Mail]"/>
 			</row>
 			<row align="center">
 		  	  <label value="&attachmentextractor.settings.filenamepattern.explanation.withcleansubject;"/>
@@ -139,7 +120,7 @@
 			  <checkbox id="filenamepatterncleansubject" 
 		  			label="&attachmentextractor.settings.filenamepatterncleansubjectq.label;"
 		  			accesskey="&attachmentextractor.settings.filenamepatterncleansubjectq.accesskey;"
-		  			oncommand="updateexamplefilename()"
+		  			oncommand="updateexamplefilename(filenamepatternbox)"
 		  			preference="pref_cleansubject" />
 			</row>
 		  </rows>
@@ -151,7 +132,7 @@
 		    <row align="center">
 		  	  <label value="&attachmentextractor.settings.filenamepattern.explanation.recieveddate;"/>
 		  	  <textbox id="filenamepattern_exampledate" flex="1" readonly="true" value=""/>
-			  <button type="button" oncommand="showDateSettings();" 
+			  <button type="button" oncommand="showDateSettings();updateexamplefilename(filenamepatternbox)" 
 					label="&attachmentextractor.settings.filenamepatterndate.editbutton.label;"/>
 			</row>
 			<row align="center">
@@ -164,7 +145,7 @@
 		<hbox align="center">
 		  <label value="&attachmentextractor.settings.filenamepattern.explanation.fromauthor2;"/>
 		  <textbox id="filenamepattern_exampleauthor" flex="1"  
-		  	oninput="updateexamplefilename()" 
+		  	oninput="updateexamplefilename(filenamepatternbox)" 
 			value="John Smith &lt;john@smith.org&gt;"/>
 		</hbox>
 		<hbox align="center">
@@ -173,7 +154,7 @@
 		</hbox>
 		<hbox align="center">
 		  <label value="&attachmentextractor.settings.filenamepattern.explanation.mailfolder;"/>
-		  <textbox id="filenamepattern_examplefolder" flex="1" oninput="updateexamplefilename()" value="Inbox"/>
+		  <textbox id="filenamepattern_examplefolder" flex="1" oninput="updateexamplefilename(filenamepatternbox)" value="Inbox"/>
 		</hbox>
 		
  	  </groupbox>
@@ -181,8 +162,8 @@
 	  	  <label value="&attachmentextractor.settings.filenamepatterncount.label;"/>
 	  	  <textbox id="filenamepatterncount" preftype="char"  flex="1"
 	  		preference="pref_countpattern"  
-			oninput="updateexamplefilename()" 
-			onchange="this.value=filemaker.fixCountPattern(this.value);updateexamplefilename();"/>
+			oninput="updateexamplefilename(filenamepatternbox)" 
+			onchange="check_filenamepattern(this,true);updateexamplefilename(filenamepatternbox);"/>
 	  </hbox>
 	</groupbox>
   </prefpane>

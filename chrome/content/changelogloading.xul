@@ -35,6 +35,8 @@
    - 
    - ***** END LICENSE BLOCK ***** -->
 <!DOCTYPE page SYSTEM "chrome://attachmentextractor/locale/attachmentextractor.dtd" >
+	
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
 <page 
 	id="AEChangelogLoading"
@@ -42,8 +44,6 @@
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	style="background-color:window;"
 >
-	
-<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
 <text value="&attachmentextractor.firstpopup.changelog.loading;" style="text-align:center; "/>
 </page>

@@ -4,6 +4,8 @@
 <!ENTITY attachmentextractor.extracttodefault.accesskey "X">
 <!ENTITY attachmentextractor.extracttofolder.label "선택된 메시지에서 다음으로 추출...">
 <!ENTITY attachmentextractor.extracttofolder.accesskey "T">
+<!ENTITY attachmentextractor.extracttosuggest.label "제안된 파일-폴더로 추출">
+<!ENTITY attachmentextractor.extracttosuggest.accesskey "G">
 <!ENTITY attachmentextractor.extractalldefault.label "폴더 내 모든 메세지로부터 추출">
 <!ENTITY attachmentextractor.extractalldefault.accesskey "F">
 <!ENTITY attachmentextractor.extractallfolder.label "다음으로 폴더내 모든 메세지로부터 추출...">
@@ -12,6 +14,8 @@
 <!ENTITY attachmentextractor.extractdeepdefault.accesskey "S">
 <!ENTITY attachmentextractor.extractdeepfolder.label "다음으로 폴더 및 하위 폴더 안의 모든 메시지로부터 추출">
 <!ENTITY attachmentextractor.extractdeepfolder.accesskey "U">
+<!ENTITY attachmentextractor.extractalltosuggest.label "모든 메세지로부터 제안된 파일-폴더로 추출">
+<!ENTITY attachmentextractor.extractalltosuggest.accesskey "I">
 <!ENTITY attachmentextractor.extractpattern.label "사용자 지정 파일명 양식으로 추출">
 <!ENTITY attachmentextractor.extractpattern.accesskey "X">
 <!ENTITY attachmentextractor.extractpatternfolder.label "다음 사용자지정 파일명 양식으로 추출...">
@@ -22,10 +26,6 @@
 <!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "U">
 <!ENTITY attachmentextractor.menusettingsdialog.label "AttachmentExtractor 설정">
 <!ENTITY attachmentextractor.menusettingsdialog.accesskey "S">
-<!ENTITY attachmentextractor.context.extracttodefault.label "선택된 첨부 추출">
-<!ENTITY attachmentextractor.context.extracttodefault.accesskey "X">
-<!ENTITY attachmentextractor.context.extracttofolder.label "선택된 첨부 다음으로 추출...">
-<!ENTITY attachmentextractor.context.extracttofolder.accesskey "H">
 <!ENTITY attachmentextractor.context.extractalldefault.label "모든 첨부 추출">
 <!ENTITY attachmentextractor.context.extractalldefault.accesskey "X">
 <!ENTITY attachmentextractor.context.extractallfolder.label "모든 첨부 다음으로 추출...">
@@ -34,6 +34,8 @@
 <!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "S">
 <!ENTITY attachmentextractor.context.extractdeepfolder.label "다음으로 모든 하위 폴더를 포함해 추출">
 <!ENTITY attachmentextractor.context.extractdeepfolder.accesskey "U">
+<!ENTITY attachmentextractor.context.extractalltosuggest.label "제안된 파일-폴더로 모두 추출">
+<!ENTITY attachmentextractor.context.extractalltosuggest.accesskey "I">
 <!ENTITY attachmentextractor.attachment.extracttodefault.label "AE 모두 추출">
 <!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "X">
 <!ENTITY attachmentextractor.attachment.extracttofolder.label "다음으로 AE 모두 추출...">
@@ -57,3 +59,12 @@
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.label "지금부터 기본값으로 패턴 설정">
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.accesskey "S">
 <!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "토큰을 추가하려면 클릭">
+<!ENTITY attachmentextractor.suggestedFolderDialog.title "Attachment Extractor - 제안된 폴더:">
+<!ENTITY attachmentextractor.suggestedFolderDialog.label "선택된 메세지의 제목 줄을 기반으로 제안된 폴더:">
+<!ENTITY attachmentextractor.suggestedFolderDialog.acceptbutton "선택된 폴더 사용">
+<!ENTITY attachmentextractor.imagetoolbar.label "선택 전환">
+<!ENTITY attachmentextractor.imagetoolbar.accesskey "T">
+<!ENTITY attachmentextractor.context.extracttodefault.label "선택된 첨부 추출">
+<!ENTITY attachmentextractor.context.extracttofolder.label "선택된 첨부 다음으로 추출...">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "X">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "H">

@@ -1,7 +1,9 @@
 <!ENTITY attachmentextractor.settings.windowtitle "Definições do Extractor de Anexos">
 <!ENTITY attachmentextractor.settings.width "55em">
+<!ENTITY attachmentextractor.settings.homepage.label "Página inicial do Extractor de Anexos com a descrição e características:">
 <!ENTITY attachmentextractor.settings.generaltab.label "Geral">
-<!ENTITY attachmentextractor.settings.normal.caption "Extracção dos Anexos">
+<!ENTITY attachmentextractor.settings.normal.caption "-- SEM USO --">
+<!ENTITY attachmentextractor.settings.savefolders.caption "Onde é que o anexo deve ser guardado?">
 <!ENTITY attachmentextractor.settings.overwritepolicy.label "O que fazer quando existir um ficheiro com o mesmo nome do anexo?">
 <!ENTITY attachmentextractor.settings.overwrite-replace.label "Substituir sempre o ficheiro existente pelo novo anexo">
 <!ENTITY attachmentextractor.settings.overwrite-replace.accesskey "S">
@@ -11,9 +13,28 @@
 <!ENTITY attachmentextractor.settings.overwrite-rename.accesskey "z">
 <!ENTITY attachmentextractor.settings.overwrite-ask.label "Perguntar-me de cada vez">
 <!ENTITY attachmentextractor.settings.overwrite-ask.accesskey "P">
-<!ENTITY attachmentextractor.settings.homepage.label "Página inicial do Extractor de Anexos com a descrição e características:">
+<!ENTITY attachmentextractor.settings.suggestfolder.button.label "Definições de pasta sugeridas...">
+<!ENTITY attachmentextractor.settings.suggestfolder.dialogtitle "Pastas sugeridas">
+<!ENTITY attachmentextractor.settings.suggestfolder.description "Uma pasta pode ser sugerida para extracção nas palavras chave das linhas de assunto das mensagens que selecciona.">
+<!ENTITY attachmentextractor.settings.suggestfolder.disregardduplicates.label "Ignorar palavras chave duplicadas ao pontuar as pastas sugeridas?">
+<!ENTITY attachmentextractor.settings.suggestfolder.disregardduplicates.accesskey "I">
+<!ENTITY attachmentextractor.settings.suggestfolder.parents.label "Pastas que contêm sub-pastas potencias para onde extrair:">
+<!ENTITY attachmentextractor.settings.suggestfolder.excludedkeywords.label "Palavras chave a excluir:(separadas por vírgulas)">
+<!ENTITY attachmentextractor.settings.suggestfolder.clearbutton.label "Limpar">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.label "Aplicar reparação para mostrar imagens em linha separadas.">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.linktext "Documentação disponível">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.accesskey "D">
+<!ENTITY attachmentextractor.settings.savepathmru.caption "Pastas usadas Recentemente">
+<!ENTITY attachmentextractor.settings.savepathmru.label "Activar lista da Pastas usadas Recentemente">
+<!ENTITY attachmentextractor.settings.savepathmru.count.label1 "Guarda a última">
+<!ENTITY attachmentextractor.settings.savepathmru.count.label2 "pasta.">
+<!ENTITY attachmentextractor.settings.savepathmru.accesskey "l">
+<!ENTITY attachmentextractor.settings.savepathmru.clearbutton.label "Limpar Agora">
+<!ENTITY attachmentextractor.settings.savefolder.label "Caminho Pré-definido para guardar:">
+<!ENTITY attachmentextractor.settings.savefolder.browsebutton "Navegar...">
+<!ENTITY attachmentextractor.settings.posttab.label "Após extracção">
 <!ENTITY attachmentextractor.settings.afterextractpolicy.label "Após extrair os anexos deveremos:">
-<!ENTITY attachmentextractor.settings.afterextractpolicy.internaltab.label "Acções do Thunderbird">
+<!ENTITY attachmentextractor.settings.afterextractpolicy.internaltab.label "-- SEM USO --">
 <!ENTITY attachmentextractor.settings.afterextractpolicy.externaltab.label "Acções Externas">
 <!ENTITY attachmentextractor.settings.after-delete.label "Apagar esta mensagem?">
 <!ENTITY attachmentextractor.settings.after-delete.accesskey "A">
@@ -35,8 +56,6 @@
 <!ENTITY attachmentextractor.settings.after-launch.accesskey "C">
 <!ENTITY attachmentextractor.settings.after-endlaunch.label "Carregar todos os Anexos com a aplicação externa especificada:">
 <!ENTITY attachmentextractor.settings.after-endlaunch.accesskey "a">
-<!ENTITY attachmentextractor.settings.savefolder.label "Caminho Pré-definido para guardar:">
-<!ENTITY attachmentextractor.settings.savefolder.browsebutton "Navegar...">
 <!ENTITY attachmentextractor.settings.returnreceipts.button.label "Recibos de leitura...">
 <!ENTITY attachmentextractor.settings.returnreceipts.dialogtitle "Recibos de leitura">
 <!ENTITY attachmentextractor.settings.returnreceipts.label "O AttachmentExtractor pode enviar recibos de leitura automaticamente quando uma mensagem é marcada como lida">
@@ -47,11 +66,19 @@
 <!ENTITY attachmentextractor.settings.returnreceipts.override.disabled.accesskey "T">
 <!ENTITY attachmentextractor.settings.returnreceipts.override.enabled.label "Sobrepor a definição &apos;perguntar-me&apos; e enviar recibos de leitura quando preparado">
 <!ENTITY attachmentextractor.settings.returnreceipts.override.enabled.accesskey "p">
-<!ENTITY attachmentextractor.settings.showprogressdialog.label "Mostra um diálogo da evolução ao extrair.">
-<!ENTITY attachmentextractor.settings.showprogressdialog.accesskey "o">
-<!ENTITY attachmentextractor.settings.progressdialogtext.label "Mostrar o assunto e o anexo da mensagem no dialogo de progresso">
-<!ENTITY attachmentextractor.settings.progressdialogtext.accesskey "M">
+<!ENTITY attachmentextractor.settings.reporttab.label "ReportGen">
+<!ENTITY attachmentextractor.settings.reportgen.caption "Gerador de Resumo HTML">
+<!ENTITY attachmentextractor.settings.reportgen.label "Gerar um resumo sempre que o Extractor de Anexos correr.">
+<!ENTITY attachmentextractor.settings.reportgen.accesskey "G">
+<!ENTITY attachmentextractor.settings.reportgen.thumbnail.label "Usar miniaturas de imagens para os anexos sempre que possível.">
+<!ENTITY attachmentextractor.settings.reportgen.thumbnail.accesskey "i">
+<!ENTITY attachmentextractor.settings.reportgen.embedcss.label "Introduzir a informação do estilo no relatório, em vez de ligar á folha de estilos.">
+<!ENTITY attachmentextractor.settings.reportgen.embedcss.accesskey "I">
+<!ENTITY attachmentextractor.settings.reportgen.cssfile.caption "Folha de Estilo a usar no resumo">
+<!ENTITY attachmentextractor.settings.reportgen.reportname2.label "Nome do ficheiro (ou caminho) do relatório:">
+<!ENTITY attachmentextractor.settings.reportgen.button.label "Definições do gerador de relatórios...">
 <!ENTITY attachmentextractor.settings.advancedtab.label "Avançado">
+<!ENTITY attachmentextractor.settings.advancedmoretab.label "Mais">
 <!ENTITY attachmentextractor.settings.extract.caption "Guardar Ficheiro anexo">
 <!ENTITY attachmentextractor.settings.extract.tbextract.label "Extrair Anexos com o código normal do Thunderbird.">
 <!ENTITY attachmentextractor.settings.extract.tbextract.accesskey "A">
@@ -72,31 +99,19 @@
 <!ENTITY attachmentextractor.settings.setdatetoemail.accesskey "j">
 <!ENTITY attachmentextractor.settings.inlinepolicy.label "Extrair também imagens embutidas (&apos;inline&apos;)">
 <!ENTITY attachmentextractor.settings.inlinepolicy.accesskey "i">
-<!ENTITY attachmentextractor.settings.savepathmru.caption "Pastas usadas Recentemente">
-<!ENTITY attachmentextractor.settings.savepathmru.label "Activar lista da Pastas usadas Recentemente">
-<!ENTITY attachmentextractor.settings.savepathmru.count.label1 "Guarda a última">
-<!ENTITY attachmentextractor.settings.savepathmru.count.label2 "pasta.">
-<!ENTITY attachmentextractor.settings.savepathmru.accesskey "l">
-<!ENTITY attachmentextractor.settings.savepathmru.clearbutton.label "Limpar Agora">
 <!ENTITY attachmentextractor.settings.debug.caption "Depuração">
 <!ENTITY attachmentextractor.settings.debug.label "Activar o modo de depuração ao reiniciar. As mensagens são registadas na consola e escritas em &apos;aedebug.txt&apos; na sua pasta de perfil.">
 <!ENTITY attachmentextractor.settings.debug.accesskey "v">
-<!ENTITY attachmentextractor.settings.reporttab.label "ReportGen">
-<!ENTITY attachmentextractor.settings.reportgen.caption "Gerador de Resumo HTML">
-<!ENTITY attachmentextractor.settings.reportgen.label "Gerar um resumo sempre que o Extractor de Anexos correr.">
-<!ENTITY attachmentextractor.settings.reportgen.accesskey "G">
-<!ENTITY attachmentextractor.settings.reportgen.thumbnail.label "Usar miniaturas de imagens para os anexos sempre que possível.">
-<!ENTITY attachmentextractor.settings.reportgen.thumbnail.accesskey "i">
-<!ENTITY attachmentextractor.settings.reportgen.embedcss.label "Introduzir a informação do estilo no relatório, em vez de ligar á folha de estilos.">
-<!ENTITY attachmentextractor.settings.reportgen.embedcss.accesskey "I">
-<!ENTITY attachmentextractor.settings.reportgen.cssfile.caption "Folha de Estilo a usar no resumo">
-<!ENTITY attachmentextractor.settings.reportgen.reportname2.label "Nome do ficheiro (ou caminho) do relatório:">
-<!ENTITY attachmentextractor.settings.filenametab.label "Nomes dos Ficheiros">
+<!ENTITY attachmentextractor.settings.showprogressdialog.label "Mostra um diálogo da evolução ao extrair.">
+<!ENTITY attachmentextractor.settings.showprogressdialog.accesskey "o">
+<!ENTITY attachmentextractor.settings.progressdialogtext.label "Mostrar o assunto e o anexo da mensagem no dialogo de progresso">
+<!ENTITY attachmentextractor.settings.progressdialogtext.accesskey "M">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2.label "Politica de filtragem do nome do ficheiro:">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-false.label "Extrair todos os ficheiros excepto os que tenham o nome:">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-false.accesskey "s">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-true.label "Extrair apenas os ficheiros em que o nome tenha:">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-true.accesskey "r">
+<!ENTITY attachmentextractor.settings.filenametab.label "Nomes dos Ficheiros">
 <!ENTITY attachmentextractor.settings.filenamepatterngroup.label "Criar padrão do nome do ficheiro:">
 <!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Clique para adicionar um Token">
 <!ENTITY attachmentextractor.settings.filenamepattern.label "Padrão usado para criar nomes de ficheiros">
@@ -129,6 +144,8 @@
 <!ENTITY attachmentextractor.settings.autoextract.cleartriggertag.accesskey "m">
 <!ENTITY attachmentextractor.settings.autoextract.waitforall.label "Esperar para que todas as mensagens sejam transferidas antes de Auto Extrair.">
 <!ENTITY attachmentextractor.settings.autoextract.waitforall.accesskey "E">
+<!ENTITY attachmentextractor.settings.autoextract.onattachmentsonly.label "Iniciar apenas a auto-extracção em mensagens que pareçam ter anexos">
+<!ENTITY attachmentextractor.settings.autoextract.onattachmentsonly.accesskey "o">
 <!ENTITY attachmentextractor.settings.abouttab.label "Sobre">
 <!ENTITY attachmentextractor.settings.requiresrestart.label "(Necessita um Reinício do TB para ter efeito)">
 <!ENTITY attachmentextractor.settings.skipidentical.label "Saltar ficheiros com tamanhos idênticos">

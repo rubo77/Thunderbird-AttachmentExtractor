@@ -53,6 +53,7 @@
 ]]>
 </script>
 
+<script type="application/x-javascript" src="chrome://attachmentextractor/content/aecommon.js"/>
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/attachmentextractor.js"/>
 
 <script type="application/x-javascript"><![CDATA[ attachmentextractor.init(); ]]></script>

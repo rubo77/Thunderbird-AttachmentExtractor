@@ -36,7 +36,7 @@
  * ***** END LICENSE BLOCK ***** */
  
  
-function AEDelAttachListener(mMessenger,mMsgWindow,mAttachUrls,mMsgUri,mDetachedFileUris) 
+function AEDelAttachListener(mMessenger,mMsgWindow,mAttachUrls,mMsgUri,mDetachedFileUris,aewindow) 
 {
   var mMessageService = mMessenger.messageServiceFromURI(mMsgUri);          // original message service
   var mOriginalMessage= mMessageService.messageURIToMsgHdr(mMsgUri);        // original message header
@@ -156,8 +156,11 @@ var selectNewMessage=function()
 {
   aedump("{function:AEDelAttachListener.selectNewMessage}\n",2);
   var displayUri=mMessenger.lastDisplayedMessageUri;
+  var newMsgURI=mMessageFolder.generateMessageURI(mNewMessageKey);
   if (displayUri==mMsgUri && mMsgWindow) {
-    mMsgWindow.SelectMessage(mMessageFolder.generateMessageURI(mNewMessageKey));
+    if (mMsgWindow.SelectMessage) mMsgWindow.SelectMessage(newMsgURI);
+	else if (mMsgWindow.selectMessage) mMsgWindow.selectMessage(newMsgURI);
+	else aewindow.currentTask.selectMessage(newMsgURI);
   }
   mNewMessageKey = Number.MAX_VALUE;
 }
@@ -356,7 +359,7 @@ var aeMessenger = {
 	//aedump("["+aUrlArray+"]\n");
     var urls=this.prepareForAttachmentDelete(aUrlArray);
 	//aedump("["+urls+"]\n");
-    var listener=new AEDelAttachListener(aMessenger,aMsgWindow,urls,aMessageUriArray[0],saveFileUris);
+    var listener=new AEDelAttachListener(aMessenger,aMsgWindow,urls,aMessageUriArray[0],saveFileUris,aewindow);
     return listener.startProcessing();
   },
 	
@@ -384,7 +387,7 @@ var aeMessenger = {
 	  var saveListener = new aeSaveMsgListener(
 							 file, aewindow.messenger,contentType,
 							 "aewindow.currentTask.currentMessage.saveAtt_cleanUp("+attachmentindex+",false)",
-							 aewindow);
+							 aewindow,aewindow.prefs.get("extract.minimumsize"));
 
 	  var messageService=aewindow.messenger.messageServiceFromURI(messageUri);
 	  var fetchService= messageService.QueryInterface(this.Ci.nsIMsgMessageFetchPartService);
@@ -394,7 +397,6 @@ var aeMessenger = {
       }
 	  
     var convertedListener=saveListener.QueryInterface(this.Ci.nsIStreamListener);
-
     if (navigator.appVersion.indexOf("Macintosh") == -1) {
       // if the content type is binhex we are going to do a hokey hack and make sure we decode the binhex when saving an attachment
         if (contentType=="application/mac-binhex40") {
@@ -407,23 +409,11 @@ var aeMessenger = {
 	  var openAttArgs=  new Array(contentType,file.leafName,url,messageUri,convertedListener,aewindow.msgWindow,saveListener/*null*/);
 	  var fetchServArgs=new Array(this.createStartupUrl(url), messageUri, convertedListener, aewindow.msgWindow, null);	  
 	  
-	  if (aewindow.attachmentextractor.prefs.get("extract.minimumsize")>0) {
-		var minsizelistener=new aeMinSizeCounterListener(
-								aewindow.attachmentextractor.prefs.get("extract.minimumsize"),
-								(fetchService)?fetchService.fetchMimePart:messageService.openAttachment,
-								(fetchService)?fetchServArgs:openAttArgs,
-								function() {aewindow.currentTask.currentMessage.saveAtt_cleanUp(attachmentindex,true);},
-								[],
-								aewindow);
-		if (fetchService) fetchService.fetchMimePart(this.createStartupUrl(url), messageUri, minsizelistener, aewindow.msgWindow, null);
-		else messageService.openAttachment(contentType,file.leafName,url,messageUri,minsizelistener,aewindow.msgWindow,null);   
-	  } else {
 	    if (fetchService) fetchService.fetchMimePart.apply(null,fetchServArgs);
 		else messageService.openAttachment.apply(null,openAttArgs); 
-      }
-	} catch (e) {
+  	} catch (e) {
 		aedump(e.message+" @ line "+e.lineNumber+" in "+e.fileName+"\n");
-		alert(aewindow.attachmentextractor.messengerStringBundle.GetStringFromName("saveAttachmentFailed"));
+		alert(aewindow.messengerStringBundle.GetStringFromName("saveAttachmentFailed"));
 		return false;
     }
 	return true;
@@ -431,11 +421,12 @@ var aeMessenger = {
   
   //   
   /* **************** message text saving *********************** */
-  saveMessageToDisk:function (messageUri,file) {
+  saveMessageToDisk:function (message,file) {
+	  var messageUri=message.folder.getUriForMsg(message);
 	  var msgService = aewindow.messenger.messageServiceFromURI(messageUri);
 	  var saveListener = new aeSaveMsgListener(file, aewindow.messenger,"",
 											   "aewindow.currentTask.currentMessage.doAfterActions(aewindow.progress_tracker.message_states.CLEARTAG)",
-											   aewindow);
+											   aewindow,0);
 	  messageUri.spec=messageUri.spec+"?header=saveas";
 	  saveListener.m_channel=this.Cc["@mozilla.org/network/input-stream-channel;1"].createInstance(this.Ci.nsIInputStreamChannel);
   	  var url={};
@@ -463,6 +454,9 @@ var aeMessenger = {
 	persist.progressListener = {
 		index:attachmentindex,
 		ptracker:aewindow.progress_tracker,
+		m_file:file,
+		realFileName:file.leafName,
+		minFileSize:aewindow.prefs.get("extract.minimumsize"),
 		onProgressChange: function(aWebProgress, aRequest, aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress) {
 			if (this.ptracker) this.ptracker.set_file_progress(aCurSelfProgress,aMaxSelfProgress);
 		},
@@ -472,11 +466,19 @@ var aeMessenger = {
 			if (aStatus & 0x00000010) {
 				//if (this.ptracker) this.ptracker.set_file_progress(-1,0);
 				this.ptracker=null;
+				if (this.m_file.fileSize<this.minFileSize) {
+					aedump("// file size ("+this.m_file.fileSize+") is below min ("+this.minFileSize+") so abort save.\n",3);
+					this.m_file.remove(false);
+				} else {// rename temp file to actual filename.
+					try {this.m_file.moveTo(null,this.realFileName);}catch(e){aedump(e);}
+				}
 				if (typeof aewindow == "object") aewindow.currentTask.currentMessage.saveAtt_cleanUp(this.index,false);
 			}
 		},
-		onStatusChange: function(aWebProgress,aRequest,aStatus,aMessage) {aedump("// "+aStatus+"\n",3);}
+		onStatusChange: function(aWebProgress,aRequest,aStatus,aMessage) {/*aedump("// "+aStatus+"\n",3);*/}
 	};
+	//persist.progressListener.minFileSize=aewindow.prefs.get("extract.minimumsize");
+	file.leafName+="~~~";
 	persist.saveURI(uri, null, null, null, "", file);
 	return persist;
   },
@@ -503,7 +505,7 @@ var aeMessenger = {
   }
 };
 
-function aeSaveMsgListener(m_file, m_messenger,m_contentType,afterEval,aewindow)
+function aeSaveMsgListener(m_file, m_messenger,m_contentType,afterEval,aewindow,minFileSize)
 {
 	var Cc=Components.classes;
     var Ci=Components.interfaces;
@@ -519,6 +521,11 @@ function aeSaveMsgListener(m_file, m_messenger,m_contentType,afterEval,aewindow)
 	var storage="";
 	this.m_channel=null;
 	
+	if (m_file) {
+		var realFileName=m_file.leafName;
+		m_file=m_file.clone();
+		m_file.leafName+="~~~"; //use temp file.
+	}
     //var mTransfer; // not used at the moment. keep because may in the future.
 	var that=this;
     
@@ -549,16 +556,10 @@ function aeSaveMsgListener(m_file, m_messenger,m_contentType,afterEval,aewindow)
 	  }
 	  if (exitCode!=0) {
     	if (m_file) m_file.remove(false);
-		alert(aewindow.attachmentextractor.messengerStringBundle.GetStringFromName("saveMessageFailed"));
+		alert(aewindow.messengerStringBundle.GetStringFromName("saveMessageFailed"));
       }
 	} catch (e) {aedump(e);}
-	if (afterEval) {
-		/*var args= new Array(afterFunc,10);
-		for (var i=0;i<afterFuncArgs.length;i++) args.push(afterFuncArgs[i]);
-		setTimeout.apply(this,args);*/
-		eval(afterEval);
-		afterEval=null;
-	}
+	this.finish();
   }
 
   this.OnStartCopy=function(v) {aedump("{function:OnStartCopy("+argexpand(arguments)+")}\n",4);}
@@ -604,7 +605,7 @@ function aeSaveMsgListener(m_file, m_messenger,m_contentType,afterEval,aewindow)
 
   	if (!m_outputStream) {
       mCanceled = true;
-      m_messenger.alert(aewindow.attachmentextractor.messengerStringBundle.GetStringFromName("saveAttachmentFailed"));
+      m_messenger.alert(aewindow.messengerStringBundle.GetStringFromName("saveAttachmentFailed"));
     }else {
 		m_outputStream.init(m_file,-1, 00600,0) ;
 		var bufferedStream=Cc["@mozilla.org/network/buffered-output-stream;1"].createInstance(Ci.nsIBufferedOutputStream);
@@ -632,20 +633,7 @@ function aeSaveMsgListener(m_file, m_messenger,m_contentType,afterEval,aewindow)
       }
 	  */
 	} catch (e) {aedump(e);}
-	if (m_file&&aewindow.prefs.get("setdatetoemail")) {
-		//aewindow.aedump('// m_file.lastModifiedTime = '+m_file.lastModifiedTime+'\n');
-		try{
-			m_file.lastModifiedTime=aewindow.currentTask.getMessageHeader().dateInSeconds*1000;
-		}catch (e) {aedump("//setting lastModifiedTime failed on current attachment\n",0);}
-		//aewindow.aedump('// m_file.lastModifiedTime = '+m_file.lastModifiedTime+'\n');
-	}
-	if (afterEval) {
-		/*var args= new Array(afterFunc,10);
-		for (var i=0;i<afterFuncArgs.length;i++) args.push(afterFuncArgs[i]);
-		setTimeout.apply(null,args);*/
-		eval(afterEval);
-		afterEval=null;
-	}
+	this.finish();
   }
 
   this.onDataAvailable=function (request,aSupport,inStream,srcOffset,count) {
@@ -664,6 +652,7 @@ function aeSaveMsgListener(m_file, m_messenger,m_contentType,afterEval,aewindow)
 		else {
       m_outputStream.writeFrom(inStream, inStream.available());
 		}
+        /*if (aewindow.progress_tracker) aewindow.progress_tracker.set_file_progress(mProgress,mContentLength);*/
         /*
       if (mTransfer) mTransfer.OnProgressChange(null, request, mProgress, mContentLength, mProgress, mContentLength);
 		*/
@@ -671,49 +660,35 @@ function aeSaveMsgListener(m_file, m_messenger,m_contentType,afterEval,aewindow)
 	}catch (e) {aedump(e);this.cancel();}
   }
 
-}
-
-//  should maybe cache data so far so its not lost.
-function aeMinSizeCounterListener(minsize,aboveFunc,aboveFuncArgs,belowFunc,belowFuncArgs,aewindow) {
-	var Cc=Components.classes;
-    var Ci=Components.interfaces;
-    var Cr=Components.results;
-    var that=this;
-	var aedump=aewindow.aedump;
+  this.finish=function() {
+	if (!m_file || !m_file.exists()) return;
 	
-    var progress = 0;
-    var mCanceled = false;
-        
-  this.QueryInterface= function (iid) {
-    if (iid.equals(Ci.nsIStreamListener) ||
-		iid.equals(Ci.nsISupports) ||
-		iid.equals(Ci.nsIRequestObserver))
-      return this;
-    throw Cr.NS_NOINTERFACE;
-  };
-  
-  this.onStartRequest=function(request,aSupport){}
-  
-  this.onStopRequest=function (request,aSupport,status) {
-    aedump("{function:aeMinSizeCounterListener.OnStopRequest}\n",2);
-  	// close down the file stream and release ourself
-  	if (progress<minsize) {
-		aedump("// file size ("+progress+") is below min ("+minsize+") so abort save.\n",3);
-		belowFunc.apply(null,belowFuncArgs);
+	if (aewindow.prefs.get("setdatetoemail")) {
+		//aewindow.aedump('// m_file.lastModifiedTime = '+m_file.lastModifiedTime+'\n');
+		try{
+			m_file.lastModifiedTime=aewindow.currentTask.getMessageHeader().dateInSeconds*1000;
+		}catch (e) {
+			aedump("//setting lastModifiedTime failed on current attachment\n",0);
+		}
+		//aewindow.aedump('// m_file.lastModifiedTime = '+m_file.lastModifiedTime+'\n');
 	}
-	else {
-		aedump("// file size ("+progress+") is greater than min ("+minsize+") so continue save.\n",3);
-		aboveFunc.apply(null,aboveFuncArgs);
+	if (m_file.fileSize<minFileSize) {
+		aedump("// file size ("+m_file.fileSize+") is below min ("+minFileSize+") so abort save.\n",3);
+		m_file.remove(false);
+	} else {// rename temp file to actual filename.
+		try{ 
+		m_file.moveTo(null,realFileName);
+			m_file=null;
+		}catch(e) {aedump("m_file: "+m_file.leafName+";realFileName: "+realFileName+"; "+e+"\n");}
 	}
-  }
-  
-  this.cancel=function(status) {
-  	mCanceled = true;
-  }
-
-  this.onDataAvailable=function (request,aSupport,inStream,srcOffset,count) {
-    //aedump("{function:aeMinSizeCounterListener.OnDataAvailable}\n",3);
-  	progress+=count;
-  	if (progress>minsize||mCanceled) request.cancel(2); // cancel underlying channel too.  NS_BINDING_ABORTED =2 apparently.
+	if (afterEval) {
+		/*var args= new Array(afterFunc,10);
+		for (var i=0;i<afterFuncArgs.length;i++) args.push(afterFuncArgs[i]);
+		setTimeout.apply(null,args);*/
+		eval(afterEval);
+		afterEval=null;
+	}
   }
 }
+
+// 

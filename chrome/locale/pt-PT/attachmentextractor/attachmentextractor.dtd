@@ -4,6 +4,8 @@
 <!ENTITY attachmentextractor.extracttodefault.accesskey "x">
 <!ENTITY attachmentextractor.extracttofolder.label "Extrair das Mensagens Seleccionadas para...">
 <!ENTITY attachmentextractor.extracttofolder.accesskey "t">
+<!ENTITY attachmentextractor.extracttosuggest.label "Extrair para a pasta sugerida">
+<!ENTITY attachmentextractor.extracttosuggest.accesskey "x">
 <!ENTITY attachmentextractor.extractalldefault.label "Extrair de Todas as Mensagens na Pasta">
 <!ENTITY attachmentextractor.extractalldefault.accesskey "E">
 <!ENTITY attachmentextractor.extractallfolder.label "Extrair de Todas as Mensagens na Pasta para...">
@@ -12,6 +14,8 @@
 <!ENTITY attachmentextractor.extractdeepdefault.accesskey "S">
 <!ENTITY attachmentextractor.extractdeepfolder.label "Extrair de todas as mensagens em Pastas e Sub-pastas para...">
 <!ENTITY attachmentextractor.extractdeepfolder.accesskey "u">
+<!ENTITY attachmentextractor.extractalltosuggest.label "Extrair de todas as mensagens para a pasta sugerida">
+<!ENTITY attachmentextractor.extractalltosuggest.accesskey "a">
 <!ENTITY attachmentextractor.extractpattern.label "Extrair com um tipo personalizado de Ficheiro">
 <!ENTITY attachmentextractor.extractpattern.accesskey "r">
 <!ENTITY attachmentextractor.extractpatternfolder.label "Extrair com um tipo personalizado de Ficheiro para...">
@@ -22,10 +26,6 @@
 <!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "l">
 <!ENTITY attachmentextractor.menusettingsdialog.label "Definições do Extractor de Anexos">
 <!ENTITY attachmentextractor.menusettingsdialog.accesskey "E">
-<!ENTITY attachmentextractor.context.extracttodefault.label "Extrair os Anexos Seleccionados">
-<!ENTITY attachmentextractor.context.extracttodefault.accesskey "x">
-<!ENTITY attachmentextractor.context.extracttofolder.label "Extrair os Anexos Seleccionados para...">
-<!ENTITY attachmentextractor.context.extracttofolder.accesskey "r">
 <!ENTITY attachmentextractor.context.extractalldefault.label "Extrair Todos os Anexos">
 <!ENTITY attachmentextractor.context.extractalldefault.accesskey "x">
 <!ENTITY attachmentextractor.context.extractallfolder.label "Extrair Todos os Anexos para...">
@@ -34,6 +34,8 @@
 <!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "s">
 <!ENTITY attachmentextractor.context.extractdeepfolder.label "Extrair Tudo incluindo sub-pastas para...">
 <!ENTITY attachmentextractor.context.extractdeepfolder.accesskey "u">
+<!ENTITY attachmentextractor.context.extractalltosuggest.label "Extrair tudo para a pasta sugerida">
+<!ENTITY attachmentextractor.context.extractalltosuggest.accesskey "u">
 <!ENTITY attachmentextractor.attachment.extracttodefault.label "AE Extrair Tudo">
 <!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "X">
 <!ENTITY attachmentextractor.attachment.extracttofolder.label "AE Extrair Tudo para...">
@@ -57,3 +59,12 @@
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.label "Aplicar o tipo como pré-definição a partir de agora">
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.accesskey "g">
 <!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Clique para adicionar um token">
+<!ENTITY attachmentextractor.suggestedFolderDialog.title "Attachment Extractor - Pastas sugeridas:">
+<!ENTITY attachmentextractor.suggestedFolderDialog.label "Pastas sugeridas baseado nas linhas de assunto das mensagens seleccionadas:">
+<!ENTITY attachmentextractor.suggestedFolderDialog.acceptbutton "Usar a pasta seleccionada">
+<!ENTITY attachmentextractor.imagetoolbar.label "Trocar selecção">
+<!ENTITY attachmentextractor.imagetoolbar.accesskey "T">
+<!ENTITY attachmentextractor.context.extracttodefault.label "-- SEM USO --">
+<!ENTITY attachmentextractor.context.extracttofolder.label "-- SEM USO --">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "x">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "r">

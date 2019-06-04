@@ -16,7 +16,7 @@
    -
    - The Initial Developer of the Original Code is
    - Andrew Williamson <eviljeff@eviljeff.com>.
-   - Portions created by the Initial Developer are Copyright (C) 2006
+   - Portions created by the Initial Developer are Copyright (C) 2006-2009
    - the Initial Developer. All Rights Reserved.
    -
    - Contributor(s): teo (contributed a rewrite of this xul which has been partly combined back into this file)
@@ -40,42 +40,72 @@
 <overlay id="aegeneralprefsOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+<script type="application/x-javascript" src="chrome://attachmentextractor/content/aecommon.js"/>
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/attachmentextractor.js"/>
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/attachmentFileMaker.js"/>
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/settings/prefwin.js"/>
+
+<script>
+<![CDATA[ 
+function onGeneralPaneLoad() {
+	enableField(document.getElementById('afterextractpolicydetach'),'afterextractpolicydetachmode');
+	enableField(document.getElementById('afterextractsavemessage'),['fnpsavemessage','fnpsavemessagecountpattern']);
+}
+]]> 
+</script>
+
 
 <prefpane id="paneGeneral" onpaneload="onGeneralPaneLoad(event)">
 			
   	<preferences>
       <preference id="pref_savefolder" name="attachmentextractor.defaultsavepath" type="file"/>
 	  <preference id="pref_overwritepolicy" name="attachmentextractor.overwritepolicy" type="int"/>
-	  <preference id="pref_afterextractmarkread" name="attachmentextractor.actionafterextract.markread" type="bool"/>
-	  <preference id="pref_afterextractdelete" name="attachmentextractor.actionafterextract.delete" type="bool"/>
-	  <preference id="pref_afterextractdetach" name="attachmentextractor.actionafterextract.detach" type="bool"/>
-	  <preference id="pref_detachmode" name="attachmentextractor.actionafterextract.detach.mode" type="int"/>
-	  <preference id="pref_notifywhendone" name="attachmentextractor.notifywhendone" type="bool"/>
-	  <preference id="pref_afterextractsavemessage" name="attachmentextractor.actionafterextract.savemessage" type="bool"/>
-	  <preference id="pref_fnpsavemessage" name="attachmentextractor.filenamepattern.savemessage" type="unichar"/>
-	  <preference id="pref_fnpsavemessagecountpattern" name="attachmentextractor.filenamepattern.savemessage.countpattern" type="unichar"/>
-	  <preference id="pref_afterextractlaunch" name="attachmentextractor.actionafterextract.launch" type="bool"/>
-	  <preference id="pref_afterextractendlaunch" name="attachmentextractor.actionafterextract.endlaunch" type="bool"/>
-	  <preference id="pref_afterextractendlaunchapplication" name="attachmentextractor.actionafterextract.endlaunch.application" type="file"/>
-	  <preference id="pref_returnreceipt" name="attachmentextractor.returnreceipts" type="bool"/>
-	  
+	  <preference id="pref_savepathmru" name="attachmentextractor.savepathmru" type="bool"/>
+	  <preference id="pref_savepathmrucount" name="attachmentextractor.savepathmru.count" type="int"/>
+	  <preference id="pref_fixdetachedimages" name="attachmentextractor.fixdetachedimages" type="bool"/>
 	</preferences>
 	<groupbox>
-	  <caption label="&attachmentextractor.settings.normal.caption;"/>
+	  <caption label="&attachmentextractor.settings.savefolders.caption;"/>
 	  <groupbox>
 		<caption label="&attachmentextractor.settings.savefolder.label;"/>
 		<hbox>
-		<textbox id="savefolder" flex="1" size="50" readonly="true"/>
+		<textbox id="savefolder" flex="1" size="50" readonly="true" preference="pref_savefolder" onsyncfrompreference="return syncFromFilePref('pref_savefolder');"/>
 		<button type="button" 
-			oncommand="browseFolder('pref_savefolder','savefolder');" 
+			oncommand="browseForFolder('pref_savefolder');" 
 			label="&attachmentextractor.settings.savefolder.browsebutton;"/>
 		</hbox>
-		
 	  </groupbox>
+	  
+	  <hbox>
+	    <description flex="1">
+	  		&attachmentextractor.settings.suggestfolder.description;
+	  	</description>
+	  	<button type="button" 
+			oncommand="showSuggestFolderSettings();" 
+			label="&attachmentextractor.settings.suggestfolder.button.label;"/>
+	  </hbox>
+	  
 	  <groupbox>
+		<caption label="&attachmentextractor.settings.savepathmru.caption;"/>
+		<checkbox id="savepathmru" 
+			 label="&attachmentextractor.settings.savepathmru.label;"
+			 accesskey="&attachmentextractor.settings.savepathmru.accesskey;"
+             preference="pref_savepathmru" /> 
+		<hbox align="center">
+		  <label value="&attachmentextractor.settings.savepathmru.count.label1;" />
+		  <menulist id="savepathmrucount" preference="pref_savepathmrucount" onsyncfrompreference="fillcountlist()" >
+			<menupopup />
+		  </menulist>
+		  <label value="&attachmentextractor.settings.savepathmru.count.label2;" />
+		  <spacer flex="1"/>
+		  <button type="button" 
+			oncommand="attachmentextractor.clearMRU();" 
+			label="&attachmentextractor.settings.savepathmru.clearbutton.label;"/>
+		</hbox>	
+	  </groupbox>
+	  
+	</groupbox>
+	<groupbox>
 		<caption label="&attachmentextractor.settings.overwritepolicy.label;"/>
 		<radiogroup id="overwritepolicy" preference="pref_overwritepolicy">
 		    <radio value="1" 
@@ -91,100 +121,13 @@
 			  label="&attachmentextractor.settings.overwrite-ask.label;"
 			  accesskey="&attachmentextractor.settings.overwrite-ask.accesskey;"/>
 		</radiogroup>
-		<separator style="display:none" class="thin"/>
-		<hbox style="display:none" align="center">
-			<checkbox id="identicalpolicy"   
-			  label="&attachmentextractor.settings.skipidentical.label;"
-			  accesskey="&attachmentextractor.settings.skipidentical.accesskey;"
-			  prefstring="attachmentextractor.skipidentical" />
-		</hbox>
-	  </groupbox>
-	  <groupbox>
-		<caption label="&attachmentextractor.settings.afterextractpolicy.label;"/>
-		<tabbox>
-	  	  <tabs>
-		    <tab label="&attachmentextractor.settings.afterextractpolicy.internaltab.label;"/>
-		    <tab label="&attachmentextractor.settings.afterextractpolicy.externaltab.label;"/>
-		  </tabs>
-		  <tabpanels>
-		    <tabpanel orient="vertical">
-		  		<hbox>
-				 <checkbox id="afterextractpolicymarkread" 
-			  	  label="&attachmentextractor.settings.after-read.label;"
-				  accesskey="&attachmentextractor.settings.after-read.accesskey;"
-				  flex="1"
-				  preference="pref_afterextractmarkread" />
-				 <button type="button" oncommand="showReturnReceiptSettings();" 
-					label="&attachmentextractor.settings.returnreceipts.button.label;"/>
-				</hbox>
-				<checkbox id="afterextractpolicydelete"   
-				  label="&attachmentextractor.settings.after-delete.label;"
-				  accesskey="&attachmentextractor.settings.after-delete.accesskey;"
-				  preference="pref_afterextractdelete" />
-				<checkbox id="afterextractpolicydetach"   
-				  label="&attachmentextractor.settings.after-detach.label;"
-				  accesskey="&attachmentextractor.settings.after-detach.accesskey;"
-				  preference="pref_afterextractdetach"
-				  oncommand="enableField(this,'afterextractpolicydetachmode')"/>
-				<box style="margin-left:20px">
-				  <radiogroup id="afterextractpolicydetachmode" preference="pref_detachmode">
-				    <radio value="0" 
-					  label="&attachmentextractor.settings.after-detach.tbdelete.label;"
-					  accesskey="&attachmentextractor.settings.after-detach.tbdelete.accesskey;"/>
-				    <radio value="1" 
-					  label="&attachmentextractor.settings.after-detach.aedelete.label;"
-					  accesskey="&attachmentextractor.settings.after-detach.aedelete.accesskey;"
-					  oncommand="showDetachWarning(this)"/>
-				    <radio value="2" 
-					  label="&attachmentextractor.settings.after-detach.aedetach.label;"
-					  accesskey="&attachmentextractor.settings.after-detach.aedetach.accesskey;"
-					  oncommand="showDetachWarning(this)"/>
-				  </radiogroup>
-				</box>
-				<checkbox id="notifywhendonepolicy" 
-				  label="&attachmentextractor.settings.notifywhendone.label;"
-				  accesskey="&attachmentextractor.settings.notifywhendone.accesskey;"
-		          preference="pref_notifywhendone" />
-			</tabpanel>
-		    <tabpanel orient="vertical">
-		  		<checkbox id="afterextractsavemessage" 
-			  	  label="&attachmentextractor.settings.after-savemessage.label;"
-				  accesskey="&attachmentextractor.settings.after-savemessage.accesskey;"
-				  oncommand="enableField(this,['fnpsavemessage','fnpsavemessagecountpattern']);" 
-			  	  preference="pref_afterextractsavemessage" />
-				<hbox align="center" style="margin-left:20px">
-	  			  <label value="&attachmentextractor.settings.filenamepattern.label;"/>
-	  			  <textbox id="fnpsavemessage" preftype="unichar" preference="pref_fnpsavemessage" flex="1"
-					onchange="check_filenamepattern(this);"/>
-				</hbox>
-	  			<hbox align="center" style="margin-left:20px">
-	  			  <label value="&attachmentextractor.settings.filenamepatterncount.label;"/>
-	  			  <textbox id="fnpsavemessagecountpattern" preftype="unichar"  flex="1" 
-					preference="pref_fnpsavemessagecountpattern"  
-					onchange="this.value=filemaker.fixCountPattern(this.value);"/>
-				</hbox>
-				<checkbox id="afterextractlaunch" 
-			  	  label="&attachmentextractor.settings.after-launch.label;"
-				  accesskey="&attachmentextractor.settings.after-launch.accesskey;"
-				  preference="pref_afterextractlaunch" />
-				<checkbox id="afterextractendlaunch" 
-			  	  label="&attachmentextractor.settings.after-endlaunch.label;"
-				  accesskey="&attachmentextractor.settings.after-endlaunch.accesskey;"
-				  preference="pref_afterextractendlaunch" />
-				<hbox>
-				  <textbox id="afterextractendlaunchapplication" flex="1" size="50" readonly="true"/>
-				  <button type="button" oncommand="browseForExecutable('pref_afterextractendlaunchapplication','afterextractendlaunchapplication');" 
-					label="&attachmentextractor.settings.savefolder.browsebutton;"/>
-				</hbox>
-		    </tabpanel>
-		  </tabpanels>
-	    </tabbox>
-	     
-	  </groupbox>
 	</groupbox>
-	<groupbox>
-		<label value="&attachmentextractor.settings.homepage.label;"/>
-		<label value="www.eviljeff.com/?page=moz-extensions" class="text-link" href="http://www.eviljeff.com/?page=moz-extensions"/>
-	</groupbox>
+	<hbox>
+		  <checkbox id="fixdetachedimages" 
+		    label="&attachmentextractor.settings.fixdetachedimages.label;"
+		    accesskey="&attachmentextractor.settings.fixdetachedimages.accesskey;"
+		    preference="pref_fixdetachedimages" />
+		  <label value="&attachmentextractor.settings.fixdetachedimages.linktext;" class="text-link" href="http://www.eviljeff.com/?page=ae_ref#fixdetachedimages"/>
+	</hbox>  
   </prefpane>
  </overlay>

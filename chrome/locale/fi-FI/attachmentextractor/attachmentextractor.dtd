@@ -4,6 +4,8 @@
 <!ENTITY attachmentextractor.extracttodefault.accesskey "V">
 <!ENTITY attachmentextractor.extracttofolder.label "Poimi valituista viesteistä kohteeseen...">
 <!ENTITY attachmentextractor.extracttofolder.accesskey "T">
+<!ENTITY attachmentextractor.extracttosuggest.label "Poimi ehdotettuun tiedostokansioon">
+<!ENTITY attachmentextractor.extracttosuggest.accesskey "H">
 <!ENTITY attachmentextractor.extractalldefault.label "Poimi kaikista viesteistä kansiossa">
 <!ENTITY attachmentextractor.extractalldefault.accesskey "T">
 <!ENTITY attachmentextractor.extractallfolder.label "Poimi kaikista viesteistä kansiossa kohteeseen...">
@@ -12,6 +14,8 @@
 <!ENTITY attachmentextractor.extractdeepdefault.accesskey "A">
 <!ENTITY attachmentextractor.extractdeepfolder.label "Poimi kaikista viesteistä kansiossa ja alikansioissa kohteeseen...">
 <!ENTITY attachmentextractor.extractdeepfolder.accesskey "I">
+<!ENTITY attachmentextractor.extractalltosuggest.label "Poimi kaikista viesteistä ehdotettuun tiedostokansioon">
+<!ENTITY attachmentextractor.extractalltosuggest.accesskey "J">
 <!ENTITY attachmentextractor.extractpattern.label "Poimi tiedostonimimallilla">
 <!ENTITY attachmentextractor.extractpattern.accesskey "M">
 <!ENTITY attachmentextractor.extractpatternfolder.label "Poimi tiedostonimimallilla kohteeseen...">
@@ -22,10 +26,6 @@
 <!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "S">
 <!ENTITY attachmentextractor.menusettingsdialog.label "AttachmentExtractorin asetukset">
 <!ENTITY attachmentextractor.menusettingsdialog.accesskey "S">
-<!ENTITY attachmentextractor.context.extracttodefault.label "Poimi valitut liitetiedostot">
-<!ENTITY attachmentextractor.context.extracttodefault.accesskey "P">
-<!ENTITY attachmentextractor.context.extracttofolder.label "Poimi valitut liitetiedostot kohteeseen...">
-<!ENTITY attachmentextractor.context.extracttofolder.accesskey "H">
 <!ENTITY attachmentextractor.context.extractalldefault.label "Poimi kaikki liitetiedostot">
 <!ENTITY attachmentextractor.context.extractalldefault.accesskey "K">
 <!ENTITY attachmentextractor.context.extractallfolder.label "Poimi kaikki liitetiedostot kohteeseen...">
@@ -34,6 +34,8 @@
 <!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "M">
 <!ENTITY attachmentextractor.context.extractdeepfolder.label "Poimi kaikki mukaanlukien alikansiot kohteeseen...">
 <!ENTITY attachmentextractor.context.extractdeepfolder.accesskey "N">
+<!ENTITY attachmentextractor.context.extractalltosuggest.label "Poimi kaikki ehdotettuun tiedostokansioon">
+<!ENTITY attachmentextractor.context.extractalltosuggest.accesskey "L">
 <!ENTITY attachmentextractor.attachment.extracttodefault.label "AE poimi kaikki">
 <!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "P">
 <!ENTITY attachmentextractor.attachment.extracttofolder.label "AE poimi kaikki kohteeseen...">
@@ -57,3 +59,12 @@
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.label "Aseta malli oletukseksi tästä lähtien">
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.accesskey "S">
 <!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Klikkaa lisätäksesi merkki">
+<!ENTITY attachmentextractor.suggestedFolderDialog.title "Attachment Extractor - Ehdotetut kansiot:">
+<!ENTITY attachmentextractor.suggestedFolderDialog.label "Valittujen viestien otsikkoriveille perustuvat ehdotetut kansiot:">
+<!ENTITY attachmentextractor.suggestedFolderDialog.acceptbutton "Käytä valittua kansiota">
+<!ENTITY attachmentextractor.imagetoolbar.label "Käännä valinta vastakkaiseen asentoon.">
+<!ENTITY attachmentextractor.imagetoolbar.accesskey "V">
+<!ENTITY attachmentextractor.context.extracttodefault.label "Poimi valitut liitetiedostot">
+<!ENTITY attachmentextractor.context.extracttofolder.label "Poimi valitut liitetiedostot kohteeseen...">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "P">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "H">

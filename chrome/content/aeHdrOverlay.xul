@@ -44,6 +44,11 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 <popup id="attachmentListContext" >
+	<menuitem id="menu_ae_extractIndToSuggest_attachment" 
+		label="&attachmentextractor.extracttosuggest.label;"
+		accesskey="&attachmentextractor.extracttosuggest.accesskey;" 
+		command="cmd_ae_extractIndToSuggest" 
+		insertafter="context-saveAttachment" />
 	<menuitem id="menu_ae_extractIndToFolder_attachment" 
 		label="&attachmentextractor.attachment.extractindtofolder.label;"
 		accesskey="&attachmentextractor.attachment.extractindtofolder.accesskey;" 
@@ -58,7 +63,7 @@
 		<menupopup id="menu_ae_extractIndToFolder_attachment_menu-Popup" 
 			onpopupshowing="attachmentextractor.updateMRUList(this)" 
 		  	browseText="&attachmentextractor.mrubrowsetext;"
-			paramAll="false" paramPattern="false" paramIndividual="true" />
+			paramAll="'selected'" paramPattern="false" paramIndividual="true" />
 	</menu>
 	<menuitem id="menu_ae_extractIndToDefault_attachment" 
 		label="&attachmentextractor.attachment.extractindtodefault.label;"
@@ -85,7 +90,7 @@
 		<menupopup id="menu_ae_extractToFolder_attachment_menu-Popup" 
 			onpopupshowing="attachmentextractor.updateMRUList(this)" 
 		  	browseText="&attachmentextractor.mrubrowsetext;"
-			paramAll="true" paramPattern="false" paramIndividual="true" />
+			paramAll="'all'" paramPattern="false" paramIndividual="true" />
 	</menu>
 </popup>
 

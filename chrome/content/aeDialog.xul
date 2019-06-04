@@ -53,7 +53,7 @@
     <stringbundle id="strbundle" src="chrome://attachmentextractor/locale/attachmentextractor.properties"/>
 </stringbundleset>
 
-<script type="application/x-javascript" src="chrome://attachmentextractor/content/attachmentextractor.js"></script>
+<script type="application/x-javascript" src="chrome://attachmentextractor/content/aecommon.js"/>
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/aeprogresstracker.js"></script>
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/aewindow.js"></script>
 <script type="application/x-javascript" src="chrome://attachmentextractor/content/aemessenger.js"></script>
@@ -62,7 +62,6 @@
 <script type="application/x-javascript">
 
   <![CDATA[
-	
 	function updateCounts(m_index,m_count,a_index,a_count) {
 		if (m_index!=-1) {
 			var dmessage=document.getElementById("strbundle").getString("ProgressDialogProgressOf").replace("%1$s",(m_index+1)).replace("%2$s",m_count);
@@ -155,5 +154,5 @@
 </vbox>
 </groupbox>
 
-<browser id="aemessagepane" minheight="0" minwidth="0" name="messagepane" type="content-primary" src="about:blank" disablehistory="true" disablesecurity="true" /><!-- should I add: context="messagePaneContext"  ?-->
+<browser id="aemessagepane" minheight="0" minwidth="0" name="messagepane" type="content-primary" src="about:blank" disablehistory="true" disablesecurity="true" />
 </window>

@@ -1,7 +1,9 @@
 <!ENTITY attachmentextractor.settings.windowtitle "Attachment Extractorin asetukset">
 <!ENTITY attachmentextractor.settings.width "50em">
+<!ENTITY attachmentextractor.settings.homepage.label "AttachmentExtractorin kotisivu ja ominaisuuksien kuvaus:">
 <!ENTITY attachmentextractor.settings.generaltab.label "Yleiset">
 <!ENTITY attachmentextractor.settings.normal.caption "Liitetiedostojen poiminta">
+<!ENTITY attachmentextractor.settings.savefolders.caption "Minne liitteet tulisi tallentaa?">
 <!ENTITY attachmentextractor.settings.overwritepolicy.label "Mitä tehdään, kun löydetään tiedosto, jolla on sama nimi kuin liitetiedostolla?">
 <!ENTITY attachmentextractor.settings.overwrite-replace.label "Korvaa aina olemassaoleva tiedosto uudella liitetiedostolla">
 <!ENTITY attachmentextractor.settings.overwrite-replace.accesskey "R">
@@ -11,7 +13,26 @@
 <!ENTITY attachmentextractor.settings.overwrite-rename.accesskey "M">
 <!ENTITY attachmentextractor.settings.overwrite-ask.label "Kysy joka kerta">
 <!ENTITY attachmentextractor.settings.overwrite-ask.accesskey "A">
-<!ENTITY attachmentextractor.settings.homepage.label "AttachmentExtractorin kotisivu ja ominaisuuksien kuvaus:">
+<!ENTITY attachmentextractor.settings.suggestfolder.button.label "Ehdotettujen kansioiden asetukset ...">
+<!ENTITY attachmentextractor.settings.suggestfolder.dialogtitle "Ehdotetut kansiot">
+<!ENTITY attachmentextractor.settings.suggestfolder.description "Kansiota voidaan ehdottaa poiminnan kohteeksi valitsemiesi viestien otsikkorivien avainsanojen pohjalta.">
+<!ENTITY attachmentextractor.settings.suggestfolder.disregardduplicates.label "Hylkää avainsanojen duplikaatit, kun ehdotettuja kansioita arvotetaan?">
+<!ENTITY attachmentextractor.settings.suggestfolder.disregardduplicates.accesskey "H">
+<!ENTITY attachmentextractor.settings.suggestfolder.parents.label "Kansiot, jotka sisältävät mahdollisia purkamisen alikansioita:">
+<!ENTITY attachmentextractor.settings.suggestfolder.excludedkeywords.label "Poissuljettavat avainsanat: (pilkulla erotettuina)">
+<!ENTITY attachmentextractor.settings.suggestfolder.clearbutton.label "Tyhjennä">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.label "Ota käyttöön irrotettujen kuvien näyttäminen.">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.linktext "Dokumentaatio saatavilla">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.accesskey "D">
+<!ENTITY attachmentextractor.settings.savepathmru.caption "Viimeksi käytetyt kansiot">
+<!ENTITY attachmentextractor.settings.savepathmru.label "Ota käyttöön viimeksi käytettyjen kansioiden lista.">
+<!ENTITY attachmentextractor.settings.savepathmru.count.label1 "Tallenna viimeiset">
+<!ENTITY attachmentextractor.settings.savepathmru.count.label2 "kansiota.">
+<!ENTITY attachmentextractor.settings.savepathmru.accesskey "M">
+<!ENTITY attachmentextractor.settings.savepathmru.clearbutton.label "Tyhjennä nyt">
+<!ENTITY attachmentextractor.settings.savefolder.label "Tallennuksen oletuspolku:">
+<!ENTITY attachmentextractor.settings.savefolder.browsebutton "Selaa...">
+<!ENTITY attachmentextractor.settings.posttab.label "Poiminnan jälkeen">
 <!ENTITY attachmentextractor.settings.afterextractpolicy.label "Mitä tehdään liitetiedostojen poiminnan jälkeen:">
 <!ENTITY attachmentextractor.settings.afterextractpolicy.internaltab.label "Thunderbird-toimenpiteet">
 <!ENTITY attachmentextractor.settings.afterextractpolicy.externaltab.label "Ulkoiset toimenpiteet">
@@ -35,8 +56,6 @@
 <!ENTITY attachmentextractor.settings.after-launch.accesskey "O">
 <!ENTITY attachmentextractor.settings.after-endlaunch.label "Lataa kaikki liitteet määritellyllä ulkoisella sovelluksella:">
 <!ENTITY attachmentextractor.settings.after-endlaunch.accesskey "M">
-<!ENTITY attachmentextractor.settings.savefolder.label "Tallennuksen oletuspolku:">
-<!ENTITY attachmentextractor.settings.savefolder.browsebutton "Selaa...">
 <!ENTITY attachmentextractor.settings.returnreceipts.button.label "Vastaanottokuittaukset ...">
 <!ENTITY attachmentextractor.settings.returnreceipts.dialogtitle "Vastaanottokuittaukset">
 <!ENTITY attachmentextractor.settings.returnreceipts.label "AttachmentExtractor voi lähettää vastaanottokuittaukset automaattisesti, kun viesti merkitään luetuksi">
@@ -47,11 +66,19 @@
 <!ENTITY attachmentextractor.settings.returnreceipts.override.disabled.accesskey "T">
 <!ENTITY attachmentextractor.settings.returnreceipts.override.enabled.label "Ohita &apos;kysy minulta&apos;-asetus ja lähetä vastaanottokuittaukset kehoitteen kera">
 <!ENTITY attachmentextractor.settings.returnreceipts.override.enabled.accesskey "O">
-<!ENTITY attachmentextractor.settings.showprogressdialog.label "Näytä suoritusdialogi poiminnan aikana.">
-<!ENTITY attachmentextractor.settings.showprogressdialog.accesskey "G">
-<!ENTITY attachmentextractor.settings.progressdialogtext.label "Näytä viestien aiheet ja liitteiden nimet edistymisikkunassa.">
-<!ENTITY attachmentextractor.settings.progressdialogtext.accesskey "U">
+<!ENTITY attachmentextractor.settings.reporttab.label "ReportGen">
+<!ENTITY attachmentextractor.settings.reportgen.caption "HTML-raporttikehitin">
+<!ENTITY attachmentextractor.settings.reportgen.label "Kehitä raportti aina kun AttachmentExtractor ajetaan.">
+<!ENTITY attachmentextractor.settings.reportgen.accesskey "K">
+<!ENTITY attachmentextractor.settings.reportgen.thumbnail.label "Käytä liitetiedostojen pienoiskuvia, kun se on mahdollista.">
+<!ENTITY attachmentextractor.settings.reportgen.thumbnail.accesskey "L">
+<!ENTITY attachmentextractor.settings.reportgen.embedcss.label "Upota tyylitiedot raporttiin - älä käytä linkitettyä tyylitiedostoa.">
+<!ENTITY attachmentextractor.settings.reportgen.embedcss.accesskey "U">
+<!ENTITY attachmentextractor.settings.reportgen.cssfile.caption "Raportille käytettävä tyylitiedosto:">
+<!ENTITY attachmentextractor.settings.reportgen.reportname2.label "Tiedostonimi (tai absoluuttinen polku) raportille:">
+<!ENTITY attachmentextractor.settings.reportgen.button.label "Raporttikehittimen asetukset ...">
 <!ENTITY attachmentextractor.settings.advancedtab.label "Lisäasetukset">
+<!ENTITY attachmentextractor.settings.advancedmoretab.label "Lisää">
 <!ENTITY attachmentextractor.settings.extract.caption "Liitetiedostojen tallennus">
 <!ENTITY attachmentextractor.settings.extract.tbextract.label "Poimi liitetiedostot tavallisella Thunderbird-koodilla.">
 <!ENTITY attachmentextractor.settings.extract.tbextract.accesskey "T">
@@ -72,31 +99,19 @@
 <!ENTITY attachmentextractor.settings.setdatetoemail.accesskey "V">
 <!ENTITY attachmentextractor.settings.inlinepolicy.label "Poimi myös upotetut (&apos;inline&apos;) kuvat">
 <!ENTITY attachmentextractor.settings.inlinepolicy.accesskey "P">
-<!ENTITY attachmentextractor.settings.savepathmru.caption "Viimeksi käytetyt kansiot">
-<!ENTITY attachmentextractor.settings.savepathmru.label "Ota käyttöön viimeksi käytettyjen kansioiden lista.">
-<!ENTITY attachmentextractor.settings.savepathmru.count.label1 "Tallenna viimeiset">
-<!ENTITY attachmentextractor.settings.savepathmru.count.label2 "kansiota.">
-<!ENTITY attachmentextractor.settings.savepathmru.accesskey "M">
-<!ENTITY attachmentextractor.settings.savepathmru.clearbutton.label "Tyhjennä nyt">
 <!ENTITY attachmentextractor.settings.debug.caption "Debuggaus">
 <!ENTITY attachmentextractor.settings.debug.label "Ota käyttöön Debug-tila käynnistettäessä uudelleen. Viestit lokitetaan konsoliin ja kirjoitetaan &apos;aedebug.txt&apos;-tiedostoon profiilikansioosi.">
 <!ENTITY attachmentextractor.settings.debug.accesskey "D">
-<!ENTITY attachmentextractor.settings.reporttab.label "ReportGen">
-<!ENTITY attachmentextractor.settings.reportgen.caption "HTML-raporttikehitin">
-<!ENTITY attachmentextractor.settings.reportgen.label "Kehitä raportti aina kun AttachmentExtractor ajetaan.">
-<!ENTITY attachmentextractor.settings.reportgen.accesskey "K">
-<!ENTITY attachmentextractor.settings.reportgen.thumbnail.label "Käytä liitetiedostojen pienoiskuvia, kun se on mahdollista.">
-<!ENTITY attachmentextractor.settings.reportgen.thumbnail.accesskey "L">
-<!ENTITY attachmentextractor.settings.reportgen.embedcss.label "Upota tyylitiedot raporttiin - älä käytä linkitettyä tyylitiedostoa.">
-<!ENTITY attachmentextractor.settings.reportgen.embedcss.accesskey "U">
-<!ENTITY attachmentextractor.settings.reportgen.cssfile.caption "Raportille käytettävä tyylitiedosto:">
-<!ENTITY attachmentextractor.settings.reportgen.reportname2.label "Tiedostonimi (tai absoluuttinen polku) raportille:">
-<!ENTITY attachmentextractor.settings.filenametab.label "Tiedostonimet">
+<!ENTITY attachmentextractor.settings.showprogressdialog.label "Näytä suoritusdialogi poiminnan aikana.">
+<!ENTITY attachmentextractor.settings.showprogressdialog.accesskey "G">
+<!ENTITY attachmentextractor.settings.progressdialogtext.label "Näytä viestien aiheet ja liitteiden nimet edistymisikkunassa.">
+<!ENTITY attachmentextractor.settings.progressdialogtext.accesskey "U">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2.label "Tiedostonimisuodatuksen käytäntö:">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-false.label "Poimi kaikki tiedostot, paitsi ne, joiden tiedostonimi sisältää:">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-false.accesskey "K">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-true.label "Poimi vain tiedostot, joiden tiedostonimi sisältää:">
 <!ENTITY attachmentextractor.settings.includeexcludepolicy2-true.accesskey "O">
+<!ENTITY attachmentextractor.settings.filenametab.label "Tiedostonimet">
 <!ENTITY attachmentextractor.settings.filenamepatterngroup.label "Tiedostonimimallin luominen:">
 <!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Klikkaa lisätäksesi merkki">
 <!ENTITY attachmentextractor.settings.filenamepattern.label "Malli, jolla luodaan tiedostonimet:">
@@ -129,6 +144,8 @@
 <!ENTITY attachmentextractor.settings.autoextract.cleartriggertag.accesskey "Y">
 <!ENTITY attachmentextractor.settings.autoextract.waitforall.label "Odota, kunnes kaikki viestit on ladattu, ennen kuin aloitetaan Auto-Poiminta.">
 <!ENTITY attachmentextractor.settings.autoextract.waitforall.accesskey "O">
+<!ENTITY attachmentextractor.settings.autoextract.onattachmentsonly.label "Käynnistä Auto-Poimi vain viesteille, joissa näyttää olevan liitteitä">
+<!ENTITY attachmentextractor.settings.autoextract.onattachmentsonly.accesskey "V">
 <!ENTITY attachmentextractor.settings.abouttab.label "Tietoja">
 <!ENTITY attachmentextractor.settings.requiresrestart.label "(Vaatii Thunderbirdin uudelleenkäynnistyksen.)">
 <!ENTITY attachmentextractor.settings.skipidentical.label "Ohita samankokoiset tiedostot">

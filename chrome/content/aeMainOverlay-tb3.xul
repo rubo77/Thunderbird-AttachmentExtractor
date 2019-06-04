@@ -16,7 +16,7 @@
    -
    - The Initial Developer of the Original Code is
    - Andrew Williamson <eviljeff@eviljeff.com>.
-   - Portions created by the Initial Developer are Copyright (C) 2005-2009
+   - Portions created by the Initial Developer are Copyright (C) 2009
    - the Initial Developer. All Rights Reserved.
    -
    - Contributor(s):
@@ -231,19 +231,21 @@
 </popup>
 
 
-<menupopup id="threadPaneContext">
+<menupopup id="mailContext">
     <menuitem id="menu_ae_extractPatternFolder_context" 
 			label="&attachmentextractor.extractpatternfolder.label;"
 			accesskey="&attachmentextractor.extractpatternfolder.accesskey;" 
 			ae_mru_menuitem="NONMRU"
-			insertafter="threadPaneContext-editAsNew" 
+			ae_image_menuitem="NONIMAGE"
+			insertafter="mailContext-editAsNew" 
 			command="cmd_ae_extractPatternFolder" 
 			hidden="true"/>
 	<menu id="menu_ae_extractPatternFolder_context_menu" 
 			label="&attachmentextractor.extractpatternfolder.label;"
 			accesskey="&attachmentextractor.extractpatternfolder.accesskey;" 
 			ae_mru_menuitem="MRU"
-			insertafter="threadPaneContext-editAsNew" 
+			ae_image_menuitem="NONIMAGE"
+			insertafter="mailContext-editAsNew" 
 			command="cmd_ae_extractPatternFolder_menu">
 		  <menupopup id="menu_ae_extractPatternFolder_context_menu-Popup"  onpopupshowing="attachmentextractor.updateMRUList(this)"
 		  	browseText="&attachmentextractor.mrubrowsetext;"
@@ -252,6 +254,7 @@
 				label="&attachmentextractor.mru.default.label;"
 				accesskey="&attachmentextractor.mru.default.accesskey;" 
 				ae_mru_menuitem="MRU"
+				ae_image_menuitem="NONIMAGE"
 				command="cmd_ae_extractPatternDefault" />
 			  <menuseparator ae_mru_menuitem="MRU"/>
 		  </menupopup>
@@ -260,25 +263,29 @@
 			label="&attachmentextractor.extractpattern.label;"
 			accesskey="&attachmentextractor.extractpattern.accesskey;" 
 			ae_mru_menuitem="NONMRU"
-			insertafter="threadPaneContext-editAsNew" 
+			ae_image_menuitem="NONIMAGE"
+			insertafter="mailContext-editAsNew" 
 			command="cmd_ae_extractPatternDefault" />
 	<menuitem id="menu_ae_extractToSuggest_context" 
 			label="&attachmentextractor.extracttosuggest.label;"
 			accesskey="&attachmentextractor.extracttosuggest.accesskey;" 
-			insertafter="threadPaneContext-editAsNew" 
+			ae_image_menuitem="NONIMAGE"
+			insertafter="mailContext-editAsNew" 
 			command="cmd_ae_extractToSuggest" />
 	<menuitem id="menu_ae_extractToFolder_context" 
 		label="&attachmentextractor.extracttofolder.label;"
 		accesskey="&attachmentextractor.extracttofolder.accesskey;" 
 		ae_mru_menuitem="NONMRU"
-		insertafter="threadPaneContext-editAsNew" 
+		ae_image_menuitem="NONIMAGE"
+		insertafter="mailContext-editAsNew" 
 		command="cmd_ae_extractToFolder"
 		hidden="true" />
 	<menu id="menu_ae_extractToFolder_context_menu" 
 			label="&attachmentextractor.extracttofolder.label;"
 			accesskey="&attachmentextractor.extracttofolder.accesskey;" 
 			ae_mru_menuitem="MRU"
-			insertafter="threadPaneContext-editAsNew" 
+			ae_image_menuitem="NONIMAGE"
+			insertafter="mailContext-editAsNew" 
 			command="cmd_ae_extractToFolder_menu">
 		  <menupopup id="menu_ae_extractToFolder_context_menu-Popup"  onpopupshowing="attachmentextractor.updateMRUList(this)"
 		  	browseText="&attachmentextractor.mrubrowsetext;"
@@ -287,96 +294,26 @@
 	<menuitem id="menu_ae_extractToDefault_context" 
 		label="&attachmentextractor.extracttodefault.label;"
 		accesskey="&attachmentextractor.extracttodefault.accesskey;" 
-		insertafter="threadPaneContext-editAsNew" 
-		command="cmd_ae_extractToDefault" />
-	<menuseparator insertafter="threadPaneContext-editAsNew" ae_mru_menuitem="_"  />
-</menupopup>
-
-<menupopup id="messagePaneContext">
-    <menuitem id="menu_ae_extractPatternFolder_mpcontext" 
-			label="&attachmentextractor.extractpatternfolder.label;"
-			accesskey="&attachmentextractor.extractpatternfolder.accesskey;" 
-			ae_mru_menuitem="NONMRU"
-			ae_image_menuitem="NONIMAGE"
-			insertafter="messagePaneContext-editAsNew" 
-			command="cmd_ae_extractPatternFolder" 
-			hidden="true"/>
-	<menu id="menu_ae_extractPatternFolder_mpcontext_menu" 
-			label="&attachmentextractor.extractpatternfolder.label;"
-			accesskey="&attachmentextractor.extractpatternfolder.accesskey;" 
-			ae_mru_menuitem="MRU"
-			ae_image_menuitem="NONIMAGE"
-			insertafter="messagePaneContext-editAsNew" 
-			command="cmd_ae_extractPatternFolder_menu">
-		  <menupopup id="menu_ae_extractPatternFolder_mpcontext_menu-Popup"  
-		    onpopupshowing="attachmentextractor.updateMRUList(this)"
-		  	browseText="&attachmentextractor.mrubrowsetext;"
-			paramAll="false" paramPattern="true">
-			  <menuitem id="menu_ae_extractPatternDefault_mpcontext" 
-				label="&attachmentextractor.mru.default.label;"
-				accesskey="&attachmentextractor.mru.default.accesskey;" 
-				ae_mru_menuitem="MRU"
-				ae_image_menuitem="NONIMAGE"
-				command="cmd_ae_extractPatternDefault" />
-			  <menuseparator ae_mru_menuitem="MRU"/>
-		  </menupopup>
-	</menu>
-	<menuitem id="menu_ae_extractPatternDefault_mpcontext" 
-			label="&attachmentextractor.extractpattern.label;"
-			accesskey="&attachmentextractor.extractpattern.accesskey;" 
-			ae_mru_menuitem="NONMRU"
-			ae_image_menuitem="NONIMAGE"
-			insertafter="messagePaneContext-editAsNew" 
-			command="cmd_ae_extractPatternDefault" />
-	<menuitem id="menu_ae_extractToSuggest_mpcontext" 
-			label="&attachmentextractor.extracttosuggest.label;"
-			accesskey="&attachmentextractor.extracttosuggest.accesskey;" 
-			ae_image_menuitem="NONIMAGE"
-			insertafter="messagePaneContext-editAsNew" 
-			command="cmd_ae_extractToSuggest" />
-	<menuitem id="menu_ae_extractToFolder_mpcontext" 
-		label="&attachmentextractor.extracttofolder.label;"
-		accesskey="&attachmentextractor.extracttofolder.accesskey;" 
-		ae_mru_menuitem="NONMRU"
 		ae_image_menuitem="NONIMAGE"
-		insertafter="messagePaneContext-editAsNew" 
-		command="cmd_ae_extractToFolder"
-		hidden="true" />
-	<menu id="menu_ae_extractToFolder_mpcontext_menu" 
-			label="&attachmentextractor.extracttofolder.label;"
-			accesskey="&attachmentextractor.extracttofolder.accesskey;" 
-			ae_mru_menuitem="MRU"
-			ae_image_menuitem="NONIMAGE"
-			insertafter="messagePaneContext-editAsNew" 
-			command="cmd_ae_extractToFolder_menu">
-		  <menupopup id="menu_ae_extractToFolder_mpcontext_menu-Popup"  
-		  	onpopupshowing="attachmentextractor.updateMRUList(this)"
-		  	browseText="&attachmentextractor.mrubrowsetext;"
-			paramAll="false" paramPattern="false"/>
-	</menu>
-	<menuitem id="menu_ae_extractToDefault_mpcontext" 
-		label="&attachmentextractor.extracttodefault.label;"
-		accesskey="&attachmentextractor.extracttodefault.accesskey;" 
-		ae_image_menuitem="NONIMAGE"
-		insertafter="messagePaneContext-editAsNew" 
+		insertafter="mailContext-editAsNew" 
 		command="cmd_ae_extractToDefault" />
 	<menuseparator insertafter="mailContext-editAsNew" ae_image_menuitem="NONIMAGE" />
 	
 	<menuseparator insertafter="mailContext-saveimage" ae_image_menuitem="IMAGE" />
-	<menuitem id="menu_ae_extractIndToSuggest_mpcontext" 
+	<menuitem id="menu_ae_extractIndToSuggest_context" 
 		label="&attachmentextractor.extracttosuggest.label;"
 		accesskey="&attachmentextractor.extracttosuggest.accesskey;" 
 		ae_image_menuitem="IMAGE"
 		command="cmd_ae_extractContextToSuggest" 
 		insertafter="mailContext-saveimage" />
-	<menuitem id="menu_ae_extractIndToFolder_mpcontext" 
+	<menuitem id="menu_ae_extractIndToFolder_context" 
 		label="&attachmentextractor.attachment.extractindtofolder.label;"
 		accesskey="&attachmentextractor.attachment.extractindtofolder.accesskey;" 
 		ae_mru_menuitem="NONMRU"
 		ae_image_menuitem="IMAGE"
 		command="cmd_ae_extractContextToFolder" 
-		insertafter="messagePaneContext-saveimage"/>
-	<menu id="menu_ae_extractIndToFolder_mpcontext_menu" 
+		insertafter="mailContext-saveimage"/>
+	<menu id="menu_ae_extractIndToFolder_context_menu" 
 		label="&attachmentextractor.attachment.extractindtofolder.label;"
 		accesskey="&attachmentextractor.attachment.extractindtofolder.accesskey;" 
 		ae_mru_menuitem="MRU"
@@ -387,12 +324,12 @@
 		  	browseText="&attachmentextractor.mrubrowsetext;"
 			paramAll="'context'" paramPattern="false" paramIndividual="true" />
 	</menu>
-	<menuitem id="menu_ae_extractIndToDefault_mpcontext" 
+	<menuitem id="menu_ae_extractIndToDefault_context" 
 		label="&attachmentextractor.attachment.extractindtodefault.label;"
 		accesskey="&attachmentextractor.attachment.extractindtodefault.accesskey;" 
 		ae_image_menuitem="IMAGE"
 		command="cmd_ae_extractContextToDefault" 
-		insertafter="messagePaneContext-saveimage"/>
+		insertafter="mailContext-saveimage"/>
 </menupopup>
 
 <toolbarpalette id="MailToolbarPalette">

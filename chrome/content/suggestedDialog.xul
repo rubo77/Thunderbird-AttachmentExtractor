@@ -16,10 +16,10 @@
    -
    - The Initial Developer of the Original Code is
    - Andrew Williamson <eviljeff@eviljeff.com>.
-   - Portions created by the Initial Developer are Copyright (C) 2006-2009
+   - Portions created by the Initial Developer are Copyright (C) 2009
    - the Initial Developer. All Rights Reserved.
    -
-   - Contributor(s): 
+   - Contributor(s):
    -
    - Alternatively, the contents of this file may be used under the terms of
    - either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -39,28 +39,53 @@
 <?xml-stylesheet href="chrome://attachmentextractor/skin/attachmentextractor.css" type="text/css"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
-<!DOCTYPE dialog SYSTEM "chrome://attachmentextractor/locale/attachmentextractor-prefs.dtd" >
+<!DOCTYPE dialog SYSTEM "chrome://attachmentextractor/locale/attachmentextractor.dtd" >
 
-<prefwindow
+<dialog
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-  type="child"
-  id="attachmentextractorPreferencesDate"
-  title="&attachmentextractor.settings.filenamepatterndate.dialogtitle;"
+  id="attachmentextractorSuggestedFolderDialog"
+  title="&attachmentextractor.suggestedFolderDialog.title;"
+  ondialogaccept="ondialogaccept()"
+  ondialogextra1="ondialogextra1()"
   persist="screenX screenY"
-  windowtype="attachmentextractor:preferences:sub"
-  dlgbuttons="accept,cancel">
-  <prefpane id="DateDialogPane">
-	<preferences>
-      <preference id="pref_datepattern" name="attachmentextractor.filenamepattern.datepattern" type="unichar"/>
-    </preferences>
+  buttons="accept,cancel,extra1"
+  buttonlabelextra1="&attachmentextractor.mrubrowsetext;"
+  buttonlabelaccept="&attachmentextractor.suggestedFolderDialog.acceptbutton;"
+  windowtype="attachmentextractor:suggestedFolderDialog">
+  
+<script>
+<![CDATA[ 
 
-    <hbox align="center">
-	  	<label value="&attachmentextractor.settings.filenamepatterndate.label;"/>
-	  	<textbox id="filenamepatterndate" preftype="char" preference="pref_datepattern" flex="1" />
-  	</hbox>
-	<hbox>
-	  	<label value="&attachmentextractor.settings.filenamepatterndate.homepage.label;"/>
-	  	<label value="www.eviljeff.com/?page=ae_ref" class="text-link" href="http://www.eviljeff.com/?page=ae_ref#date"/>
-	</hbox>
-  </prefpane>
-</prefwindow>
+  function onload() {
+    var matches=window.arguments[0];
+    var folderlist=document.getElementById('folderlist'); 
+   
+    if (folderlist.selectedItem!=null) return;  //sometimes triggers twice. dont know why but stop it anyway.
+	if (matches.length==0) document.documentElement.getButton("accept").disabled = true;  
+    for (var i=0;i < matches.length;i++) {
+	  folderlist.appendItem("["+matches[i].ct+"] "+matches[i].f.path,matches[i].f).crop="center";
+	}
+	folderlist.selectedIndex=0;
+	setTimeout( function() {sizeToContent();}, 0);
+    /*addEventListener("resize", function(){ removeEventListener("resize", arguments.callee, false); sizeToContent(); }, false);*/
+  }
+  function ondialogaccept() {
+    var folderlist=document.getElementById('folderlist');
+    window.arguments[1].selectedIndex=folderlist.selectedIndex;
+  }
+  function ondialogextra1() {
+    window.arguments[1].browse=true;
+	window.close();
+  }
+]]>
+</script>
+
+<vbox align="center" flex="1">	
+	  
+	  <label value="&attachmentextractor.suggestedFolderDialog.label;"/>
+	  <listbox id="folderlist" rows="5" flex="1" style="min-width:40em">
+      </listbox>
+	  
+</vbox>
+
+</dialog>

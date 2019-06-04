@@ -1,8 +1,10 @@
 content	attachmentextractor	chrome/content/
 skin	attachmentextractor	classic/1.0	chrome/skin/
 
-overlay	chrome://messenger/content/mailWindowOverlay.xul	chrome://attachmentextractor/content/aeMainOverlay.xul
+overlay	chrome://messenger/content/mailWindowOverlay.xul	chrome://attachmentextractor/content/aeMainOverlay.xul appversion<=3.0b1
+overlay	chrome://messenger/content/mailWindowOverlay.xul	chrome://attachmentextractor/content/aeMainOverlay-tb3.xul appversion>3.0b1
 overlay	chrome://messenger/content/mailWindowOverlay.xul	chrome://attachmentextractor/content/aeCommonOverlay.xul
+overlay	chrome://messenger/content/mailWindowOverlay.xul	chrome://attachmentextractor/content/fixDetachedImages.xul
 overlay	chrome://messenger/content/messenger.xul		    chrome://attachmentextractor/content/aeMessengerOverlay.xul
 overlay	chrome://messenger/content/msgHdrViewOverlay.xul	chrome://attachmentextractor/content/aeHdrOverlay.xul
 style 	chrome://global/content/customizeToolbar.xul 		chrome://attachmentextractor/skin/toolbar-button.css
@@ -19,5 +21,5 @@ locale attachmentextractor it-IT chrome/locale/it-IT/attachmentextractor/
 locale attachmentextractor ko-KR chrome/locale/ko-KR/attachmentextractor/
 locale attachmentextractor nl-NL chrome/locale/nl-NL/attachmentextractor/
 locale attachmentextractor pt-PT chrome/locale/pt-PT/attachmentextractor/
+locale attachmentextractor ru-RU chrome/locale/ru-RU/attachmentextractor/
 locale attachmentextractor sk-SK chrome/locale/sk-SK/attachmentextractor/
-locale attachmentextractor sv-SE chrome/locale/sv-SE/attachmentextractor/

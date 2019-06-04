@@ -59,7 +59,7 @@
   ]]>
   </script>
 
-<groupbox align="center" orient="vertical" style="background-color:window">
+<groupbox align="center" orient="vertical" style="background-color:white;">
   <vbox>
     <hbox align="center">
   	  <image src="chrome://attachmentextractor/skin/attachmentextractor.png"/>
@@ -69,7 +69,7 @@
   	 <text value="&attachmentextractor.firstpopup.changelog;" style="font-size: medium; text-align:center"/>
     </vbox>
   <separator class="thin"/>
-  <iframe id="logbox" width="600px" height="300px" src="chrome://attachmentextractor/content/changelogloading.xul"/>
+  <iframe id="logbox" width="600px" height="300px" type="content" src="chrome://attachmentextractor/content/changelogloading.xul"/>
 </groupbox>
 <separator class="thin"/>
 <hbox>

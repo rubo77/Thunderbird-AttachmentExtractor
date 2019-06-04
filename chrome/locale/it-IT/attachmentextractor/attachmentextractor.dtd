@@ -1,9 +1,11 @@
 <!ENTITY attachmentextractor.menu.label "AttachmentExtractor">
-<!ENTITY attachmentextractor.menu.accesskey "A">
+<!ENTITY attachmentextractor.menu.accesskey "x">
 <!ENTITY attachmentextractor.extracttodefault.label "Estrai dai messaggi selezionati">
 <!ENTITY attachmentextractor.extracttodefault.accesskey "S">
 <!ENTITY attachmentextractor.extracttofolder.label "Estrai dai messaggi selezionati in">
 <!ENTITY attachmentextractor.extracttofolder.accesskey "t">
+<!ENTITY attachmentextractor.extracttosuggest.label "Estrai nella cartella suggerita">
+<!ENTITY attachmentextractor.extracttosuggest.accesskey "n">
 <!ENTITY attachmentextractor.extractalldefault.label "Estrai da tutti i messaggi nella cartella">
 <!ENTITY attachmentextractor.extractalldefault.accesskey "c">
 <!ENTITY attachmentextractor.extractallfolder.label "Estrai da tutti i messaggi nella cartella in">
@@ -12,6 +14,8 @@
 <!ENTITY attachmentextractor.extractdeepdefault.accesskey "E">
 <!ENTITY attachmentextractor.extractdeepfolder.label "Estrai da tutti i messaggi nella cartella e nelle sottocartelle in">
 <!ENTITY attachmentextractor.extractdeepfolder.accesskey "d">
+<!ENTITY attachmentextractor.extractalltosuggest.label "Estrai da tutti i messaggi nella cartella suggerita">
+<!ENTITY attachmentextractor.extractalltosuggest.accesskey "a">
 <!ENTITY attachmentextractor.extractpattern.label "Estrai con un nome di modello personalizzato">
 <!ENTITY attachmentextractor.extractpattern.accesskey "m">
 <!ENTITY attachmentextractor.extractpatternfolder.label "Estrai con un nome di modello personalizzato in">
@@ -22,10 +26,6 @@
 <!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "u">
 <!ENTITY attachmentextractor.menusettingsdialog.label "Impostazioni di AE…">
 <!ENTITY attachmentextractor.menusettingsdialog.accesskey "A">
-<!ENTITY attachmentextractor.context.extracttodefault.label "Estrai gli allegati selezionati">
-<!ENTITY attachmentextractor.context.extracttodefault.accesskey "a">
-<!ENTITY attachmentextractor.context.extracttofolder.label "Estrai gli allegati selezionati in">
-<!ENTITY attachmentextractor.context.extracttofolder.accesskey "G">
 <!ENTITY attachmentextractor.context.extractalldefault.label "Estrai tutti gli allegati">
 <!ENTITY attachmentextractor.context.extractalldefault.accesskey "S">
 <!ENTITY attachmentextractor.context.extractallfolder.label "Estrai tutti gli allegati in">
@@ -34,6 +34,8 @@
 <!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "u">
 <!ENTITY attachmentextractor.context.extractdeepfolder.label "Estrai tutti gli allegati incluse sottocartelle in">
 <!ENTITY attachmentextractor.context.extractdeepfolder.accesskey "o">
+<!ENTITY attachmentextractor.context.extractalltosuggest.label "Estrai tutti gli allegati nella cartella suggerita">
+<!ENTITY attachmentextractor.context.extractalltosuggest.accesskey "I">
 <!ENTITY attachmentextractor.attachment.extracttodefault.label "Estrai tutti con AE">
 <!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "c">
 <!ENTITY attachmentextractor.attachment.extracttofolder.label "Estrai tutti con AE in">
@@ -57,3 +59,12 @@
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.label "Imposta il modello come predefinito d&apos;ora in poi">
 <!ENTITY attachmentextractor.filenamepatterndialog.checkbox.accesskey "I">
 <!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Fare clic per aggiungere un token">
+<!ENTITY attachmentextractor.suggestedFolderDialog.title "Cartelle suggerite di Attachment Extractor">
+<!ENTITY attachmentextractor.suggestedFolderDialog.label "Cartelle suggerite in base a parole chiave presenti nel campo Oggetto dei messaggi selezionati">
+<!ENTITY attachmentextractor.suggestedFolderDialog.acceptbutton "Utilizza cartella suggerita">
+<!ENTITY attachmentextractor.imagetoolbar.label "Attiva/disattiva">
+<!ENTITY attachmentextractor.imagetoolbar.accesskey "T">
+<!ENTITY attachmentextractor.context.extracttodefault.label "Estrai gli allegati selezionati">
+<!ENTITY attachmentextractor.context.extracttofolder.label "Estrai gli allegati selezionati in">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "a">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "G">
