@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is AttachmentExtractor.
+   -
+   - The Initial Developer of the Original Code is
+   - Andrew Williamson <eviljeff@eviljeff.com>.
+   - Portions created by the Initial Developer are Copyright (C) 2006
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   - Alexander Ihrig
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+<!DOCTYPE overlay SYSTEM "chrome://attachmentextractor_cont/locale/attachmentextractor-prefs.dtd" >
+
+<overlay id="aeadvancedprefsOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/x-javascript" src="chrome://attachmentextractor_cont/content/settings/aec_prefs.js"/>
+<script type="application/x-javascript" src="chrome://attachmentextractor_cont/content/aec_js_common.js"/>
+<script type="application/x-javascript" src="chrome://attachmentextractor_cont/content/aec_js_attachmentextractor.js"/>
+
+<script>
+<![CDATA[ 
+function onAdvancedPaneLoad() {
+	enableField(document.getElementById('extractmode1'),new Array('setdatetoemail','minimumsize'));
+	enableField(document.getElementById('iep0false'),'excludepatterns');
+	enableField(document.getElementById('iep1true'),'includepatterns');
+}
+]]> 
+</script>	
+		
+<prefpane id="paneAdvanced" onpaneload="onAdvancedPaneLoad(event)">
+	
+    <preferences>
+      <preference id="pref_includeexcludepolicy" name="extensions.attachmentextractor_cont.includeenabled" type="int"/>
+	  <preference id="pref_excludepatterns" name="extensions.attachmentextractor_cont.excludepatterns4" type="string"/>
+	  <preference id="pref_includepatterns" name="extensions.attachmentextractor_cont.includepatterns4" type="string"/>
+	  <preference id="pref_inlinepolicy" name="extensions.attachmentextractor_cont.extractinlinetoo" type="bool"/>
+	  <preference id="pref_progressdialogtext" name="extensions.attachmentextractor_cont.progressdialog.showtext" type="bool"/>
+	  <preference id="pref_setdatetoemail" name="extensions.attachmentextractor_cont.setdatetoemail" type="bool"/>
+	  <preference id="pref_queuerequests" name="extensions.attachmentextractor_cont.queuerequests" type="bool"/>
+	  <preference id="pref_debug" name="extensions.attachmentextractor_cont.debugonstart" type="bool"/>
+	  <preference id="pref_extractmode" name="extensions.attachmentextractor_cont.extract.mode" type="int"/>
+	  <preference id="pref_extractminimumsize" name="extensions.attachmentextractor_cont.extract.minimumsize" type="int"/>
+ 	</preferences>
+	
+	<tabbox>
+	  <tabs>
+		<tab label="&attachmentextractor.settings.advancedtab.label;"/>
+		<tab label="&attachmentextractor.settings.advancedmoretab.label;"/>
+	  </tabs>
+	  <tabpanels>
+		<tabpanel orient="vertical">
+		  <groupbox>
+			<caption label="&attachmentextractor.settings.includeexcludepolicy2.label;"/>
+			<radiogroup id="includeexcludepolicy" preference="pref_includeexcludepolicy">
+			<grid>
+			  <columns>
+				<column/>
+				 <column flex="1"/>
+			  </columns>
+			  <rows>  
+				<row>
+				  <radio id="iep0false" value="0" label="&attachmentextractor.settings.includeexcludepolicy2-false.label;"
+				   accesskey="&attachmentextractor.settings.includeexcludepolicy2-false.accesskey;"
+				   oncommand="enableField(this,'excludepatterns');enableField(document.getElementById('iep1true'),'includepatterns');"/>
+		  
+				  <textbox id="excludepatterns" size="50" preference="pref_excludepatterns"/>
+				</row>   
+				<row>
+				  <radio id="iep1true" value="1" label="&attachmentextractor.settings.includeexcludepolicy2-true.label;"
+					accesskey="&attachmentextractor.settings.includeexcludepolicy2-true.accesskey;"
+					oncommand="enableField(this,'includepatterns');enableField(document.getElementById('iep0false'),'excludepatterns');"/>
+		  
+				  <textbox id="includepatterns" size="50" preference="pref_includepatterns"/>
+				</row>
+			  </rows>
+			</grid>
+			</radiogroup>
+		  </groupbox>
+		  
+		  
+		  <groupbox>
+			<caption label="&attachmentextractor.settings.extract.caption;"/>
+			<radiogroup id="extractmode" preference="pref_extractmode">
+				  <radio value="-1" 
+					label="&attachmentextractor.settings.noextract.label;"
+					accesskey="&attachmentextractor.settings.noextract.accesskey;"
+					oncommand="enableField(document.getElementById('extractmode1'),new Array('setdatetoemail','minimumsize'));"/>
+				  <radio value="0" 
+					label="&attachmentextractor.settings.extract.tbextract.label;"
+					accesskey="&attachmentextractor.settings.extract.tbextract.accesskey;"
+					oncommand="enableField(document.getElementById('extractmode1'),new Array('setdatetoemail','minimumsize'));"/>
+				  <radio value="1" id="extractmode1"
+					label="&attachmentextractor.settings.extract.aeextract2.label;"
+					accesskey="&attachmentextractor.settings.extract.aeextract2.accesskey;"
+					oncommand="enableField(this,new Array('setdatetoemail','minimumsize'));"/>
+				  <vbox style="margin-left:20px">
+					  <checkbox id="setdatetoemail"   
+					  label="&attachmentextractor.settings.setdatetoemail.label;"
+					  accesskey="&attachmentextractor.settings.setdatetoemail.accesskey;"
+					  preference="pref_setdatetoemail"/>
+					  <checkbox id="identicalpolicy" style="display:none"
+					  label="&attachmentextractor.settings.skipidentical.label;"
+					  accesskey="&attachmentextractor.settings.skipidentical.accesskey;"
+					  prefstring="extensions.attachmentextractor_cont.skipidentical" />
+				  </vbox>
+				  <groupbox style="margin-left:20px">
+					<caption label="&attachmentextractor.settings.extract.minimumsize.caption;"/>
+					<box align="center">
+					  <label value="&attachmentextractor.settings.extract.minimumsize-start.label;"/>
+					  <textbox preftype="int" preference="pref_extractminimumsize" style="width: 10em;" id="minimumsize"/>
+					  <label value="&attachmentextractor.settings.extract.minimumsize-end.label;"/>
+					</box>
+				  </groupbox>
+			</radiogroup>	 
+		  </groupbox>
+		  <separator class="thin"/>
+		  <groupbox>
+			  <caption label="&attachmentextractor.settings.debug.caption;" />
+			  <checkbox id="debug" 
+				  preference="pref_debug" 
+				  label="&attachmentextractor.settings.debug.label;"
+				  accesskey="&attachmentextractor.settings.debug.accesskey;" />	
+		  </groupbox>
+		  <label value=" "/>
+		</tabpanel>
+		<tabpanel orient="vertical">	
+		  <separator class="thin"/>
+		  <vbox>
+			  <checkbox id="inlinepolicy" label="&attachmentextractor.settings.inlinepolicy.label;"
+				   accesskey="&attachmentextractor.settings.inlinepolicy.accesskey;"
+				   preference="pref_inlinepolicy" /> 
+			  <checkbox id="progressdialogtext" 
+				label="&attachmentextractor.settings.progressdialogtext.label;"
+				accesskey="&attachmentextractor.settings.progressdialogtext.accesskey;"
+				preference="pref_progressdialogtext" />
+		  </vbox>
+		  <groupbox>
+			<caption label="&attachmentextractor.settings.queuerequests.caption;"/>
+			<radiogroup id="requestmode" preference="pref_queuerequests">
+				  <radio value="false" 
+					label="&attachmentextractor.settings.queuerequests.disabled.label;"
+					accesskey="&attachmentextractor.settings.queuerequests.disabled.accesskey;"/>
+				  <radio value="true"
+					label="&attachmentextractor.settings.queuerequests.enabled.label;"
+					accesskey="&attachmentextractor.settings.queuerequests.enabled.accesskey;"/>
+			</radiogroup>
+		  </groupbox>
+		</tabpanel>
+	  </tabpanels>
+	</tabbox>
+  </prefpane>
+</overlay>

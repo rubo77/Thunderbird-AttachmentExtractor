@@ -1,0 +1,16 @@
+#attachmentextractor-toolbarbutton .toolbarbutton-icon,
+.hdrAEButton .toolbarbutton-icon {
+	width: 16px;
+	height: 16px;
+	min-width: unset;
+	min-height: unset;
+}
+
+#attachmentextractor-toolbarbutton[disabled="true"] .toolbarbutton-icon {
+	opacity: .4;
+}
+
+#attachmentextractor-toolbarbutton,
+.hdrAEButton {
+	list-style-image: url("chrome://attachmentextractor_cont/skin/aec_icon_color.svg");
+}

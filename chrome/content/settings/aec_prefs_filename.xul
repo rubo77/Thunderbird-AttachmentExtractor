@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is AttachmentExtractor.
+   -
+   - The Initial Developer of the Original Code is
+   - Andrew Williamson <eviljeff@eviljeff.com>.
+   - Portions created by the Initial Developer are Copyright (C) 2006
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s): teo (contributed a rewrite of this xul which has been partly combined back into this file)
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+<!DOCTYPE overlay SYSTEM "chrome://attachmentextractor_cont/locale/attachmentextractor-prefs.dtd" >
+
+<overlay id="aefilenameprefsOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/x-javascript" src="chrome://attachmentextractor_cont/content/aec_js_attachmentFileMaker.js"/>
+<script type="application/x-javascript" src="chrome://attachmentextractor_cont/content/settings/aec_prefs.js"/>
+
+<script>
+<![CDATA[ 
+var filenamepatternbox;
+
+function onFilenamePaneLoad(event) {
+	document.getElementById('filenamepattern_exampledate').value=exampleDate.toLocaleString();
+	filenamepatternbox=document.getElementById('filenamepattern');
+	updateexamplefilename(filenamepatternbox);
+	//flex();
+}
+]]> 
+</script>	
+
+<prefpane id="paneFilename" onpaneload="onFilenamePaneLoad(event)">
+	
+    <preferences>
+      <preference id="pref_filenamepattern" name="extensions.attachmentextractor_cont.filenamepattern" type="unichar"/>
+	  <preference id="pref_countpattern" name="extensions.attachmentextractor_cont.filenamepattern.countpattern" type="unichar"/>
+	  <preference id="pref_datepattern" name="extensions.attachmentextractor_cont.filenamepattern.datepattern" type="unichar"/>
+	  <preference id="pref_cleansubject" name="extensions.attachmentextractor_cont.filenamepattern.cleansubject" type="bool"/>
+	  <preference id="pref_cleansubjectstrings" name="extensions.attachmentextractor_cont.filenamepattern.cleansubject.strings" type="string"/>
+ 	</preferences>
+	
+	<groupbox>
+	  <caption label="&attachmentextractor.settings.filenamepatterngroup.label;"/>
+	  <hbox align="center">
+	    <label value="&attachmentextractor.settings.filenamepattern.label;"/>
+	    <spacer flex="1"/>  
+	    <button type="menu" class="tokens" label="&attachmentextractor.filenamepatterndialog.tokenbutton.label;">
+  		  <menupopup >
+    	    <menuitem label="#namepart#"  class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);"/>
+    	    <menuitem label="#extpart#"   class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);"/>
+		    <menuitem label="#count#"     class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
+			<menuitem label="%"           class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
+		    <menuitem label="#date#"      class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
+		    <menuitem label="#subject#"   class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
+		    <menuitem label="#from#"      class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
+		    <menuitem label="#fromemail#" class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
+		    <menuitem label="#folder#"    class="tokens" oncommand="add_to_pattern(this,filenamepatternbox);updateexamplefilename(filenamepatternbox);" />
+  		  </menupopup>
+	    </button>
+	  </hbox>
+	  <textbox id="filenamepattern" preftype="char" 
+	  	preference="pref_filenamepattern" 
+		oninput="updateexamplefilename()"
+		onchange="check_filenamepattern(this,false);updateexamplefilename(this);"/>
+	  <vbox flex="1"><grid>
+       	  <columns><column /><column flex="1"/></columns>
+    	  <rows>
+      		<row align="center">
+        	  <label value="&attachmentextractor.settings.filenamepattern.explanation.wouldgenerate;"/>
+		  	  <textbox id="filenamepattern_examplegenerated" readonly="true"/>
+      		</row>
+      		<row align="center">
+        	  <label value="&attachmentextractor.settings.filenamepattern.explanation.wouldgeneratethen;"/>
+		  	  <textbox id="filenamepattern_examplegenerated2" readonly="true"/>
+      		</row>
+    	  </rows>
+      </grid></vbox>
+		
+	  <separator class="thin"/>
+	  <groupbox>
+		<caption label="&attachmentextractor.settings.filenamepattern.explanation.caption;"/>
+		<vbox flex="1"><grid>
+		<columns><column /><column flex="1"/><column /></columns>
+    	  <rows>
+		    <row align="center">
+		  	  <label value="&attachmentextractor.settings.filenamepattern.explanation.withsubject;"/>
+		  	  <textbox id="filenamepattern_examplesubject" flex="1" 
+			  	oninput="updateexamplefilename(filenamepatternbox)" value="[Fwd: Re: Important Mail]"/>
+			</row>
+			<row align="center">
+		  	  <label value="&attachmentextractor.settings.filenamepattern.explanation.withcleansubject;"/>
+		  	  <textbox id="filenamepattern_examplecleansubject" flex="1" readonly="true"/>
+			  <checkbox id="filenamepatterncleansubject" 
+		  			label="&attachmentextractor.settings.filenamepatterncleansubjectq.label;"
+		  			accesskey="&attachmentextractor.settings.filenamepatterncleansubjectq.accesskey;"
+		  			oncommand="updateexamplefilename(filenamepatternbox)"
+		  			preference="pref_cleansubject" />
+			</row>
+		  </rows>
+		</grid></vbox>
+		
+		<vbox flex="1"><grid>
+		<columns><column /><column flex="1"/><column /></columns>
+    	  <rows>
+		    <row align="center">
+		  	  <label value="&attachmentextractor.settings.filenamepattern.explanation.recieveddate;"/>
+		  	  <textbox id="filenamepattern_exampledate" flex="1" readonly="true" value=""/>
+			  <button type="button" oncommand="showDateSettings();updateexamplefilename(filenamepatternbox)" 
+					label="&attachmentextractor.settings.filenamepatterndate.editbutton.label;"/>
+			</row>
+			<row align="center">
+		  	  <label value="&attachmentextractor.settings.filenamepattern.explanation.recieveddateformatted;"/>
+		      <textbox id="filenamepattern_exampledategenerated" flex="1" readonly="true" value=""/>
+			</row>
+		  </rows>
+		</grid></vbox>
+		
+		<hbox align="center">
+		  <label value="&attachmentextractor.settings.filenamepattern.explanation.fromauthor2;"/>
+		  <textbox id="filenamepattern_exampleauthor" flex="1"  
+		  	oninput="updateexamplefilename(filenamepatternbox)" 
+			value="John Smith &lt;john@smith.org&gt;"/>
+		</hbox>
+		<hbox align="center">
+		  <label value="&attachmentextractor.settings.filenamepattern.explanation.attachment;"/>
+		  <textbox id="filenamepattern_examplename" flex="1" readonly="true" value="picture.jpg"/>
+		</hbox>
+		<hbox align="center">
+		  <label value="&attachmentextractor.settings.filenamepattern.explanation.mailfolder;"/>
+		  <textbox id="filenamepattern_examplefolder" flex="1" oninput="updateexamplefilename(filenamepatternbox)" value="Inbox"/>
+		</hbox>
+		
+ 	  </groupbox>
+	  <hbox align="center">
+	  	  <label value="&attachmentextractor.settings.filenamepatterncount.label;"/>
+	  	  <textbox id="filenamepatterncount" preftype="char"  flex="1"
+	  		preference="pref_countpattern"  
+			oninput="updateexamplefilename(filenamepatternbox)" 
+			onchange="check_filenamepattern(this,true);updateexamplefilename(filenamepatternbox);"/>
+	  </hbox>
+	</groupbox>
+  </prefpane>
+</overlay>

@@ -1,0 +1,152 @@
+<!ENTITY attachmentextractor.settings.windowtitle "AttachmentExtractor Continued - Einstellungen">
+<!ENTITY attachmentextractor.settings.width "50em">
+<!ENTITY attachmentextractor.settings.homepage.label "Homepage von &quot;AttachmentExtractor Continued&quot; und Beschreibung der Funktionen:">
+<!ENTITY attachmentextractor.settings.generaltab.label "Allgemein">
+<!ENTITY attachmentextractor.settings.normal.caption "Abtrennen von Anhängen">
+<!ENTITY attachmentextractor.settings.savefolders.caption "Speicherort für Anhänge">
+<!ENTITY attachmentextractor.settings.overwritepolicy.label "Vorgabe für den Fall, dass bereits eine Datei gleichen Namens besteht:">
+<!ENTITY attachmentextractor.settings.overwrite-replace.label "Die bestehende Datei immer mit dem neuen Anhang überschreiben">
+<!ENTITY attachmentextractor.settings.overwrite-replace.accesskey "D">
+<!ENTITY attachmentextractor.settings.overwrite-ignore.label "Die bestehende Datei immer erhalten, Anhang nicht abtrennen">
+<!ENTITY attachmentextractor.settings.overwrite-ignore.accesskey "S">
+<!ENTITY attachmentextractor.settings.overwrite-rename.label "Neuen Namen für den Anhang vergeben, um beide Dateien zu behalten">
+<!ENTITY attachmentextractor.settings.overwrite-rename.accesskey "N">
+<!ENTITY attachmentextractor.settings.overwrite-ask.label "Jedes Mal fragen">
+<!ENTITY attachmentextractor.settings.overwrite-ask.accesskey "F">
+<!ENTITY attachmentextractor.settings.suggestfolder.button.label "Ordnervorschläge…">
+<!ENTITY attachmentextractor.settings.suggestfolder.dialogtitle "Ordnervorschläge">
+<!ENTITY attachmentextractor.settings.suggestfolder.description "Ordnervorschläge für abzutrennenden Dateien die auf Schlüsselwörter der Betreffzeile der ausgewählten Nachrichten basieren.">
+<!ENTITY attachmentextractor.settings.suggestfolder.disregardduplicates.label "Doppelte Schlüsselwörter ignorieren, falls Ordnervorschläge verfügbar">
+<!ENTITY attachmentextractor.settings.suggestfolder.disregardduplicates.accesskey "I">
+<!ENTITY attachmentextractor.settings.suggestfolder.parents.label "Ordner, welche Unterordner für abzutrennende Dateien enthalten kann:">
+<!ENTITY attachmentextractor.settings.suggestfolder.excludedkeywords.label "Auszuschließende Schlüsselwörter (durch Komma getrennt):">
+<!ENTITY attachmentextractor.settings.suggestfolder.clearbutton.label "Löschen">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.label "Korrektur anwenden, um abgetrennte Grafiken eingebettet anzuzeigen">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.linktext "Dokumentation (engl.)">
+<!ENTITY attachmentextractor.settings.fixdetachedimages.accesskey "k">
+<!ENTITY attachmentextractor.settings.savepathmru.caption "Zuletzt verwendete Ordner">
+<!ENTITY attachmentextractor.settings.savepathmru.label "Liste der zuletzt verwendeten Ordner verwenden">
+<!ENTITY attachmentextractor.settings.savepathmru.count.label1 "Die letzten">
+<!ENTITY attachmentextractor.settings.savepathmru.count.label2 "Ordner merken">
+<!ENTITY attachmentextractor.settings.savepathmru.accesskey "L">
+<!ENTITY attachmentextractor.settings.savepathmru.clearbutton.label "Ordnerliste jetzt löschen">
+<!ENTITY attachmentextractor.settings.savefolder.label "Standard-Speicherpfad:">
+<!ENTITY attachmentextractor.settings.savefolder.browsebutton "Durchsuchen…">
+<!ENTITY attachmentextractor.settings.posttab.label "Nach Abtrennung">
+<!ENTITY attachmentextractor.settings.afterextractpolicy.label "Vorgänge nach dem Abtrennen:">
+<!ENTITY attachmentextractor.settings.afterextractpolicy.internaltab.label "Thunderbird-Aktion">
+<!ENTITY attachmentextractor.settings.afterextractpolicy.externaltab.label "Externe Aktion">
+<!ENTITY attachmentextractor.settings.after-delete.label "Nachricht löschen">
+<!ENTITY attachmentextractor.settings.after-delete.accesskey "H">
+<!ENTITY attachmentextractor.settings.after-read.label "Nachricht als gelesen markieren">
+<!ENTITY attachmentextractor.settings.after-read.accesskey "K">
+<!ENTITY attachmentextractor.settings.after-detach.label "Anhang aus der Nachricht löschen">
+<!ENTITY attachmentextractor.settings.after-detach.accesskey "U">
+<!ENTITY attachmentextractor.settings.after-detach.tbdelete.label "Löschen mit normaler Thunderbird-Routine">
+<!ENTITY attachmentextractor.settings.after-detach.tbdelete.accesskey "T">
+<!ENTITY attachmentextractor.settings.after-detach.aedelete.label "Löschen mit &quot;AttachmentExtractor Continueds&quot; interner (Versuchs-)Routine">
+<!ENTITY attachmentextractor.settings.after-detach.aedelete.accesskey "R">
+<!ENTITY attachmentextractor.settings.after-detach.aedetach.label "Abtrennen mit &quot;AttachmentExtractor Continueds&quot; interner (Versuchs-)Routine">
+<!ENTITY attachmentextractor.settings.after-detach.aedetach.accesskey "e">
+<!ENTITY attachmentextractor.settings.notifywhendone.label "Meldung ausgeben, nachdem alle Anhänge abgetrennt wurden">
+<!ENTITY attachmentextractor.settings.notifywhendone.accesskey "M">
+<!ENTITY attachmentextractor.settings.after-savemessage.label "Nachrichtentext in eine Datei speichern. (Gilt für Allgemein- wie für den Automatikmodus)">
+<!ENTITY attachmentextractor.settings.after-savemessage.accesskey "S">
+<!ENTITY attachmentextractor.settings.after-launch.label "Jeden Anhang mit der ihr zugeordneten Standardanwendung öffnen">
+<!ENTITY attachmentextractor.settings.after-launch.accesskey "z">
+<!ENTITY attachmentextractor.settings.after-endlaunch.label "Alle Anhänge mit folgender Anwendung öffnen:">
+<!ENTITY attachmentextractor.settings.after-endlaunch.accesskey "w">
+<!ENTITY attachmentextractor.settings.returnreceipts.button.label "Empfangsbestätigungen…">
+<!ENTITY attachmentextractor.settings.returnreceipts.dialogtitle "Empfangsbestätigungen">
+<!ENTITY attachmentextractor.settings.returnreceipts.label "AttachmentExtractor Continued kann automatisch eine Empfangsbestätigung senden, nachdem eine Nachricht als gelesen markiert wurde.">
+<!ENTITY attachmentextractor.settings.returnreceipts.enabled.label "Empfangsbestätigung nach Aufforderung senden">
+<!ENTITY attachmentextractor.settings.returnreceipts.enabled.accesskey "E">
+<!ENTITY attachmentextractor.settings.returnreceipts.override.caption "Bei Aufforderung zum Senden einer Empfangsbestätigung:">
+<!ENTITY attachmentextractor.settings.returnreceipts.override.disabled.label "Einstellungen zum Senden einer Empfangsbestätigung von Thunderbird nutzen">
+<!ENTITY attachmentextractor.settings.returnreceipts.override.disabled.accesskey "T">
+<!ENTITY attachmentextractor.settings.returnreceipts.override.enabled.label "Einstellungen zum Nachfragen beim Senden von Empfangsbestätigungen übergehen und mit Benachrichtigung versenden">
+<!ENTITY attachmentextractor.settings.returnreceipts.override.enabled.accesskey "N">
+<!ENTITY attachmentextractor.settings.reporttab.label "Protokoll">
+<!ENTITY attachmentextractor.settings.reportgen.caption "HTML-Protokollgenerator">
+<!ENTITY attachmentextractor.settings.reportgen.label "Jede Ausführung von &quot;AttachmentExtractor Continued&quot; protokollieren">
+<!ENTITY attachmentextractor.settings.reportgen.accesskey "P">
+<!ENTITY attachmentextractor.settings.reportgen.thumbnail.label "Wenn möglich Bildminiaturen für Anhänge verwenden">
+<!ENTITY attachmentextractor.settings.reportgen.thumbnail.accesskey "B">
+<!ENTITY attachmentextractor.settings.reportgen.embedcss.label "Im Protokoll Formatierungsinformationen anstelle einer Verknüpfung mit dem Stylesheet verwenden.">
+<!ENTITY attachmentextractor.settings.reportgen.embedcss.accesskey "F">
+<!ENTITY attachmentextractor.settings.reportgen.cssfile.caption "Für das Protokoll zu verwendendes Stylesheet:">
+<!ENTITY attachmentextractor.settings.reportgen.reportname2.label "Dateiname (oder absolute Pfadangabe) für die Reportdatei:">
+<!ENTITY attachmentextractor.settings.reportgen.button.label "Protokollgenerator…">
+<!ENTITY attachmentextractor.settings.advancedtab.label "Erweitert">
+<!ENTITY attachmentextractor.settings.advancedmoretab.label "Weitere">
+<!ENTITY attachmentextractor.settings.extract.caption "Speichern von Anhangdateien">
+<!ENTITY attachmentextractor.settings.extract.tbextract.label "Anhänge mit normaler Thunderbird-Routine abtrennen">
+<!ENTITY attachmentextractor.settings.extract.tbextract.accesskey "A">
+<!ENTITY attachmentextractor.settings.extract.aeextract2.label "Anhänge mit interner Routine von &quot;AttachmentExtractor Continued&quot; abtrennen">
+<!ENTITY attachmentextractor.settings.extract.aeextract2.accesskey "N">
+<!ENTITY attachmentextractor.settings.noextract.label "Speichern von Anhängen deaktivieren">
+<!ENTITY attachmentextractor.settings.noextract.accesskey "P">
+<!ENTITY attachmentextractor.settings.extract.minimumsize.caption "Mindestgröße des Anhangs">
+<!ENTITY attachmentextractor.settings.extract.minimumsize-start.label "Nur Anhänge speichern, die größer sind als">
+<!ENTITY attachmentextractor.settings.extract.minimumsize-end.label "Bytes">
+<!ENTITY attachmentextractor.settings.extract.minimumsize-explaination.label "Bei Werten größer 0 wird der &quot;AttachmentExtractor Continued&quot; etwas verlangsamt.">
+<!ENTITY attachmentextractor.settings.queuerequests.caption "Abtrennen mit Warteschlange">
+<!ENTITY attachmentextractor.settings.queuerequests.disabled.label "&quot;AttachmentExtractor Continued&quot; bei jedem Abtrennbefehl sofort ausführen">
+<!ENTITY attachmentextractor.settings.queuerequests.disabled.accesskey "S">
+<!ENTITY attachmentextractor.settings.queuerequests.enabled.label "Abtrennbefehle in Warteschlange sammeln, solange &quot;AttachmentExtractor Continued&quot; noch läuft">
+<!ENTITY attachmentextractor.settings.queuerequests.enabled.accesskey "W">
+<!ENTITY attachmentextractor.settings.setdatetoemail.label "Eingangsdatum und -uhrzeit der Nachricht für den Anhang verwenden">
+<!ENTITY attachmentextractor.settings.setdatetoemail.accesskey "E">
+<!ENTITY attachmentextractor.settings.inlinepolicy.label "Eingebettete Grafiken ebenfalls abtrennen">
+<!ENTITY attachmentextractor.settings.inlinepolicy.accesskey "G">
+<!ENTITY attachmentextractor.settings.debug.caption "Debug-Modus">
+<!ENTITY attachmentextractor.settings.debug.label "Debug-Modus nach Neustart aktivieren.  Meldungen werden protokolliert und in die Datei &quot;aec_debug.txt&quot; in Ihrem Profil-Ordner geschrieben.">
+<!ENTITY attachmentextractor.settings.debug.accesskey "D">
+<!ENTITY attachmentextractor.settings.showprogressdialog.label "Fortschrittsanzeige während des Abtrennens einblenden.">
+<!ENTITY attachmentextractor.settings.showprogressdialog.accesskey "F">
+<!ENTITY attachmentextractor.settings.progressdialogtext.label "Nachrichten-Betreff und Anhangnamen in der Fortschrittsanzeige einblenden">
+<!ENTITY attachmentextractor.settings.progressdialogtext.accesskey "B">
+<!ENTITY attachmentextractor.settings.includeexcludepolicy2.label "Filter für Dateinamen:">
+<!ENTITY attachmentextractor.settings.includeexcludepolicy2-false.label "Dateien nicht abtrennen, deren Name Folgendes enthält:">
+<!ENTITY attachmentextractor.settings.includeexcludepolicy2-false.accesskey "D">
+<!ENTITY attachmentextractor.settings.includeexcludepolicy2-true.label "Nur Dateien abtrennen, deren Name Folgendes enthält:">
+<!ENTITY attachmentextractor.settings.includeexcludepolicy2-true.accesskey "N">
+<!ENTITY attachmentextractor.settings.filenametab.label "Dateinamen">
+<!ENTITY attachmentextractor.settings.filenamepatterngroup.label "Dateinamenmuster:">
+<!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Weiteres Dateinamenmerkmal hinzufügen">
+<!ENTITY attachmentextractor.settings.filenamepattern.label "Verwendetes Muster zum Erzeugen von Dateinamen:">
+<!ENTITY attachmentextractor.settings.filenamepatterncount.label "Muster für doppelte Dateinamen (#count#):">
+<!ENTITY attachmentextractor.settings.filenamepatterncleansubjectq.label "Aktivieren">
+<!ENTITY attachmentextractor.settings.filenamepatterncleansubjectq.accesskey "a">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.caption "Basierend auf einer empfangenen Nachricht mit den folgenden Merkmalen:">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.withsubject "Verwendeter Nachrichten-Betreff (#subject#):">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.withcleansubject "Betreff nach Entfernen von &quot;re:&quot; usw.:">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.recieveddate "Erhalten am (#date#):">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.recieveddateformatted "Zeitstempel nach Modifikation:">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.fromauthor2 "Von Absender (#from# &lt;#fromemail#&gt;):">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.attachment "Verwendeter Anhangname (#namepart##extpart#):">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.wouldgenerate "Erzeugter Anhangname:">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.wouldgeneratethen "Erzeugter Anhangname mit Zähler für doppelte Dateinamen:">
+<!ENTITY attachmentextractor.settings.filenamepattern.explanation.mailfolder "Im Nachrichtenordner (#folder#):">
+<!ENTITY attachmentextractor.settings.filenamepatterndate.label "Muster für Datumsangaben (#date#):">
+<!ENTITY attachmentextractor.settings.filenamepatterndate.homepage.label "Hinweise zu den Formatierungscodes für #date#:">
+<!ENTITY attachmentextractor.settings.filenamepatterndate.editbutton.label "Zeitstempel bearbeiten">
+<!ENTITY attachmentextractor.settings.filenamepatterndate.dialogtitle "Muster für Zeitstempel #Date# festlegen">
+<!ENTITY attachmentextractor.settings.autotab.label "Abtrennautomatik">
+<!ENTITY attachmentextractor.settings.autoextract.label "Anhänge automatisch beim Empfangen von Nachrichten abtrennen">
+<!ENTITY attachmentextractor.settings.autoextract.accesskey "A">
+<!ENTITY attachmentextractor.settings.autoextract.savefolder.label "Speicherpfad für Anhänge:">
+<!ENTITY attachmentextractor.settings.autoextract.savefolder.browsebutton "Durchsuchen…">
+<!ENTITY attachmentextractor.settings.autoextract.ontriggeronly.label "Anhänge nur automatisch abtrennen bei Nachrichten mit passendem Schlagwort">
+<!ENTITY attachmentextractor.settings.autoextract.ontriggeronly.accesskey "O">
+<!ENTITY attachmentextractor.settings.autoextract.triggertag.label "Anhang abtrennen bei folgendem Schlagwort:">
+<!ENTITY attachmentextractor.settings.autoextract.cleartriggertag.label "Schlagwort der Nachricht entfernen">
+<!ENTITY attachmentextractor.settings.autoextract.cleartriggertag.accesskey "C">
+<!ENTITY attachmentextractor.settings.autoextract.waitforall.label "Automatisches Abtrennen erst beginnen nachdem alle Nachrichten heruntergeladen wurden">
+<!ENTITY attachmentextractor.settings.autoextract.waitforall.accesskey "b">
+<!ENTITY attachmentextractor.settings.autoextract.onattachmentsonly.label "Die Abtrennautomatik nur bei Nachrichten mit Anhängen ausführen">
+<!ENTITY attachmentextractor.settings.autoextract.onattachmentsonly.accesskey "n">
+<!ENTITY attachmentextractor.settings.abouttab.label "Über…">
+<!ENTITY attachmentextractor.settings.requiresrestart.label "(Erfordert Neustart von TB.)">
+<!ENTITY attachmentextractor.settings.skipidentical.label "Dateien gleicher Größe überspringen?">
+<!ENTITY attachmentextractor.settings.skipidentical.accesskey "S">

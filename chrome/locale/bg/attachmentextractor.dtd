@@ -1,0 +1,67 @@
+<!ENTITY attachmentextractor.menu.label "Извличане на прикачени файлове">
+<!ENTITY attachmentextractor.menu.accesskey "X">
+<!ENTITY attachmentextractor.extracttodefault.label "Извличане от избрани съобщения">
+<!ENTITY attachmentextractor.extracttodefault.accesskey "X">
+<!ENTITY attachmentextractor.extracttofolder.label "Извличане от избрани съобщения в…">
+<!ENTITY attachmentextractor.extracttofolder.accesskey "T">
+<!ENTITY attachmentextractor.extracttosuggest.label "Извличане в предложена папка">
+<!ENTITY attachmentextractor.extracttosuggest.accesskey "G">
+<!ENTITY attachmentextractor.extractalldefault.label "Извличане от всички избрани съобщения в папка">
+<!ENTITY attachmentextractor.extractalldefault.accesskey "F">
+<!ENTITY attachmentextractor.extractallfolder.label "Извличане от всички избрани съобщения в папка в…">
+<!ENTITY attachmentextractor.extractallfolder.accesskey "O">
+<!ENTITY attachmentextractor.extractdeepdefault.label "Извличане от всички избрани съобщения в папка и подпапки">
+<!ENTITY attachmentextractor.extractdeepdefault.accesskey "S">
+<!ENTITY attachmentextractor.extractdeepfolder.label "Извличане от всички избрани съобщения в папка и подпапки в…">
+<!ENTITY attachmentextractor.extractdeepfolder.accesskey "U">
+<!ENTITY attachmentextractor.extractalltosuggest.label "Извличане от всички писма в предложена папка">
+<!ENTITY attachmentextractor.extractalltosuggest.accesskey "I">
+<!ENTITY attachmentextractor.extractpattern.label "Извличане по шаблон за име на файл">
+<!ENTITY attachmentextractor.extractpattern.accesskey "C">
+<!ENTITY attachmentextractor.extractpatternfolder.label "Извличане по шаблон за име на файл в…">
+<!ENTITY attachmentextractor.extractpatternfolder.accesskey "P">
+<!ENTITY attachmentextractor.justDeleteAttachments.label "Само изтриване на прикачени файлове от избрани писма">
+<!ENTITY attachmentextractor.justDeleteAttachments.accesskey "J">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.label "Само изтриване на прикачени файлове от всички писма в папка">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "U">
+<!ENTITY attachmentextractor.menusettingsdialog.label "AttachmentExtractor Continued Настройки">
+<!ENTITY attachmentextractor.menusettingsdialog.accesskey "S">
+<!ENTITY attachmentextractor.context.extractalldefault.label "Извличане на всички прикачени файлове">
+<!ENTITY attachmentextractor.context.extractalldefault.accesskey "X">
+<!ENTITY attachmentextractor.context.extractallfolder.label "Извличане на всички прикачени файлове в…">
+<!ENTITY attachmentextractor.context.extractallfolder.accesskey "H">
+<!ENTITY attachmentextractor.context.extractdeepdefault.label "Извличане на всички вкл. в подпапките">
+<!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "S">
+<!ENTITY attachmentextractor.context.extractdeepfolder.label "Извличане на всички вкл. в подпапките в…">
+<!ENTITY attachmentextractor.context.extractdeepfolder.accesskey "U">
+<!ENTITY attachmentextractor.context.extractalltosuggest.label "Извличане на всички в предложена папка">
+<!ENTITY attachmentextractor.context.extractalltosuggest.accesskey "I">
+<!ENTITY attachmentextractor.attachment.extracttodefault.label "Извличане (AE) на всички">
+<!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "X">
+<!ENTITY attachmentextractor.attachment.extracttofolder.label "Извличане (AE) на всички в…">
+<!ENTITY attachmentextractor.attachment.extracttofolder.accesskey "T">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.label "Извличане (AE)">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.accesskey "A">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.label "Извличане (AE) в…">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.accesskey "E">
+<!ENTITY attachmentextractor.toolbarbutton.label "Извличане (AE)">
+<!ENTITY attachmentextractor.toolbarbutton.tooltip2 "Извличане на прикачени файлове от избрани писма">
+<!ENTITY attachmentextractor.headerbutton.label "Извличане (AE)">
+<!ENTITY attachmentextractor.headerbutton.tooltip "Извличане на прикачени файлове от избрани писма">
+<!ENTITY attachmentextractor.mrubrowsetext "Преглед…">
+<!ENTITY attachmentextractor.mru.default.label "По подразбиране">
+<!ENTITY attachmentextractor.mru.default.accesskey "D">
+<!ENTITY attachmentextractor.filenamepatterndialog.title "Шаблон за име на файл">
+<!ENTITY attachmentextractor.filenamepatterndialog.input.label "Промяна на шаблона за име на прикачен файл">
+<!ENTITY attachmentextractor.filenamepatterndialog.checkbox.label "Шаблонът да е по подразбиране отсега нататък">
+<!ENTITY attachmentextractor.filenamepatterndialog.checkbox.accesskey "S">
+<!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Добавяне на признак">
+<!ENTITY attachmentextractor.suggestedFolderDialog.title "AttachmentExtractor Continued - предложени папки:">
+<!ENTITY attachmentextractor.suggestedFolderDialog.label "Предложени папки, базирани на темата на избраните писма">
+<!ENTITY attachmentextractor.suggestedFolderDialog.acceptbutton "Използване на избраната папка">
+<!ENTITY attachmentextractor.imagetoolbar.label "Вкл./изкл. на избрано">
+<!ENTITY attachmentextractor.imagetoolbar.accesskey "T">
+<!ENTITY attachmentextractor.context.extracttodefault.label "Извличане на избрани прикачени файлове">
+<!ENTITY attachmentextractor.context.extracttofolder.label "Извличане на избрани прикачени файлове в…">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "X">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "H">

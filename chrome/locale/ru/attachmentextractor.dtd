@@ -1,0 +1,67 @@
+<!ENTITY attachmentextractor.menu.label "Извлечь вложения">
+<!ENTITY attachmentextractor.menu.accesskey "X">
+<!ENTITY attachmentextractor.extracttodefault.label "Извлечь из выбранных сообщений">
+<!ENTITY attachmentextractor.extracttodefault.accesskey "X">
+<!ENTITY attachmentextractor.extracttofolder.label "Извлечь из выбранных сообщений в…">
+<!ENTITY attachmentextractor.extracttofolder.accesskey "T">
+<!ENTITY attachmentextractor.extracttosuggest.label "Извлечь в предложенную папку">
+<!ENTITY attachmentextractor.extracttosuggest.accesskey "G">
+<!ENTITY attachmentextractor.extractalldefault.label "Извлечь из всех сообщений в папке">
+<!ENTITY attachmentextractor.extractalldefault.accesskey "F">
+<!ENTITY attachmentextractor.extractallfolder.label "Извлечь из всех сообщений в папке в…">
+<!ENTITY attachmentextractor.extractallfolder.accesskey "O">
+<!ENTITY attachmentextractor.extractdeepdefault.label "Извлечь из всех сообщений в папке и всех подпапок">
+<!ENTITY attachmentextractor.extractdeepdefault.accesskey "S">
+<!ENTITY attachmentextractor.extractdeepfolder.label "Извлечь из всех сообщений в папке и всех подпапок в…">
+<!ENTITY attachmentextractor.extractdeepfolder.accesskey "U">
+<!ENTITY attachmentextractor.extractalltosuggest.label "Извлечь из всех сообщений в предложенную папку">
+<!ENTITY attachmentextractor.extractalltosuggest.accesskey "I">
+<!ENTITY attachmentextractor.extractpattern.label "Извлечь с особым шаблоном имени файла">
+<!ENTITY attachmentextractor.extractpattern.accesskey "C">
+<!ENTITY attachmentextractor.extractpatternfolder.label "Извлечь с особым шаблоном имени файла в…">
+<!ENTITY attachmentextractor.extractpatternfolder.accesskey "P">
+<!ENTITY attachmentextractor.justDeleteAttachments.label "Просто удалить вложения из выбранных сообщений">
+<!ENTITY attachmentextractor.justDeleteAttachments.accesskey "J">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.label "Просто удалить вложения из всех сообщений в папке">
+<!ENTITY attachmentextractor.justDeleteAllAttachments.accesskey "U">
+<!ENTITY attachmentextractor.menusettingsdialog.label "Настройки AttachmentExtractor Continued">
+<!ENTITY attachmentextractor.menusettingsdialog.accesskey "S">
+<!ENTITY attachmentextractor.context.extractalldefault.label "Извлечь все вложения">
+<!ENTITY attachmentextractor.context.extractalldefault.accesskey "X">
+<!ENTITY attachmentextractor.context.extractallfolder.label "Извлечь все вложения в…">
+<!ENTITY attachmentextractor.context.extractallfolder.accesskey "H">
+<!ENTITY attachmentextractor.context.extractdeepdefault.label "Извлечь Всё включая подпапки">
+<!ENTITY attachmentextractor.context.extractdeepdefault.accesskey "S">
+<!ENTITY attachmentextractor.context.extractdeepfolder.label "Извлечь Всё включая подпапки в…">
+<!ENTITY attachmentextractor.context.extractdeepfolder.accesskey "U">
+<!ENTITY attachmentextractor.context.extractalltosuggest.label "Извлечь Всё в предложенную папку">
+<!ENTITY attachmentextractor.context.extractalltosuggest.accesskey "I">
+<!ENTITY attachmentextractor.attachment.extracttodefault.label "Извлечь Всё с AE">
+<!ENTITY attachmentextractor.attachment.extracttodefault.accesskey "X">
+<!ENTITY attachmentextractor.attachment.extracttofolder.label "Извлечь Всё с AE в…">
+<!ENTITY attachmentextractor.attachment.extracttofolder.accesskey "T">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.label "Извлечение с AE">
+<!ENTITY attachmentextractor.attachment.extractindtodefault.accesskey "A">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.label "Извлечение с AE">
+<!ENTITY attachmentextractor.attachment.extractindtofolder.accesskey "E">
+<!ENTITY attachmentextractor.toolbarbutton.label "Извлечение с AE">
+<!ENTITY attachmentextractor.toolbarbutton.tooltip2 "Извлечь вложения из выбранных вложений">
+<!ENTITY attachmentextractor.headerbutton.label "Извлечение с AE">
+<!ENTITY attachmentextractor.headerbutton.tooltip "Извлечь вложения из выбранных вложений">
+<!ENTITY attachmentextractor.mrubrowsetext "Обзор…">
+<!ENTITY attachmentextractor.mru.default.label "По умолчанию">
+<!ENTITY attachmentextractor.mru.default.accesskey "D">
+<!ENTITY attachmentextractor.filenamepatterndialog.title "Введите шаблон имени файла">
+<!ENTITY attachmentextractor.filenamepatterndialog.input.label "Изменить шаблон имен файлов вложений:">
+<!ENTITY attachmentextractor.filenamepatterndialog.checkbox.label "Установить в качестве шаблона по умолчанию теперь">
+<!ENTITY attachmentextractor.filenamepatterndialog.checkbox.accesskey "S">
+<!ENTITY attachmentextractor.filenamepatterndialog.tokenbutton.label "Нажмите, чтобы добавить знак">
+<!ENTITY attachmentextractor.suggestedFolderDialog.title "AttachmentExtractor Continued - предложенные папки">
+<!ENTITY attachmentextractor.suggestedFolderDialog.label "Предложенные папки основаны на полях темы выбранного сообщения(й):">
+<!ENTITY attachmentextractor.suggestedFolderDialog.acceptbutton "Использовать выбранную папку">
+<!ENTITY attachmentextractor.imagetoolbar.label "Переключить выбор">
+<!ENTITY attachmentextractor.imagetoolbar.accesskey "T">
+<!ENTITY attachmentextractor.context.extracttodefault.label "-- НЕ ЗАДЕЙСТВОВАНО --">
+<!ENTITY attachmentextractor.context.extracttofolder.label "-- НЕ ЗАДЕЙСТВОВАНО --">
+<!ENTITY attachmentextractor.context.extracttodefault.accesskey "*">
+<!ENTITY attachmentextractor.context.extracttofolder.accesskey "*">

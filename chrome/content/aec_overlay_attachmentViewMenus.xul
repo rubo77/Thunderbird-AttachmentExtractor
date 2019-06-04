@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is AttachmentExtractor.
+   -
+   - The Initial Developer of the Original Code is
+   - Andrew Williamson <eviljeff@eviljeff.com>.
+   - Portions created by the Initial Developer are Copyright (C) 2005-2008
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   - Alexander Ihrig
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+   
+<!DOCTYPE overlay [
+<!ENTITY % aemainDTD SYSTEM "chrome://attachmentextractor_cont/locale/attachmentextractor.dtd" >
+%aemainDTD; 
+]>
+
+<overlay id="attachmentextractorHdrOverlay"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<!-- Button on the right in case of multiple attachment items -->
+	<menupopup id="attachmentSaveAllMultipleMenu" >
+		<menuseparator id="ae-attachmentSaveAllMultipleMenu-separator" insertafter="button-saveAllAttachments" />
+		<menu id="ae-attachmentSaveAllMultipleMenu-menu" 
+			label="&attachmentextractor.menu.label;"
+			accesskey="&attachmentextractor.menu.accesskey;" 
+			insertafter="ae-attachmentSaveAllMultipleMenu-separator" >
+			<menupopup id="">
+				<menuitem id="menu_ae_extractIndToSuggest_attachment" 
+					label="&attachmentextractor.extracttosuggest.label;"
+					accesskey="&attachmentextractor.extracttosuggest.accesskey;" 
+					command="cmd_aec_extractIndToSuggest" />
+					
+				<menuitem id="menu_ae_extractToDefault_attachment" 
+					label="&attachmentextractor.attachment.extracttodefault.label;"
+					accesskey="&attachmentextractor.attachment.extracttodefault.accesskey;" 
+					command="cmd_aec_extractIndAllToDefault" />
+				<menuitem id="menu_ae_extractToFolder_attachment" 
+					label="&attachmentextractor.attachment.extracttofolder.label;"
+					accesskey="&attachmentextractor.attachment.extracttofolder.accesskey;" 
+					ae_mru_menuitem="NONMRU"
+					command="cmd_aec_extractIndAllToFolder" />
+				<menu id="menu_ae_extractToFolder_attachment_menu" 
+					label="&attachmentextractor.attachment.extracttofolder.label;"
+					accesskey="&attachmentextractor.attachment.extracttofolder.accesskey;" 
+					ae_mru_menuitem="MRU"
+					command="cmd_aec_extractIndAllToFolder_menu" >
+					<menupopup id="menu_ae_extractToFolder_attachment_menu-Popup" 
+						onpopupshowing="attachmentextractor.updateMRUList(this)" 
+					  	browseText="&attachmentextractor.mrubrowsetext;"
+						paramAll="'all'" paramPattern="false" paramIndividual="true" />
+				</menu>
+			</menupopup>
+		</menu>
+	</menupopup>
+
+<!-- Button on the right in case of 1 attachment item -->
+	<menupopup id="attachmentSaveAllSingleMenu" >
+		<menuseparator id="ae-attachmentSaveAllSingleMenu-separator" insertafter="button-saveAttachment" />
+		<menu id="ae-attachmentSaveAllSingleMenu-menu" 
+			label="&attachmentextractor.menu.label;"
+			accesskey="&attachmentextractor.menu.accesskey;" 
+			insertafter="ae-attachmentSaveAllSingleMenu-separator" >
+			<menupopup id="">
+				<menuitem id="menu_ae_extractIndToSuggest_attachment" 
+					label="&attachmentextractor.extracttosuggest.label;"
+					accesskey="&attachmentextractor.extracttosuggest.accesskey;" 
+					command="cmd_aec_extractIndToSuggest" />
+
+				<menuitem id="menu_ae_extractIndToFolder_attachment" 
+					label="&attachmentextractor.attachment.extractindtofolder.label;"
+					accesskey="&attachmentextractor.attachment.extractindtofolder.accesskey;" 
+					ae_mru_menuitem="NONMRU"
+					command="cmd_aec_extractIndToFolder" />
+				<menu id="menu_ae_extractIndToFolder_attachment_menu" 
+					label="&attachmentextractor.attachment.extractindtofolder.label;"
+					accesskey="&attachmentextractor.attachment.extractindtofolder.accesskey;" 
+					ae_mru_menuitem="MRU"
+					command="cmd_aec_extractIndToFolder_menu" >
+					<menupopup id="menu_ae_extractIndToFolder_attachment_menu-Popup" 
+						onpopupshowing="attachmentextractor.updateMRUList(this)" 
+					  	browseText="&attachmentextractor.mrubrowsetext;"
+						paramAll="'selected'" paramPattern="false" paramIndividual="true" />
+				</menu>
+				<menuitem id="menu_ae_extractIndToDefault_attachment" 
+					label="&attachmentextractor.attachment.extractindtodefault.label;"
+					accesskey="&attachmentextractor.attachment.extractindtodefault.accesskey;" 
+					command="cmd_aec_extractIndToDefault" />
+			</menupopup>
+		</menu>
+	</menupopup>
+
+<!-- Context menu by rightclick on the attachment bar in case of multiple attachments -->
+	<menupopup id="attachmentListContext" >
+		<menuseparator id="ae-attachmentListContext-separator" insertafter="context-saveAllAttachments" />
+		<menu id="ae-attachmentListContext-menu" 
+			label="&attachmentextractor.menu.label;"
+			accesskey="&attachmentextractor.menu.accesskey;" 
+			insertafter="ae-attachmentListContext-separator" >
+			<menupopup id="">
+				<menuitem id="menu_ae_extractIndToSuggest_attachment" 
+					label="&attachmentextractor.extracttosuggest.label;"
+					accesskey="&attachmentextractor.extracttosuggest.accesskey;" 
+					command="cmd_aec_extractIndToSuggest" />
+					
+				<menuitem id="menu_ae_extractToDefault_attachment" 
+					label="&attachmentextractor.attachment.extracttodefault.label;"
+					accesskey="&attachmentextractor.attachment.extracttodefault.accesskey;" 
+					command="cmd_aec_extractIndAllToDefault" />
+				<menuitem id="menu_ae_extractToFolder_attachment" 
+					label="&attachmentextractor.attachment.extracttofolder.label;"
+					accesskey="&attachmentextractor.attachment.extracttofolder.accesskey;" 
+					ae_mru_menuitem="NONMRU"
+					command="cmd_aec_extractIndAllToFolder" />
+				<menu id="menu_ae_extractToFolder_attachment_menu" 
+					label="&attachmentextractor.attachment.extracttofolder.label;"
+					accesskey="&attachmentextractor.attachment.extracttofolder.accesskey;" 
+					ae_mru_menuitem="MRU"
+					command="cmd_aec_extractIndAllToFolder_menu" >
+					<menupopup id="menu_ae_extractToFolder_attachment_menu-Popup" 
+						onpopupshowing="attachmentextractor.updateMRUList(this)" 
+					  	browseText="&attachmentextractor.mrubrowsetext;"
+						paramAll="'all'" paramPattern="false" paramIndividual="true" />
+				</menu>
+			</menupopup>
+		</menu>
+	</menupopup>
+
+<!-- Context menu by rightclick on an item in the attachment bar and in case of a single attachment by rightclick on the attachmentbar -->
+	<menupopup id="attachmentItemContext" >
+		<menuseparator id="ae-attachmentItemContext-separator" insertafter="context-saveAttachment" />
+		<menu id="ae-attachmentItemContext-menu" 
+			label="&attachmentextractor.menu.label;"
+			accesskey="&attachmentextractor.menu.accesskey;" 
+			insertafter="ae-attachmentItemContext-separator" >
+			<menupopup id="">
+				<menuitem id="menu_ae_extractIndToSuggest_attachment" 
+					label="&attachmentextractor.extracttosuggest.label;"
+					accesskey="&attachmentextractor.extracttosuggest.accesskey;" 
+					command="cmd_aec_extractIndToSuggest" />
+
+				<menuitem id="menu_ae_extractIndToFolder_attachment" 
+					label="&attachmentextractor.attachment.extractindtofolder.label;"
+					accesskey="&attachmentextractor.attachment.extractindtofolder.accesskey;" 
+					ae_mru_menuitem="NONMRU"
+					command="cmd_aec_extractIndToFolder" />
+				<menu id="menu_ae_extractIndToFolder_attachment_menu" 
+					label="&attachmentextractor.attachment.extractindtofolder.label;"
+					accesskey="&attachmentextractor.attachment.extractindtofolder.accesskey;" 
+					ae_mru_menuitem="MRU"
+					command="cmd_aec_extractIndToFolder_menu" >
+					<menupopup id="menu_ae_extractIndToFolder_attachment_menu-Popup" 
+						onpopupshowing="attachmentextractor.updateMRUList(this)" 
+					  	browseText="&attachmentextractor.mrubrowsetext;"
+						paramAll="'selected'" paramPattern="false" paramIndividual="true" />
+				</menu>
+				<menuitem id="menu_ae_extractIndToDefault_attachment" 
+					label="&attachmentextractor.attachment.extractindtodefault.label;"
+					accesskey="&attachmentextractor.attachment.extractindtodefault.accesskey;" 
+					command="cmd_aec_extractIndToDefault" />
+			</menupopup>
+		</menu>
+	</menupopup>
+
+</overlay>
+

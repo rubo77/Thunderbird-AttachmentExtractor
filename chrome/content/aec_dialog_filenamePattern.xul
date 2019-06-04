@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is AttachmentExtractor.
+   -
+   - The Initial Developer of the Original Code is
+   - Andrew Williamson <eviljeff@eviljeff.com>.
+   - Portions created by the Initial Developer are Copyright (C) 2009
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   - Alexander Ihrig
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+<?xml-stylesheet href="chrome://messenger/skin/prefPanels.css" type="text/css"?>
+<?xml-stylesheet href="chrome://attachmentextractor_cont/skin/aec_dialogs.css" type="text/css"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://attachmentextractor_cont/locale/attachmentextractor.dtd" >
+
+<dialog
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  id="attachmentextractorFilenamePatternDialog"
+  title="&attachmentextractor.filenamepatterndialog.title;"
+  ondialogaccept="onaccept();"
+  onload="onload();"
+  persist="screenX screenY width height"
+  windowtype="attachmentextractor:fnpdialog" >
+
+<script>
+  function add_to_pattern(button) {
+	var fnpbox=document.getElementById('filenamepattern');
+	var postindex=fnpbox.selectionStart+button.label.length;
+	fnpbox.value=fnpbox.value.substring(0,fnpbox.selectionStart)+button.label+fnpbox.value.substring(fnpbox.selectionEnd);
+	fnpbox.setSelectionRange(postindex,postindex);
+  }
+  function onload() {
+   document.getElementById('filenamepattern').value = window.arguments[0].value; 
+   document.getElementById('savecheck').checked = window.arguments[1].value;
+  }
+  function onaccept() {
+    window.arguments[0].value=document.getElementById('filenamepattern').value; 
+	window.arguments[1].value=document.getElementById('savecheck').checked; 
+	window.arguments[2].value=true;
+  }
+</script>
+
+  	<vbox align="center">	
+	  <hbox align="center">
+	    <label value="&attachmentextractor.filenamepatterndialog.input.label;"/>
+	  	<spacer flex="1"/>  
+	    <button type="menu" class="tokens" label="&attachmentextractor.filenamepatterndialog.tokenbutton.label;">
+  		  <menupopup>
+    	    <menuitem label="#namepart#"  class="tokens" oncommand="add_to_pattern(this);"/>
+    	    <menuitem label="#extpart#"   class="tokens" oncommand="add_to_pattern(this);"/>
+		    <menuitem label="#count#"     class="tokens" oncommand="add_to_pattern(this);" />
+			<menuitem label="%"           class="tokens" oncommand="add_to_pattern(this);" />
+		    <menuitem label="#date#"      class="tokens" oncommand="add_to_pattern(this);" />
+		    <menuitem label="#subject#"   class="tokens" oncommand="add_to_pattern(this);" />
+		    <menuitem label="#from#"      class="tokens" oncommand="add_to_pattern(this);" />
+		    <menuitem label="#fromemail#" class="tokens" oncommand="add_to_pattern(this);" />
+		    <menuitem label="#folder#"    class="tokens" oncommand="add_to_pattern(this);" />
+  		  </menupopup>
+	    </button>
+	  </hbox>
+	  <textbox id="filenamepattern" preftype="char"/>
+	  <checkbox id="savecheck"
+		label="&attachmentextractor.filenamepatterndialog.checkbox.label;"
+		accesskey="&attachmentextractor.filenamepatterndialog.checkbox.accesskey;" />
+	</vbox>
+</dialog>
