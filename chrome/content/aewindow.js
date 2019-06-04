@@ -432,6 +432,8 @@ aewindow.AETask = function (savefolder,selectedMsgs,filenamepattern,aewindow,ori
 
   this.processHeaders= function(headerNameEnumerator, headerValueEnumerator, dontCollectAddress) {};
   this.onEndMsgDownload= function(url) {};
+  this.resetProperties= function() {};
+  this.addAttachmentField= function(a,b) {};
   this.onEndMsgHeaders= function(url) {
 	  this.currentUrl=url;
   };
@@ -635,6 +637,7 @@ aewindow.AEIndTask = function (savefolder,message,attachments,filenamepattern,ae
 	for (var i=0; i<attachments.length;i++) {
 		var a=attachments[i];
 		if (!a.uri) a.uri=a.messageUri; // tb2 doesn't use uri.
+		if (!a.displayName) a.displayName=a.name; // tb7 doesn't use displayName.
 		/*if (!a.isExternalAttachment)*/ that.handleAttachment(a.contentType,a.url,a.displayName,a.uri,a.isExternalAttachment);
 	}
 	aewindow.progress_tracker.starting_message(0,1);	
@@ -695,6 +698,7 @@ aewindow.AEIndTask = function (savefolder,message,attachments,filenamepattern,ae
   }
   
   function include_exclude_check2(filename) {
+	aewindow.aedump("//filename: "+filename+"\n");	
 	filename=filename.replace(/'/g,"\'");
 	if (includeexcludearray==null) {
 		includeexcludearray=prefs.get((prefs.get("includeenabled")==1)?"includepatterns4":"excludepatterns4").split(';');

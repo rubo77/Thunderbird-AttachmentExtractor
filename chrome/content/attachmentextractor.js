@@ -130,7 +130,7 @@ if (typeof AttachmentExtractor == "undefined") {
 		//if (!attachments) return;
 		var folder;
 		savelocation=savelocation+"";
-		//aedump("//ae: saveselect: "+saveselect+" \n");
+		aedump("//ae: attachments: "+attachments+" \n");
 		switch (savelocation) {
 			case "default": folder=this.getDefaultSaveFolder(); break;
 			case "suggest": folder=this.getSuggestedSaveFolder(this.getSelectedMessages()); break; 
@@ -422,7 +422,7 @@ if (typeof AttachmentExtractor == "undefined") {
 	
 	/* check for newer version */
 	AttachmentExtractor.prototype.updatecheck=function() {
-		aedump("//ae: update check starting... ",2);
+		aedump("//ae: update check starting... \n",2);
 		var addon=Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getItemForID("{35834d20-efdb-4f78-ab77-9635fb4e56c4}");
 		if (attachmentextractor.prefs.get("firstuse")==addon.version) {
 			aedump("ae not been updated so abort.\n",2);
